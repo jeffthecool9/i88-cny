@@ -22,8 +22,10 @@ const Hero: React.FC = () => {
 <div className="absolute inset-0 z-0">
   <div
     className="absolute inset-0 bg-center bg-cover will-change-transform"
-    style={{
-      backgroundImage: "url('/assets/cny-baxian-bg.png')",
+   style={{
+  backgroundImage: "url('/assets/cny.png')",
+}}
+
       transform: `translate3d(${mousePos.x}px, ${mousePos.y}px, 0) scale(1.06)`,
     }}
   />
