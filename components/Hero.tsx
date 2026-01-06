@@ -19,26 +19,30 @@ const Hero: React.FC = () => {
   return (
     <section className="relative h-screen min-h-[750px] flex flex-col items-center justify-center overflow-hidden">
       
-      {/* 1. PRIMARY BACKGROUND LAYER - Mythical Chinese Landscape */}
-      <div className="absolute inset-0 z-0">
-        <div 
-          className="absolute inset-[-10%] w-[120%] h-[120%] transition-transform duration-1000 ease-out will-change-transform"
-          style={{ transform: `translate3d(${mousePos.x}px, ${mousePos.y}px, 0)` }}
-        >
-          {/* THE EIGHT IMMORTALS THEMED LANDSCAPE (High Resolution & Cinematic) */}
-          <img 
-            src="https://images.unsplash.com/photo-1542332213-31f87348057f?q=80&w=2500&auto=format&fit=crop" 
-            alt="Eight Immortals / 八仙过海 Mythical Background" 
-            className="absolute inset-0 w-full h-full object-cover object-center block"
-          />
-          
-          {/* 2. DARK OVERLAY (45% Opacity as strictly requested for text readability) */}
-          <div className="absolute inset-0 bg-black/45 z-10"></div>
-          
-          {/* 3. ATMOSPHERIC GRADIENT (Adds cinematic depth) */}
-          <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#0c0101]/20 to-[#0c0101] z-20"></div>
-        </div>
-      </div>
+  {/* HERO BACKGROUND IMAGE (Eight Immortals) */}
+<div className="absolute inset-0 z-0 overflow-hidden">
+  {/* Background image */}
+<motion.div
+  className="absolute inset-0 opacity-30 mix-blend-screen"
+  style={{
+    backgroundImage:
+      "radial-gradient(circle at 20% 30%, rgba(255,255,255,0.12) 0%, transparent 60%), radial-gradient(circle at 80% 70%, rgba(255,255,255,0.10) 0%, transparent 55%)",
+    filter: "blur(24px)",
+  }}
+  animate={{ opacity: [0.18, 0.35, 0.18] }}
+  transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+/>
+
+    }}
+  />
+
+  {/* Dark overlay to keep text readable */}
+  <div className="absolute inset-0 bg-black/45" />
+
+  {/* Optional: soft vignette to make it more cinematic */}
+  <div className="absolute inset-0 [box-shadow:inset_0_0_160px_rgba(0,0,0,0.85)]" />
+</div>
+
 
       {/* 4. MIST & FOG LAYERS (Cinematic Depth) */}
       <div className="absolute inset-0 z-10 pointer-events-none">
