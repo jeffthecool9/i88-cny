@@ -18,26 +18,26 @@ const Hero: React.FC = () => {
   }, []);
 
   return (
-    <section className="relative h-screen min-h-[750px] flex flex-col items-center justify-center overflow-hidden">
-{/* CNY Eight Immortals Background */}
-<div
-  className="absolute inset-0 bg-center bg-cover will-change-transform"
-  style={{
-    backgroundImage: `url(${cnyBg})`,
-    transform: `translate3d(${mousePos.x}px, ${mousePos.y}px, 0) scale(1.06)`,
-  }}
-/>
+  <section className="relative h-screen min-h-[750px] flex flex-col items-center justify-center overflow-hidden">
+  {/* Background WRAPPER (important) */}
+  <div className="absolute inset-0 z-0">
+    <div
+      className="absolute inset-0 bg-center bg-cover will-change-transform"
+      style={{
+        backgroundImage: `url(${cnyBg})`,
+        transform: `translate3d(${mousePos.x}px, ${mousePos.y}px, 0) scale(1.06)`,
+      }}
+    />
 
+    {/* Dark readability overlay */}
+    <div className="absolute inset-0 bg-black/40" />
 
-  {/* Dark readability overlay */}
-  <div className="absolute inset-0 bg-black/40" />
+    {/* Cinematic vignette */}
+    <div className="absolute inset-0 shadow-[inset_0_0_180px_rgba(0,0,0,0.85)]" />
+  </div>
 
-  {/* Cinematic vignette */}
-  <div className="absolute inset-0 shadow-[inset_0_0_180px_rgba(0,0,0,0.85)]" />
-</div>
-
-
-
+  {/* ... keep the rest of your layers (mist, particles, content) */}
+</section>
 
       {/* 4. MIST & FOG LAYERS (Cinematic Depth) */}
       <div className="absolute inset-0 z-10 pointer-events-none">
