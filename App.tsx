@@ -1,11 +1,11 @@
 
 import React, { useState } from 'react';
-import Hero from './components/Hero';
-import Mechanics from './components/Mechanics';
-import TicketSection from './components/TicketSection';
-import HowToJoin from './components/HowToJoin';
-import FooterCTA from './components/FooterCTA';
-import MiniGame from './components/MiniGame';
+import Hero from './components/Hero.tsx';
+import Mechanics from './components/Mechanics.tsx';
+import TicketSection from './components/TicketSection.tsx';
+import HowToJoin from './components/HowToJoin.tsx';
+import FooterCTA from './components/FooterCTA.tsx';
+import MiniGame from './components/MiniGame.tsx';
 
 const App: React.FC = () => {
   const [isGameOpen, setIsGameOpen] = useState(false);

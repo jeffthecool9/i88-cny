@@ -1,7 +1,7 @@
 
 import React, { useState } from 'react';
-import { REWARD_CHANCES } from '../constants';
-import { RewardType } from '../types';
+import { REWARD_CHANCES } from '../constants.ts';
+import { RewardType } from '../types.ts';
 
 interface MiniGameProps {
   isOpen: boolean;

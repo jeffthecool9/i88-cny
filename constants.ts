@@ -1,5 +1,5 @@
 
-import { TicketTier, Weapon } from './types';
+import { TicketTier, Weapon } from './types.ts';
 
 export const EVENT_DATES = {
   start: '12 Feb 2026',

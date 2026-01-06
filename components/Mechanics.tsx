@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { INITIAL_WEAPONS } from '../constants';
+import { INITIAL_WEAPONS } from '../constants.ts';
 
 const Mechanics: React.FC = () => {
   return (
