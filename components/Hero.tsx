@@ -1,5 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { EVENT_DATES } from "../constants";
+
+type Particle = {
+  id: number;
+  top: string;
+  left: string;
+  size: number;
+  opacity: number;
+  duration: number;
+  delay: number;
+};
 
 const Hero: React.FC = () => {
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
@@ -14,6 +24,19 @@ const Hero: React.FC = () => {
     return () => window.removeEventListener("mousemove", handleMouseMove);
   }, []);
 
+  // Precompute particles ONCE (prevents re-randomizing every render)
+  const particles = useMemo<Particle[]>(() => {
+    return Array.from({ length: 40 }).map((_, i) => ({
+      id: i,
+      top: `${Math.random() * 100}%`,
+      left: `${Math.random() * 100}%`,
+      size: Math.random() * 3 + 1,
+      opacity: Math.random() * 0.4 + 0.1,
+      duration: Math.random() * 4 + 3,
+      delay: Math.random() * 5,
+    }));
+  }, []);
+
   return (
     <section className="relative h-screen min-h-[750px] flex flex-col items-center justify-center overflow-hidden">
       {/* BACKGROUND */}
@@ -26,23 +49,26 @@ const Hero: React.FC = () => {
           }}
         />
         <div className="absolute inset-0 bg-black/45" />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-black/70" />
         <div className="absolute inset-0 shadow-[inset_0_0_180px_rgba(0,0,0,0.85)]" />
+        {/* bottom fade to content */}
+        <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-[#0c0101] to-transparent z-10" />
       </div>
 
       {/* PARTICLES */}
       <div className="absolute inset-0 z-10 pointer-events-none">
-        {[...Array(40)].map((_, i) => (
+        {particles.map((p) => (
           <div
-            key={i}
+            key={p.id}
             className="absolute bg-[#FFD700] rounded-full blur-[0.7px] animate-pulse"
             style={{
-              width: Math.random() * 3 + 1 + "px",
-              height: Math.random() * 3 + 1 + "px",
-              top: Math.random() * 100 + "%",
-              left: Math.random() * 100 + "%",
-              animationDuration: Math.random() * 4 + 3 + "s",
-              animationDelay: Math.random() * 5 + "s",
-              opacity: Math.random() * 0.4 + 0.1,
+              width: `${p.size}px`,
+              height: `${p.size}px`,
+              top: p.top,
+              left: p.left,
+              opacity: p.opacity,
+              animationDuration: `${p.duration}s`,
+              animationDelay: `${p.delay}s`,
             }}
           />
         ))}
@@ -90,7 +116,7 @@ const Hero: React.FC = () => {
       <div className="absolute bottom-0 w-full bg-gradient-to-r from-[#8B6E0D] via-[#FFD700] to-[#8B6E0D] text-[#2a0101] py-4 font-black text-xs md:text-base uppercase z-30 shadow-[0_-15px_40px_rgba(0,0,0,0.9)] border-t border-yellow-300/40">
         <div className="marquee-container">
           <div className="marquee-content space-x-20">
-            {[...Array(6)].map((_, i) => (
+            {Array.from({ length: 6 }).map((_, i) => (
               <span key={i} className="flex items-center gap-3">
                 <span className="text-2xl">🏮</span>
                 LIMITED TIME EVENT: {EVENT_DATES.full}
@@ -102,7 +128,7 @@ const Hero: React.FC = () => {
             ))}
           </div>
           <div className="marquee-content space-x-20">
-            {[...Array(6)].map((_, i) => (
+            {Array.from({ length: 6 }).map((_, i) => (
               <span key={i} className="flex items-center gap-3">
                 <span className="text-2xl">🏮</span>
                 LIMITED TIME EVENT: {EVENT_DATES.full}
