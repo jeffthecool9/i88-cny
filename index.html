@@ -1,65 +1,65 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <title>八仙过海 | CNY 2026 Event</title>
+
   <script src="https://cdn.tailwindcss.com"></script>
+
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;700;900&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+
   <style>
+    html, body { height: 100%; }
     body {
+      margin: 0;
       background-color: #0c0101;
       color: #ffffff;
       font-family: 'Noto Sans SC', sans-serif;
       overflow-x: hidden;
     }
+    #root { min-height: 100vh; }
+
     .cny-title-glow {
       color: #ffffff;
-      text-shadow: 0 0 15px rgba(255, 255, 255, 0.8), 0 0 30px rgba(255, 215, 0, 0.5);
+      text-shadow: 0 0 15px rgba(255, 255, 255, 0.8),
+                   0 0 30px rgba(255, 215, 0, 0.5);
     }
+
     .glass-card {
       background: rgba(255, 255, 255, 0.05);
       backdrop-filter: blur(12px);
       border: 1px solid rgba(255, 215, 0, 0.2);
     }
-    
+
     /* Holy Floating Animation */
     @keyframes holy-float {
       0%, 100% { transform: translateY(0) scale(1.05); }
       50% { transform: translateY(-20px) scale(1.07); }
     }
-    .animate-holy-float {
-      animation: holy-float 8s ease-in-out infinite;
-    }
+    .animate-holy-float { animation: holy-float 8s ease-in-out infinite; }
 
     /* Drift Animation for Clouds */
     @keyframes cloud-drift {
       from { transform: translateX(-10%); }
       to { transform: translateX(10%); }
     }
-    .animate-cloud-drift {
-      animation: cloud-drift 25s linear infinite alternate;
-    }
+    .animate-cloud-drift { animation: cloud-drift 25s linear infinite alternate; }
 
     /* God Rays Animation */
     @keyframes rays-pulse {
       0%, 100% { opacity: 0.3; }
       50% { opacity: 0.6; }
     }
-    .animate-rays {
-      animation: rays-pulse 5s ease-in-out infinite;
-    }
+    .animate-rays { animation: rays-pulse 5s ease-in-out infinite; }
 
-    .animate-float {
-      animation: float 4s ease-in-out infinite;
-    }
     @keyframes float {
       0% { transform: translateY(0px); }
       50% { transform: translateY(-15px); }
       100% { transform: translateY(0px); }
     }
-    
+    .animate-float { animation: float 4s ease-in-out infinite; }
+
     @keyframes scroll {
       from { transform: translateX(0); }
       to { transform: translateX(-100%); }
@@ -71,21 +71,16 @@
       min-width: 100%;
       animation: scroll 30s linear infinite;
     }
-    
+
     .scrollbar-hide::-webkit-scrollbar { display: none; }
     .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
   </style>
-<script type="importmap">
-{
-  "imports": {
-    "react": "https://esm.sh/react@^19.2.3",
-    "react-dom/": "https://esm.sh/react-dom@^19.2.3/",
-    "react/": "https://esm.sh/react@^19.2.3/"
-  }
-}
-</script>
 </head>
+
 <body>
   <div id="root"></div>
+
+  <!-- ✅ REQUIRED: mount React -->
+  <script type="module" src="/index.tsx"></script>
 </body>
 </html>
