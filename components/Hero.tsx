@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { EVENT_DATES } from "../constants";
-import cnyBg from "../assets/cny.png"; // ✅ bundler-managed
+import cnyBg from "../assets/cny.png"; // ✅ IMPORTANT
 
 type Particle = {
   id: number;
@@ -17,11 +17,10 @@ const Hero: React.FC = () => {
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
-      const x = (e.clientX / window.innerWidth - 0.5) * 35;
-      const y = (e.clientY / window.innerHeight - 0.5) * 35;
+      const x = (e.clientX / window.innerWidth - 0.5) * 25;
+      const y = (e.clientY / window.innerHeight - 0.5) * 25;
       setMousePos({ x, y });
     };
-
     window.addEventListener("mousemove", handleMouseMove);
     return () => window.removeEventListener("mousemove", handleMouseMove);
   }, []);
@@ -39,35 +38,25 @@ const Hero: React.FC = () => {
   }, []);
 
   return (
-    <section className="relative h-screen min-h-[750px] flex flex-col items-center justify-center overflow-hidden">
-      {/* BACKGROUND WRAPPER */}
-      <div className="absolute inset-0 z-0">
-        {/* IMAGE LAYER */}
-        <div
-          className="absolute inset-0 will-change-transform"
-       style={{
-  backgroundImage: `url(${cnyBg})`,
-  backgroundSize: "cover",
-  backgroundPosition: "center",
-  backgroundRepeat: "no-repeat",
-  transform: `translate3d(${mousePos.x}px, ${mousePos.y}px, 0) scale(1.06)`,
-}}
-        />
+    <section className="relative h-screen min-h-[750px] overflow-hidden flex items-center justify-center">
+      
+      {/* BACKGROUND IMAGE */}
+      <div
+        className="absolute inset-0 z-0 will-change-transform"
+        style={{
+          backgroundImage: `url(${cnyBg})`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          transform: `translate3d(${mousePos.x}px, ${mousePos.y}px, 0) scale(1.08)`,
+        }}
+      />
 
-        {/* GOLD GLOW LAYER */}
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(255,215,0,0.12),transparent_55%)]" />
-
-        {/* OVERLAYS */}
-        <div className="absolute inset-0 bg-black/45" />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-black/70" />
-        <div className="absolute inset-0 shadow-[inset_0_0_180px_rgba(0,0,0,0.85)]" />
-
-        {/* BOTTOM FADE */}
-        <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-[#0c0101] to-transparent z-10" />
-      </div>
+      {/* OVERLAYS */}
+      <div className="absolute inset-0 bg-black/45 z-10" />
+      <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-black/80 z-10" />
 
       {/* PARTICLES */}
-      <div className="absolute inset-0 z-10 pointer-events-none">
+      <div className="absolute inset-0 z-20 pointer-events-none">
         {particles.map((p) => (
           <div
             key={p.id}
@@ -86,16 +75,16 @@ const Hero: React.FC = () => {
       </div>
 
       {/* CONTENT */}
-      <div className="relative z-20 flex flex-col items-center text-center px-6 w-full max-w-4xl pt-10">
-        <h1 className="text-7xl md:text-[10rem] font-black mb-2 cny-title-glow tracking-tighter leading-none select-none">
+      <div className="relative z-30 text-center px-6 max-w-4xl">
+        <h1 className="text-7xl md:text-[10rem] font-black mb-4 cny-title-glow tracking-tighter">
           八仙过海
         </h1>
 
-        <p className="text-white text-lg md:text-3xl font-bold mb-10 drop-shadow-[0_4px_15px_rgba(0,0,0,1)] tracking-[0.2em] uppercase">
+        <p className="text-white text-lg md:text-3xl font-bold mb-10 tracking-[0.25em] uppercase">
           Collect Weapons • Unlock Rewards • Grab the Grand Prize
         </p>
 
-        <div className="bg-[#8B6E0D]/95 border-2 border-[#ffcc00] text-white px-10 py-3 rounded-full font-black text-sm md:text-xl shadow-[0_15px_40px_rgba(0,0,0,0.8)] mb-14 backdrop-blur-2xl">
+        <div className="inline-block bg-[#8B6E0D]/95 border-2 border-[#ffcc00] text-white px-10 py-3 rounded-full font-black text-sm md:text-xl shadow-2xl backdrop-blur-xl">
           Event Period: {EVENT_DATES.full}
         </div>
       </div>
