@@ -1,5 +1,6 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { EVENT_DATES } from "../constants";
+import cnyBg from "../assets/cny.png"; // ✅ bundler-managed
 
 type Particle = {
   id: number;
@@ -44,13 +45,13 @@ const Hero: React.FC = () => {
         {/* IMAGE LAYER */}
         <div
           className="absolute inset-0 will-change-transform"
-          style={{
-            backgroundImage: "url('/assets/cny.png')",
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-            backgroundRepeat: "no-repeat",
-            transform: `translate3d(${mousePos.x}px, ${mousePos.y}px, 0) scale(1.06)`,
-          }}
+       style={{
+  backgroundImage: `url(${cnyBg})`,
+  backgroundSize: "cover",
+  backgroundPosition: "center",
+  backgroundRepeat: "no-repeat",
+  transform: `translate3d(${mousePos.x}px, ${mousePos.y}px, 0) scale(1.06)`,
+}}
         />
 
         {/* GOLD GLOW LAYER */}
