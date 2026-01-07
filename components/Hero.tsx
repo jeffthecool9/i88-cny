@@ -80,7 +80,7 @@ const Hero: React.FC = () => {
           Collect Weapons • Unlock Rewards • Grab the Grand Prize
         </p>
 
-        <div className="bg-[#8B6E0D]/95 border-2 border-[#ffcc00] px-10 py-3 rounded-full font-black text-lg shadow-xl mb-12">
+        <div className="bg-[#8B6E0D]/95 border-2 border-[#ffcc00] px-10 py-3 rounded-full font-black text-lg shadow-xl">
           Event Period: {EVENT_DATES.full}
         </div>
       </div>
