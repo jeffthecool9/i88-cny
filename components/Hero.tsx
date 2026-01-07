@@ -6,18 +6,18 @@ const Hero: React.FC = () => {
   return (
     <section className="relative h-[90vh] md:h-screen min-h-[700px] flex flex-col items-center justify-center overflow-hidden bg-[#fafafa]">
       
-      {/* 1. MYSTERIOUS HOLY BACKGROUND AREA */}
-      <div className="absolute inset-0 z-0 overflow-hidden bg-white">
-        
-        {/* The Exact Uploaded Image - Floating and Mysterious */}
-        <div className="absolute inset-0 flex items-center justify-center scale-110">
-          <img 
-            src="eight-immortals.png" 
-            alt="Eight Immortals / 八仙过海" 
-            className="w-full h-full object-cover object-center animate-holy-float opacity-90 transition-opacity duration-1000"
-            onLoad={(e) => (e.currentTarget.style.opacity = '1')}
-          />
-        </div>
+    <div className="absolute inset-0 z-0">
+  <div
+    className="absolute inset-0 bg-center bg-cover will-change-transform"
+    style={{
+      backgroundImage: "url(/assets/cny.png)",
+      transform: `translate3d(${mousePos.x}px, ${mousePos.y}px, 0) scale(1.06)`,
+    }}
+  />
+  <div className="absolute inset-0 bg-black/40" />
+  <div className="absolute inset-0 shadow-[inset_0_0_180px_rgba(0,0,0,0.85)]" />
+</div>
+
 
         {/* 2. HOLY LIGHT OVERLAYS (Bright and Mysterious, not Dark) */}
         {/* Soft Golden Central Highlight */}
