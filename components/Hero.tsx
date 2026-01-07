@@ -43,7 +43,8 @@ const Hero: React.FC = () => {
         <div
           className="absolute inset-0 bg-center bg-cover will-change-transform"
           style={{
-            backgroundImage: "url(/assets/cny.png)",
+            backgroundImage: "url(/assets/cny.png), radial-gradient(circle at 30% 20%, rgba(255,215,0,0.12), transparent 55%)",
+
             transform: `translate3d(${mousePos.x}px, ${mousePos.y}px, 0) scale(1.06)`,
           }}
         />
