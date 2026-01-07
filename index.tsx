@@ -1,16 +1,13 @@
+import React from "react";
+import { createRoot } from "react-dom/client";
 
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import App from './App.tsx';
-
-const rootElement = document.getElementById('root');
-if (!rootElement) {
-  throw new Error("Could not find root element to mount to");
+function App() {
+  return (
+    <div style={{ padding: 40, color: "white" }}>
+      <h1 style={{ fontSize: 40, fontWeight: 900 }}>Mounted ✅</h1>
+      <p>If you see this, React is running. Problem is inside your components.</p>
+    </div>
+  );
 }
 
-const root = ReactDOM.createRoot(rootElement);
-root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
-);
+createRoot(document.getElementById("root")!).render(<App />);
