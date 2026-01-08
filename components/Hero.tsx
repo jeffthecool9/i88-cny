@@ -2,7 +2,7 @@ import React, { useEffect, useMemo, useState } from "react";
 import { EVENT_DATES } from "../constants";
 
 // ✅ Vite will bundle this file and return the final URL
-import cnyBg from "../assets/cny.png";
+import cnyBg from "../src/assets/cny.png";
 console.log("cnyBg url =", cnyBg);
 
 type Particle = {
