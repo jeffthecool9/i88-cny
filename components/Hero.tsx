@@ -1,5 +1,6 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { EVENT_DATES } from "../constants";
+import cnyBg from "../assets/cny.png";
 
 type Particle = {
   id: number;
@@ -40,13 +41,11 @@ const Hero: React.FC = () => {
     <section className="relative h-screen min-h-[750px] flex flex-col items-center justify-center overflow-hidden">
       {/* BACKGROUND */}
       <div className="absolute inset-0 z-0">
+        {/* image layer */}
         <div
           className="absolute inset-0 bg-center bg-cover will-change-transform"
           style={{
-            backgroundImage: "url(/images/cny.png)",
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-            backgroundRepeat: "no-repeat",
+            backgroundImage: `url(${cnyBg})`,
             transform: `translate3d(${mousePos.x}px, ${mousePos.y}px, 0) scale(1.06)`,
           }}
         />
@@ -54,7 +53,7 @@ const Hero: React.FC = () => {
         {/* glow layer */}
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(255,215,0,0.12),transparent_55%)]" />
 
-        {/* overlays */}
+        {/* dark overlays */}
         <div className="absolute inset-0 bg-black/45" />
         <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-black/70" />
         <div className="absolute inset-0 shadow-[inset_0_0_180px_rgba(0,0,0,0.85)]" />
