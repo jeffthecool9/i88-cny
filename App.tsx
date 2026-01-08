@@ -1,5 +1,6 @@
 import React from "react";
 import Hero from "./components/Hero";
+import Mechanics from "./components/Mechanics";
 
 export default function App() {
   return (
