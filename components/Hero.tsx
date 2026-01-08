@@ -3,6 +3,7 @@ import { EVENT_DATES } from "../constants";
 
 // ✅ Vite will bundle this file and return the final URL
 import cnyBg from "../assets/cny.png";
+console.log("cnyBg url =", cnyBg);
 
 type Particle = {
   id: number;
