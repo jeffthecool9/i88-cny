@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { EVENT_DATES } from "../constants";
-import cnyBg from "../assets/cny.png"; // ✅ must exist at src/assets/cny.png
+import cnyBg from "@/src/assets/cny.png"; // ✅ IMPORTANT: src/assets MUST be imported
 
 type Particle = {
   id: number;
@@ -25,41 +25,37 @@ const Hero: React.FC = () => {
     return () => window.removeEventListener("mousemove", handleMouseMove);
   }, []);
 
-  // ✅ particles generated once
-  const particles = useMemo<Particle[]>(
-    () =>
-      Array.from({ length: 40 }).map((_, i) => ({
-        id: i,
-        top: `${Math.random() * 100}%`,
-        left: `${Math.random() * 100}%`,
-        size: Math.random() * 3 + 1,
-        opacity: Math.random() * 0.4 + 0.1,
-        duration: Math.random() * 4 + 3,
-        delay: Math.random() * 5,
-      })),
-    []
-  );
+  const particles = useMemo<Particle[]>(() => {
+    return Array.from({ length: 40 }).map((_, i) => ({
+      id: i,
+      top: `${Math.random() * 100}%`,
+      left: `${Math.random() * 100}%`,
+      size: Math.random() * 3 + 1,
+      opacity: Math.random() * 0.4 + 0.1,
+      duration: Math.random() * 4 + 3,
+      delay: Math.random() * 5,
+    }));
+  }, []);
 
   return (
     <section className="relative h-screen min-h-[750px] flex flex-col items-center justify-center overflow-hidden">
-      {/* ✅ BACKGROUND WRAPPER (IMPORTANT) */}
-      <div className="absolute inset-0 z-0">
-        {/* ✅ ACTUAL IMAGE LAYER */}
-        <div
-          className="absolute inset-0 bg-center bg-cover will-change-transform"
-          style={{
-            backgroundImage: `url(${cnyBg})`,
-            transform: `translate3d(${mousePos.x}px, ${mousePos.y}px, 0) scale(1.06)`,
-          }}
-        />
+      {/* BACKGROUND IMAGE (parallax) */}
+      <div
+        className="absolute inset-0 z-0 bg-cover bg-center will-change-transform"
+        style={{
+          backgroundImage: `url(${cnyBg})`,
+          transform: `translate3d(${mousePos.x}px, ${mousePos.y}px, 0) scale(1.06)`,
+        }}
+      />
 
-        {/* ✅ FX / OVERLAYS */}
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(255,215,0,0.12),transparent_55%)]" />
-        <div className="absolute inset-0 bg-black/40" />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/10 via-transparent to-black/70" />
-        <div className="absolute inset-0 shadow-[inset_0_0_180px_rgba(0,0,0,0.85)]" />
-        <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-[#0c0101] to-transparent" />
-      </div>
+      {/* LIGHT GLOW LAYER */}
+      <div className="absolute inset-0 z-[1] bg-[radial-gradient(circle_at_30%_20%,rgba(255,215,0,0.12),transparent_55%)]" />
+
+      {/* DARK OVERLAYS */}
+      <div className="absolute inset-0 z-[2] bg-black/45" />
+      <div className="absolute inset-0 z-[3] bg-gradient-to-b from-black/20 via-transparent to-black/70" />
+      <div className="absolute inset-0 z-[4] shadow-[inset_0_0_180px_rgba(0,0,0,0.85)]" />
+      <div className="absolute inset-x-0 bottom-0 z-[5] h-32 bg-gradient-to-t from-[#0c0101] to-transparent" />
 
       {/* PARTICLES */}
       <div className="absolute inset-0 z-10 pointer-events-none">
