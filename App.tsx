@@ -67,7 +67,7 @@ export default function App() {
             ))}
           </div>
 
-          {/* Rewards Grid */}
+          {/* Reward Tiers */}
           <div className="mt-14">
             <div className="flex items-end justify-between gap-4 flex-wrap">
               <h3 className="text-2xl md:text-3xl font-black text-yellow-200">
@@ -119,84 +119,6 @@ export default function App() {
                       ))}
                     </ul>
                   </div>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* Timeline */}
-          <div className="mt-14">
-            <h3 className="text-2xl md:text-3xl font-black text-yellow-200 text-center">
-              Event Timeline
-            </h3>
-
-            <div className="mt-6 grid gap-6 md:grid-cols-3">
-              {[
-                {
-                  title: "Phase 1",
-                  date: "12 Feb — 18 Feb",
-                  desc: "Launch week missions + fast tier unlocks.",
-                },
-                {
-                  title: "Phase 2",
-                  date: "19 Feb — 24 Feb",
-                  desc: "Mid-event boosters + rare reward drops.",
-                },
-                {
-                  title: "Final Phase",
-                  date: "25 Feb — 27 Feb",
-                  desc: "Last chance to complete sets and enter grand prize.",
-                },
-              ].map((t, idx) => (
-                <div
-                  key={idx}
-                  className="rounded-2xl border border-yellow-200/20 bg-white/5 p-6 backdrop-blur-xl"
-                >
-                  <p className="text-yellow-200/80 text-sm tracking-[0.2em] uppercase">
-                    {t.title}
-                  </p>
-                  <p className="mt-2 text-xl font-black text-yellow-200">
-                    {t.date}
-                  </p>
-                  <p className="mt-3 text-yellow-100/75">{t.desc}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* FAQ */}
-          <div className="mt-14">
-            <h3 className="text-2xl md:text-3xl font-black text-yellow-200 text-center">
-              FAQ
-            </h3>
-
-            <div className="mt-6 grid gap-6 md:grid-cols-2">
-              {[
-                {
-                  q: "How do I earn points?",
-                  a: "Complete daily missions and event tasks. Points are tracked automatically.",
-                },
-                {
-                  q: "When can I claim rewards?",
-                  a: "Instantly after you unlock a tier. Some prizes may be sent within 24 hours.",
-                },
-                {
-                  q: "Can I repeat missions?",
-                  a: "Daily missions reset. Special missions may have limited attempts.",
-                },
-                {
-                  q: "What happens if I miss a day?",
-                  a: "No problem — continue from your current progress. Just fewer points earned.",
-                },
-              ].map((f, idx) => (
-                <div
-                  key={idx}
-                  className="rounded-2xl border border-yellow-200/20 bg-white/5 p-6 backdrop-blur-xl"
-                >
-                  <p className="text-lg font-black text-yellow-200">{f.q}</p>
-                  <p className="mt-2 text-yellow-100/75 leading-relaxed">
-                    {f.a}
-                  </p>
                 </div>
               ))}
             </div>
