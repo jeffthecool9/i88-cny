@@ -1,5 +1,6 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { EVENT_DATES } from "../constants";
+import cnyBg from "../src/assets/cny.png";
 
 type Particle = {
   id: number;
@@ -16,8 +17,8 @@ const Hero: React.FC = () => {
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
-      const x = (e.clientX / window.innerWidth - 0.5) * 20;
-      const y = (e.clientY / window.innerHeight - 0.5) * 20;
+      const x = (e.clientX / window.innerWidth - 0.5) * 35;
+      const y = (e.clientY / window.innerHeight - 0.5) * 35;
       setMousePos({ x, y });
     };
     window.addEventListener("mousemove", handleMouseMove);
@@ -25,12 +26,12 @@ const Hero: React.FC = () => {
   }, []);
 
   const particles = useMemo<Particle[]>(() => {
-    return Array.from({ length: 30 }).map((_, i) => ({
+    return Array.from({ length: 40 }).map((_, i) => ({
       id: i,
       top: `${Math.random() * 100}%`,
       left: `${Math.random() * 100}%`,
-      size: Math.random() * 2 + 1,
-      opacity: Math.random() * 0.5 + 0.2,
+      size: Math.random() * 3 + 1,
+      opacity: Math.random() * 0.4 + 0.1,
       duration: Math.random() * 4 + 3,
       delay: Math.random() * 5,
     }));
@@ -38,25 +39,31 @@ const Hero: React.FC = () => {
 
   return (
     <section className="relative h-screen min-h-[750px] flex flex-col items-center justify-center overflow-hidden">
-      {/* BACKGROUND IMAGE (served from /public) */}
-      <div
-        className="absolute inset-0 bg-cover bg-center will-change-transform"
-        style={{
-          backgroundImage: "url(/assets/cny.png)",
-          transform: `translate3d(${mousePos.x}px, ${mousePos.y}px, 0) scale(1.05)`,
-        }}
-      />
-
-      {/* LIGHT overlays only */}
-      <div className="absolute inset-0 bg-black/20" />
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(255,215,0,0.18),transparent_60%)]" />
+      {/* BACKGROUND */}
+      <div className="absolute inset-0 z-0">
+        <div
+          className="absolute inset-0 bg-center bg-cover will-change-transform"
+          style={{
+            backgroundImage: `url(${cnyBg})`,
+            transform: `translate3d(${mousePos.x}px, ${mousePos.y}px, 0) scale(1.06)`,
+          }}
+        />
+        {/* glow */}
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(255,215,0,0.12),transparent_55%)]" />
+        {/* overlays */}
+        <div className="absolute inset-0 bg-black/45" />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-black/70" />
+        <div className="absolute inset-0 shadow-[inset_0_0_180px_rgba(0,0,0,0.85)]" />
+        {/* bottom fade */}
+        <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-[#0c0101] to-transparent z-10" />
+      </div>
 
       {/* PARTICLES */}
       <div className="absolute inset-0 z-10 pointer-events-none">
         {particles.map((p) => (
           <div
             key={p.id}
-            className="absolute bg-[#FFD700] rounded-full blur-[1px] animate-pulse"
+            className="absolute bg-[#FFD700] rounded-full blur-[0.7px] animate-pulse"
             style={{
               width: `${p.size}px`,
               height: `${p.size}px`,
