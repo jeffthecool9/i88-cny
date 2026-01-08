@@ -1,6 +1,8 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { EVENT_DATES } from "../constants";
-import cnyBg from "@/src/assets/cny.png"; // ✅ IMPORTANT: src/assets MUST be imported
+
+// ✅ IMPORTANT: use import, not /assets path
+import cnyBg from "../assets/cny.png";
 
 type Particle = {
   id: number;
@@ -39,23 +41,21 @@ const Hero: React.FC = () => {
 
   return (
     <section className="relative h-screen min-h-[750px] flex flex-col items-center justify-center overflow-hidden">
-      {/* BACKGROUND IMAGE (parallax) */}
-      <div
-        className="absolute inset-0 z-0 bg-cover bg-center will-change-transform"
-        style={{
-          backgroundImage: `url(${cnyBg})`,
-          transform: `translate3d(${mousePos.x}px, ${mousePos.y}px, 0) scale(1.06)`,
-        }}
-      />
-
-      {/* LIGHT GLOW LAYER */}
-      <div className="absolute inset-0 z-[1] bg-[radial-gradient(circle_at_30%_20%,rgba(255,215,0,0.12),transparent_55%)]" />
-
-      {/* DARK OVERLAYS */}
-      <div className="absolute inset-0 z-[2] bg-black/45" />
-      <div className="absolute inset-0 z-[3] bg-gradient-to-b from-black/20 via-transparent to-black/70" />
-      <div className="absolute inset-0 z-[4] shadow-[inset_0_0_180px_rgba(0,0,0,0.85)]" />
-      <div className="absolute inset-x-0 bottom-0 z-[5] h-32 bg-gradient-to-t from-[#0c0101] to-transparent" />
+      {/* BACKGROUND */}
+      <div className="absolute inset-0 z-0">
+        <div
+          className="absolute inset-0 bg-center bg-cover will-change-transform"
+          style={{
+            backgroundImage: `url(${cnyBg})`,
+            transform: `translate3d(${mousePos.x}px, ${mousePos.y}px, 0) scale(1.06)`,
+          }}
+        />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(255,215,0,0.12),transparent_55%)]" />
+        <div className="absolute inset-0 bg-black/45" />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-black/70" />
+        <div className="absolute inset-0 shadow-[inset_0_0_180px_rgba(0,0,0,0.85)]" />
+        <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-[#0c0101] to-transparent z-10" />
+      </div>
 
       {/* PARTICLES */}
       <div className="absolute inset-0 z-10 pointer-events-none">
