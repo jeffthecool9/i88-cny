@@ -1,5 +1,5 @@
 import React from "react";
-import Hero from "./components/Hero";
+import Hero from "./src/components/Hero";
 
 export default function App() {
   return (
