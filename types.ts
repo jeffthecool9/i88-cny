@@ -1,5 +1,9 @@
 
-export type RewardType = 'Credits' | 'Rewards' | 'Big Rewards' | 'Thank You';
+export type RewardType = 
+  | 'DIVINE GOLD CREDITS REWARD' 
+  | 'MYSTIC WEAPON BUNDLE REWARD' 
+  | 'GRAND IMMORTAL TREASURE PRIZE' 
+  | 'BETTER LUCK NEXT TIME';
 
 export interface TicketTier {
   amount: number;
@@ -12,7 +16,8 @@ export interface Weapon {
   name: string;
   count: number;
   max: number;
-  icon: string;
+  image: string;
+  icon?: string; // Optional fallback
 }
 
 export interface GameState {

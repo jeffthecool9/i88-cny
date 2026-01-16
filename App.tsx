@@ -1,151 +1,132 @@
-import React from "react";
-import Hero from "./components/Hero";
-import Mechanics from "./components/Mechanics";
 
-export default function App() {
+import React, { useState, useEffect } from 'react';
+import Hero from './components/Hero.tsx';
+import Mechanics from './components/Mechanics.tsx';
+import HowToJoin from './components/HowToJoin.tsx';
+import FooterCTA from './components/FooterCTA.tsx';
+import MiniGame from './components/MiniGame.tsx';
+import DivineFortuneBox from './components/DivineFortuneBox.tsx';
+import TutorialModal from './components/TutorialModal.tsx';
+
+const App: React.FC = () => {
+  const [isGameOpen, setIsGameOpen] = useState(false);
+  const [isTutorialOpen, setIsTutorialOpen] = useState(false);
+  const [tickets, setTickets] = useState(3); 
+  const [showFloatingButton, setShowFloatingButton] = useState(false);
+
+  useEffect(() => {
+    // Check for first visit
+    const hasSeenTutorial = localStorage.getItem('hasSeenTutorial');
+    if (!hasSeenTutorial) {
+      setIsTutorialOpen(true);
+    }
+
+    const handleScroll = () => {
+      if (window.scrollY > 400) {
+        setShowFloatingButton(true);
+      } else {
+        setShowFloatingButton(false);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  const handlePlayNow = () => {
+    setIsGameOpen(true);
+  };
+
+  const handleOpenTutorial = () => {
+    setIsTutorialOpen(true);
+  };
+
+  const closeTutorial = () => {
+    setIsTutorialOpen(false);
+    localStorage.setItem('hasSeenTutorial', 'true');
+  };
+
+  const useTicket = () => {
+    setTickets(prev => Math.max(0, prev - 1));
+  };
+
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   return (
-    <main className="min-h-screen bg-[#0c0101]">
-      <Hero />
-
-      {/* Mechanics */}
-      <section
-        id="mechanics"
-        className="relative bg-[#0c0101] text-white overflow-hidden"
+    <main className="min-h-screen bg-[#000814] relative">
+      {/* 
+          FLOATING ACTION BAR (Strict Gold)
+      */}
+      <div 
+        className={`fixed bottom-10 left-1/2 -translate-x-1/2 z-[60] w-full px-6 max-w-md pointer-events-none transition-all duration-500 ease-in-out ${
+          showFloatingButton && !isGameOpen && !isTutorialOpen ? 'opacity-100 translate-y-0 scale-100' : 'opacity-0 translate-y-10 scale-90'
+        }`}
       >
-        {/* Background glow */}
-        <div className="pointer-events-none absolute inset-0">
-          <div className="absolute -top-40 left-1/2 h-[520px] w-[520px] -translate-x-1/2 rounded-full bg-[radial-gradient(circle,rgba(255,215,0,0.18),transparent_60%)] blur-2xl" />
-          <div className="absolute -bottom-40 left-1/2 h-[520px] w-[520px] -translate-x-1/2 rounded-full bg-[radial-gradient(circle,rgba(255,215,0,0.10),transparent_60%)] blur-2xl" />
+        <div className="pointer-events-auto flex flex-col gap-3">
+          <button 
+            onClick={handlePlayNow}
+            className="w-full py-6 bg-gradient-to-b from-[#fde047] via-[#eab308] to-[#854d0e] text-[#2a0101] font-black rounded-3xl shadow-[0_30px_60px_rgba(0,0,0,0.8),0_0_40px_rgba(234,179,8,0.3)] border-b-6 border-[#4a2a00] active:translate-y-1 active:border-b-0 transition-all text-2xl relative overflow-hidden group"
+          >
+            {tickets > 0 ? 'How It Works? 🧧' : 'GET MORE TICKETS 🧧'}
+            <span className="block text-[11px] uppercase font-black tracking-[0.2em] opacity-80 mt-1">
+              Tickets Left: {tickets}
+            </span>
+          </button>
         </div>
+      </div>
 
-        <div className="relative mx-auto max-w-6xl px-6 py-20">
-          {/* Header */}
-          <div className="text-center">
-            <p className="text-yellow-200/80 tracking-[0.25em] uppercase text-sm">
-              Event Guide
-            </p>
-            <h2 className="mt-3 text-4xl md:text-6xl font-black text-yellow-200">
-              Mechanics & Rewards
-            </h2>
-            <p className="mt-4 text-yellow-100/70 max-w-2xl mx-auto">
-              Collect weapons, unlock tiers, and claim the grand prize. Simple
-              rules — fast rewards.
-            </p>
-          </div>
+      {/* 
+          SCROLL TO TOP BUTTON (Strict Gold, Circular)
+      */}
+      <button 
+        onClick={scrollToTop}
+        aria-label="Scroll to top"
+        className={`fixed bottom-32 right-6 md:bottom-10 md:right-10 z-[70] w-14 h-14 bg-gradient-to-b from-[#fde047] via-[#eab308] to-[#854d0e] text-[#2a0101] flex items-center justify-center rounded-full shadow-[0_10px_30px_rgba(234,179,8,0.5)] border-b-4 border-[#4a2a00] active:border-b-0 active:translate-y-1 transition-all duration-500 ease-in-out hover:scale-110 group ${
+          showFloatingButton && !isGameOpen ? 'opacity-100 translate-y-0 scale-100' : 'opacity-0 translate-y-10 scale-0 pointer-events-none'
+        }`}
+      >
+        <svg 
+          className="w-6 h-6 transition-transform group-hover:-translate-y-1" 
+          fill="none" 
+          stroke="currentColor" 
+          viewBox="0 0 24 24" 
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={4} d="M5 10l7-7m0 0l7 7m-7-7v18" />
+        </svg>
+      </button>
 
-          {/* 3 Steps */}
-          <div className="mt-12 grid gap-6 md:grid-cols-3">
-            {[
-              {
-                title: "1) Join the Event",
-                desc: "Register / login and enter the CNY event page to start tracking your progress.",
-              },
-              {
-                title: "2) Complete Missions",
-                desc: "Finish daily missions to earn points and collect weapon fragments.",
-              },
-              {
-                title: "3) Claim Rewards",
-                desc: "Unlock reward tiers instantly. The more you collect, the higher your prize tier.",
-              },
-            ].map((x, idx) => (
-              <div
-                key={idx}
-                className="rounded-2xl border border-yellow-200/20 bg-white/5 p-6 backdrop-blur-xl shadow-[0_20px_60px_rgba(0,0,0,0.5)]"
-              >
-                <div className="flex items-center justify-between">
-                  <h3 className="text-xl font-black text-yellow-200">
-                    {x.title}
-                  </h3>
-                  <span className="text-yellow-200/60 text-sm font-bold">
-                    Step
-                  </span>
-                </div>
-                <p className="mt-3 text-yellow-100/75 leading-relaxed">
-                  {x.desc}
-                </p>
-              </div>
-            ))}
-          </div>
+      <Hero onOpenTutorial={handleOpenTutorial} />
+      
+      {/* THEME TRANSITION: Strict Blue -> Red -> Dark */}
+      <div className="bg-gradient-to-b from-[#000814] via-[#4a0404] to-[#000814] relative">
+        <Mechanics />
+        <HowToJoin />
+        <DivineFortuneBox />
+        <FooterCTA />
+      </div>
 
-          {/* Reward Tiers */}
-          <div className="mt-14">
-            <div className="flex items-end justify-between gap-4 flex-wrap">
-              <h3 className="text-2xl md:text-3xl font-black text-yellow-200">
-                Reward Tiers
-              </h3>
-              <p className="text-yellow-100/60 text-sm">
-                *Replace prizes below with your real prizes.
-              </p>
-            </div>
+      {/* Mini Game Modal */}
+      <MiniGame 
+        isOpen={isGameOpen} 
+        onClose={() => setIsGameOpen(false)}
+        onTicketUse={useTicket}
+        tickets={tickets}
+      />
 
-            <div className="mt-6 grid gap-6 md:grid-cols-3">
-              {[
-                {
-                  tier: "Bronze",
-                  tag: "Entry rewards",
-                  items: ["Bonus Credits", "Mystery Loot Box", "Starter Weapon"],
-                },
-                {
-                  tier: "Gold",
-                  tag: "Mid-tier unlock",
-                  items: ["Higher Bonus", "Rare Weapon Skin", "Premium Loot Box"],
-                },
-                {
-                  tier: "Legendary",
-                  tag: "Grand prize tier",
-                  items: ["Grand Prize Draw", "Limited Weapon Set", "VIP Reward Pack"],
-                },
-              ].map((r, idx) => (
-                <div
-                  key={idx}
-                  className="relative rounded-2xl border border-yellow-200/25 bg-gradient-to-b from-white/8 to-white/4 p-6 backdrop-blur-xl"
-                >
-                  <div className="absolute inset-0 rounded-2xl shadow-[inset_0_0_40px_rgba(255,215,0,0.12)]" />
-                  <div className="relative">
-                    <div className="flex items-center justify-between">
-                      <h4 className="text-xl font-black text-yellow-200">
-                        {r.tier}
-                      </h4>
-                      <span className="text-xs font-bold px-3 py-1 rounded-full bg-yellow-300/15 text-yellow-200 border border-yellow-200/20">
-                        {r.tag}
-                      </span>
-                    </div>
-                    <ul className="mt-4 space-y-2 text-yellow-100/80">
-                      {r.items.map((it, i) => (
-                        <li key={i} className="flex gap-2">
-                          <span className="mt-[6px] h-2 w-2 rounded-full bg-yellow-200/70" />
-                          <span>{it}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
+      {/* Tutorial Modal */}
+      <TutorialModal 
+        isOpen={isTutorialOpen}
+        onClose={closeTutorial}
+      />
 
-          {/* Bottom CTA */}
-          <div className="mt-16 text-center">
-            <div className="inline-flex flex-col items-center gap-4 rounded-2xl border border-yellow-200/25 bg-white/5 px-8 py-8 backdrop-blur-xl shadow-[0_25px_80px_rgba(0,0,0,0.6)]">
-              <p className="text-yellow-100/80">
-                Ready to collect weapons and unlock rewards?
-              </p>
-
-              <button
-                onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-                className="cta-button-frame rounded-full bg-[#8B6E0D] px-10 py-4 font-black text-white text-lg tracking-wide hover:brightness-110 active:scale-[0.99] transition"
-              >
-                BACK TO TOP
-              </button>
-
-              <p className="text-xs text-yellow-100/50">
-                Replace this CTA with WhatsApp / register button later.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
+      <footer className="bg-black pt-16 pb-40 px-6 border-t border-[#eab308]/10 text-center text-[#eab308]/20 text-[10px] font-black uppercase tracking-[0.4em]">
+        &copy; 2026 八仙来财 | MALAYSIA • SINGAPORE EXCLUSIVE
+      </footer>
     </main>
   );
-}
+};
+
+export default App;
