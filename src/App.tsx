@@ -1,12 +1,12 @@
 
 import React, { useState, useEffect } from 'react';
-import Hero from './components/Hero.tsx';
-import Mechanics from './components/Mechanics.tsx';
-import HowToJoin from './components/HowToJoin.tsx';
-import FooterCTA from './components/FooterCTA.tsx';
-import MiniGame from './components/MiniGame.tsx';
-import DivineFortuneBox from './components/DivineFortuneBox.tsx';
-import TutorialModal from './components/TutorialModal.tsx';
+import Hero from './components/Hero';
+import Mechanics from './components/Mechanics';
+import HowToJoin from './components/HowToJoin';
+import FooterCTA from './components/FooterCTA';
+import MiniGame from './components/MiniGame';
+import DivineFortuneBox from './components/DivineFortuneBox';
+import TutorialModal from './components/TutorialModal';
 
 const App: React.FC = () => {
   const [isGameOpen, setIsGameOpen] = useState(false);
