@@ -1,5 +1,3 @@
-console.log("✅ App.tsx rendered");
-
 import React, { useEffect, useState } from "react";
 
 import Hero from "./components/Hero";
@@ -11,6 +9,8 @@ import DivineFortuneBox from "./components/DivineFortuneBox";
 import TutorialModal from "./components/TutorialModal";
 
 const App: React.FC = () => {
+  console.log("✅ App.tsx rendered");
+
   const [isGameOpen, setIsGameOpen] = useState(false);
   const [isTutorialOpen, setIsTutorialOpen] = useState(false);
   const [tickets, setTickets] = useState(3);
@@ -25,9 +25,7 @@ const App: React.FC = () => {
       // ignore if blocked
     }
 
-    const handleScroll = () => {
-      setShowFloatingButton(window.scrollY > 400);
-    };
+    const handleScroll = () => setShowFloatingButton(window.scrollY > 400);
 
     window.addEventListener("scroll", handleScroll, { passive: true });
     handleScroll();
@@ -36,7 +34,6 @@ const App: React.FC = () => {
   }, []);
 
   const handlePlayNow = () => setIsGameOpen(true);
-
   const handleOpenTutorial = () => setIsTutorialOpen(true);
 
   const closeTutorial = () => {
