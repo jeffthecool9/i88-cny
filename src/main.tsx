@@ -1,16 +1,10 @@
-import React from "react";
-import ReactDOM from "react-dom/client";
-import App from "./App";
+import React from 'react'
+import ReactDOM from 'react-dom/client'
+import App from './App.tsx'
+import './index.css' // Ensure this line exists!
 
-const rootEl = document.getElementById("root");
-
-if (!rootEl) {
-  document.body.innerHTML = "<pre style='color:white;padding:20px'>❌ #root not found</pre>";
-} else {
-  ReactDOM.createRoot(rootEl).render(
-    <React.StrictMode>
-      <div style={{ padding: 20, color: "white" }}>✅ main.tsx mounted</div>
-      <App />
-    </React.StrictMode>
-  );
-}
+ReactDOM.createRoot(document.getElementById('root')!).render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>,
+)
