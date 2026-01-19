@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { EVENT_DATES } from '../constants.ts';
 
@@ -16,170 +15,84 @@ const DetailedChineseCloud = ({ className }: { className?: string }) => (
 const Hero: React.FC<HeroProps> = ({ onOpenTutorial }) => {
   return (
     <section 
-      className="relative h-[95vh] md:h-screen min-h-[800px] flex flex-col items-center justify-center overflow-hidden bg-[url('eight-immortals.png')] bg-cover bg-center bg-no-repeat"
+      id="hero"
+      className="relative min-h-screen w-full flex flex-col items-center justify-center overflow-hidden bg-[#000814]"
     >
-      {/* 1. OVERLAY LAYER (Atmospheric Effects) */}
-      <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
+      {/* 1. BACKGROUND LAYER */}
+      <div className="absolute inset-0 z-0">
+        {/* Image Background with Fallback Color */}
+        <div 
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-60"
+          style={{ backgroundImage: "url('/eight-immortals.png')" }}
+        ></div>
         
-        {/* Darkening Overlay to ensure readability while showing the image */}
-        <div className="absolute inset-0 bg-black/40"></div>
+        {/* Overlays for Readability */}
+        <div className="absolute inset-0 bg-black/50"></div>
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-[#000814]"></div>
         
-        {/* Cinematic Vignette */}
-        <div className="absolute inset-0 bg-[radial-gradient(circle,transparent_20%,rgba(0,0,0,0.8)_100%)]"></div>
-
-        {/* Ambient Cosmic Particles */}
-        <div className="absolute inset-0 opacity-30 bg-[url('https://www.transparenttextures.com/patterns/stardust.png')]"></div>
-
-        {/* Dynamic Color Flares (Blue/Red) */}
-        <div className="absolute top-[-20%] left-[-10%] w-[90%] h-[90%] rounded-full bg-[#173489]/20 blur-[120px] animate-[cosmic-pulse_12s_infinite]"></div>
-        <div className="absolute bottom-[-20%] right-[-10%] w-[90%] h-[90%] rounded-full bg-[#8b0000]/30 blur-[120px] animate-[cosmic-pulse_12s_infinite_reverse]"></div>
-
-        {/* Strict Dual Rays (Strict Blue & Red) */}
-        <div className="absolute top-0 left-0 w-full h-full z-15 opacity-10 animate-rays">
-          <div className="absolute -top-1/2 left-1/2 -translate-x-1/2 w-[200%] h-[200%] bg-[conic-gradient(from_0deg_at_50%_50%,transparent_0deg,#173489_20deg,transparent_40deg,#8b0000_60deg,transparent_80deg)]"></div>
-        </div>
-
-        {/* Bottom Transition Fade */}
-        <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-[#000814] to-transparent z-40"></div>
+        {/* Glow Effects (Simplified to avoid animation crashes) */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full max-w-4xl opacity-20 bg-blue-600 blur-[150px] pointer-events-none"></div>
       </div>
 
-      {/* 2. GOLD SPARKLES */}
-      <div className="absolute inset-0 z-45 pointer-events-none">
-        {[...Array(40)].map((_, i) => (
-          <div 
-            key={i}
-            className="absolute bg-[#eab308] rounded-full blur-[0.5px] animate-pulse"
-            style={{
-              width: Math.random() * 3 + 1 + 'px',
-              height: Math.random() * 3 + 1 + 'px',
-              top: Math.random() * 100 + '%',
-              left: Math.random() * 100 + '%',
-              animationDuration: Math.random() * 4 + 2 + 's',
-              opacity: Math.random() * 0.4 + 0.1
-            }}
-          />
-        ))}
-      </div>
-
-      {/* 3. FOREGROUND CONTENT */}
-      <div className="relative z-50 flex flex-col items-center text-center px-6 w-full max-w-lg">
+      {/* 2. MAIN CONTENT BOX (Z-index 20 ensures it's on top) */}
+      <div className="relative z-20 flex flex-col items-center text-center px-4 w-full max-w-2xl py-20">
         
-        {/* FANCY TITLE COMPOSITION */}
-        <div className="mb-14 relative group">
-          {/* External Ornate Flourishes */}
-          <div className="absolute -top-12 -left-12 text-[#eab308]/30 w-32 h-32 select-none pointer-events-none">
-            <DetailedChineseCloud className="w-full h-full animate-float opacity-60" />
-          </div>
-          <div className="absolute -bottom-12 -right-12 text-[#eab308]/30 w-32 h-32 select-none pointer-events-none">
-            <DetailedChineseCloud className="w-full h-full animate-float-reverse opacity-60 rotate-180" />
-          </div>
+        {/* Title Composition */}
+        <div className="relative mb-10">
+          {/* Decorative Clouds (Hidden on mobile for performance) */}
+          <DetailedChineseCloud className="hidden md:block absolute -top-16 -left-16 w-32 h-32 text-[#eab308] opacity-30" />
+          <DetailedChineseCloud className="hidden md:block absolute -bottom-16 -right-16 w-32 h-32 text-[#eab308] opacity-30 rotate-180" />
 
-          {/* Background Radiant Glow */}
-          <div className="absolute inset-0 -m-12 bg-[radial-gradient(circle,rgba(234,179,8,0.3)_0%,transparent_70%)] opacity-0 group-hover:opacity-100 transition-opacity duration-1000 blur-2xl"></div>
-
-          {/* The Artistic Frame */}
-          <div className="relative p-2 rounded-[2rem] bg-gradient-to-br from-[#eab308] via-[#fde047] to-[#854d0e] shadow-[0_0_50px_rgba(0,0,0,0.8)]">
-            <div className="bg-[#000814]/80 backdrop-blur-md rounded-[1.8rem] p-6 md:p-10 relative overflow-hidden">
-              
-              {/* Subtle Texture/Lattice in Background */}
-              <div className="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/hexellence.png')]"></div>
-
-              {/* Character Stack */}
-              <h1 className="relative flex flex-col items-center font-black select-none">
-                
-                {/* First Part: "八仙" - Pearl White Gradient */}
-                <div className="relative mb-4 group/part">
-                  <div className="absolute inset-0 bg-white/5 blur-2xl scale-125 rounded-full group-hover/part:bg-white/10 transition-colors"></div>
-                  <span className="relative block text-[7rem] md:text-[9.5rem] leading-[0.9] bg-gradient-to-b from-white via-[#f0f0f0] to-[#cccccc] bg-clip-text text-transparent drop-shadow-[0_10px_10px_rgba(0,0,0,0.8)] tracking-[0.15em] pl-[0.15em] transition-transform duration-700 hover:scale-[1.05]">
-                    八仙
-                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/40 to-transparent -translate-x-full animate-[shine_4s_ease-in-out_infinite] pointer-events-none mix-blend-overlay"></div>
-                  </span>
-                </div>
-
-                {/* Second Part: "来财" with 3D Polished Lacquer Style */}
-                <div className="relative group/part2 mt-2">
-                  {/* Traditional Red Seal Effect Overlay */}
-                  <div className="absolute inset-[-12%] bg-gradient-to-br from-[#ef4444]/20 to-[#8b0000]/40 rounded-xl border border-[#ef4444]/30 transform -rotate-1 group-hover/part2:rotate-1 transition-all duration-700 shadow-inner"></div>
-                  
-                  <span 
-                    className="relative block text-[7rem] md:text-[9.5rem] leading-[0.9] tracking-[0.15em] pl-[0.15em] transition-transform duration-700 hover:scale-[1.05] 
-                               bg-gradient-to-b from-[#ff8e8e] via-[#ef4444] to-[#8b0000] bg-clip-text text-transparent 
-                               filter drop-shadow-[0_1.5px_0.5px_rgba(255,255,255,0.9)] drop-shadow-[0_8px_15px_rgba(0,0,0,0.9)]"
-                    style={{
-                      // Custom shadow for that sharp corner rim light effect
-                      textShadow: '0px 0px 10px rgba(239, 68, 68, 0.4)'
-                    }}
-                  >
-                    来财
-                    {/* Animated Reflection */}
-                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent translate-x-full animate-[shine_4s_ease-in-out_infinite_reverse] pointer-events-none mix-blend-overlay"></div>
-                  </span>
-                </div>
-              </h1>
-
-              {/* Ornate Inner Corner Brackets */}
-              <div className="absolute top-4 left-4 w-6 h-6 border-t-2 border-l-2 border-[#eab308]/40 rounded-tl-lg"></div>
-              <div className="absolute top-4 right-4 w-6 h-6 border-t-2 border-r-2 border-[#eab308]/40 rounded-tr-lg"></div>
-              <div className="absolute bottom-4 left-4 w-6 h-6 border-b-2 border-l-2 border-[#eab308]/40 rounded-bl-lg"></div>
-              <div className="absolute bottom-4 right-4 w-6 h-6 border-b-2 border-r-2 border-[#eab308]/40 rounded-br-lg"></div>
-            </div>
+          <div className="bg-[#000814]/80 backdrop-blur-xl border-2 border-[#eab308]/50 p-8 rounded-[2.5rem] shadow-[0_0_80px_rgba(0,0,0,0.5)]">
+            <h1 className="flex flex-col items-center font-black select-none">
+              <span className="text-7xl md:text-9xl bg-gradient-to-b from-white to-gray-400 bg-clip-text text-transparent tracking-widest">
+                八仙
+              </span>
+              <span className="text-7xl md:text-9xl bg-gradient-to-b from-[#ff8e8e] to-[#8b0000] bg-clip-text text-transparent tracking-widest mt-2 drop-shadow-2xl">
+                来财
+              </span>
+            </h1>
           </div>
         </div>
-        
-        {/* Tagline Box - Elevated Luxury */}
-        <div className="w-full bg-[#000814]/90 border-2 border-[#eab308] px-4 py-8 rounded-2xl shadow-[0_20px_60px_rgba(0,0,0,0.9)] mb-10 relative overflow-hidden group">
-          <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-[#eab308]/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-in-out pointer-events-none"></div>
-          <p className="relative z-10 text-[#eab308] text-2xl md:text-3xl font-black tracking-[0.3em] uppercase drop-shadow-[0_2px_4px_rgba(0,0,0,0.5)]">
-            8 Immortals<br/>Treasure
-          </p>
-        </div>
 
-        {/* Gold Info Capsule */}
-        <div className="w-full bg-gradient-to-r from-[#001a4d] to-[#4a0404] text-[#eab308] px-8 py-4 rounded-full font-black text-sm md:text-base shadow-2xl mb-8 border-2 border-[#eab308]/60 uppercase tracking-[0.2em] relative group">
-          <span className="relative z-10">EVENT: {EVENT_DATES.full}</span>
-          <div className="absolute inset-0 bg-white/5 opacity-0 group-hover:opacity-100 transition-opacity rounded-full"></div>
-        </div>
+        {/* Info Area */}
+        <div className="space-y-6 w-full max-w-sm">
+          <div className="border-2 border-[#eab308] px-6 py-4 rounded-xl bg-black/40">
+            <p className="text-[#eab308] text-xl md:text-2xl font-black tracking-[0.2em] uppercase">
+              8 Immortals Treasure
+            </p>
+          </div>
 
-        {/* How to Play Link */}
-        <button 
-          onClick={onOpenTutorial}
-          className="text-[#eab308] font-black text-sm uppercase tracking-[0.3em] hover:text-white transition-all mb-14 relative group"
-        >
-          <span className="relative z-10">HOW TO PLAY?</span>
-          <div className="absolute -bottom-1 left-0 w-0 h-0.5 bg-[#eab308] group-hover:w-full transition-all duration-500"></div>
-        </button>
+          <div className="bg-gradient-to-r from-[#001a4d] to-[#4a0404] text-[#eab308] py-3 px-6 rounded-full font-bold border border-[#eab308]/40 text-sm tracking-widest">
+            EVENT: {EVENT_DATES.full}
+          </div>
 
-        {/* Gold Button - The "Call to Fortune" */}
-        <div className="p-1 w-full max-w-xs transition-all duration-300">
+          <button 
+            onClick={onOpenTutorial}
+            className="text-[#eab308] font-bold text-sm tracking-[0.3em] hover:text-white transition-colors underline underline-offset-8"
+          >
+            HOW TO PLAY?
+          </button>
+
+          {/* Call to Action */}
           <button 
             onClick={() => document.getElementById('mechanics')?.scrollIntoView({ behavior: 'smooth' })}
-            className="w-full bg-gradient-to-b from-[#fde047] via-[#eab308] to-[#854d0e] text-[#2a0101] py-6 rounded-3xl font-black text-2xl md:text-3xl uppercase tracking-tighter border-b-8 border-[#4a2a00] 
-                       shadow-[0_30px_60px_rgba(0,0,0,0.8),0_0_40px_rgba(234,179,8,0.2)] 
-                       transition-all duration-300 ease-out
-                       hover:scale-[1.05] hover:-translate-y-2 hover:shadow-[0_50px_100px_rgba(0,0,0,0.9),0_0_60px_rgba(234,179,8,0.4)]
-                       active:scale-[0.98] active:translate-y-0.5 active:shadow-inner"
+            className="w-full bg-gradient-to-b from-[#fde047] via-[#eab308] to-[#854d0e] text-[#2a0101] py-5 rounded-2xl font-black text-2xl uppercase border-b-4 border-[#4a2a00] shadow-2xl hover:scale-105 active:scale-95 transition-transform"
           >
             JOIN EVENT 🏮
           </button>
         </div>
       </div>
 
-      {/* 4. MARQUEE (Strict Gold on Dark) */}
-      <div className="absolute bottom-0 w-full bg-black/90 backdrop-blur-xl text-[#eab308] py-5 font-black text-[11px] md:text-sm uppercase z-50 border-t-2 border-[#eab308]/30 tracking-[0.2em]">
-        <div className="flex marquee-container">
-          <div className="marquee-content space-x-16">
-            {[...Array(4)].map((_, i) => (
-              <span key={i} className="flex items-center gap-6 whitespace-nowrap">
-                🏮 EVENT STARTS {EVENT_DATES.start} 🏮 COLLECT DIVINE WEAPONS 🏮 WIN REWARDS 🏮
-              </span>
-            ))}
-          </div>
-          <div className="marquee-content space-x-16">
-            {[...Array(4)].map((_, i) => (
-              <span key={i} className="flex items-center gap-6 whitespace-nowrap">
-                🏮 EVENT STARTS {EVENT_DATES.start} 🏮 COLLECT DIVINE WEAPONS 🏮 WIN REWARDS 🏮
-              </span>
-            ))}
+      {/* 3. MARQUEE FOOTER */}
+      <div className="absolute bottom-0 w-full bg-black/90 py-4 border-t border-[#eab308]/30 overflow-hidden">
+        <div className="flex whitespace-nowrap animate-none md:animate-marquee">
+          <div className="flex gap-10 text-[#eab308] text-xs font-bold tracking-widest px-4">
+            <span>🏮 EVENT STARTS {EVENT_DATES.start} 🏮</span>
+            <span>COLLECT DIVINE WEAPONS 🏮</span>
+            <span>WIN REWARDS 🏮</span>
+            <span className="hidden md:inline">🏮 EVENT STARTS {EVENT_DATES.start} 🏮</span>
+            <span className="hidden md:inline">COLLECT DIVINE WEAPONS 🏮</span>
           </div>
         </div>
       </div>
