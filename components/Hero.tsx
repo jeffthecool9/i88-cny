@@ -1,6 +1,9 @@
 import React, { useEffect, useRef } from 'react';
 import { EVENT_DATES } from '../constants.ts';
 import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+gsap.registerPlugin(ScrollTrigger);
 
 const DetailedChineseCloud = ({ className }: { className?: string }) => (
   <svg viewBox="0 0 100 60" className={className} fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -16,9 +19,9 @@ const Hero: React.FC<{ onOpenTutorial: () => void }> = ({ onOpenTutorial }) => {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      // Parallax Background
+      // 300feetout-style Background Parallax
       gsap.to(bgRef.current, {
-        yPercent: 20,
+        yPercent: 15,
         ease: "none",
         scrollTrigger: {
           trigger: containerRef.current,
@@ -30,35 +33,29 @@ const Hero: React.FC<{ onOpenTutorial: () => void }> = ({ onOpenTutorial }) => {
 
       const tl = gsap.timeline({ defaults: { ease: "power4.out" } });
       
-      // Masked Rising Characters
-      tl.from(char1Ref.current, {
-        y: 150,
+      // Masked Rising Characters - Vertical Drift
+      tl.from([char1Ref.current, char2Ref.current], {
+        yPercent: 100,
         opacity: 0,
-        rotate: 5,
-        duration: 1.5,
-        delay: 0.3
-      }, 0);
-      
-      tl.from(char2Ref.current, {
-        y: 150,
-        opacity: 0,
-        rotate: -5,
-        duration: 1.5,
-        delay: 0.4
-      }, 0);
+        rotate: (i) => i === 0 ? 3 : -3,
+        duration: 1.6,
+        stagger: 0.1,
+        delay: 0.2
+      });
 
       tl.from(".hero-reveal-line", {
-        y: 30,
+        y: 40,
         opacity: 0,
-        stagger: 0.15,
-        duration: 1.2
-      }, "-=1");
+        stagger: 0.1,
+        duration: 1.2,
+        ease: "power3.out"
+      }, "-=1.2");
 
       tl.from(".hero-action", {
-        scale: 0.9,
+        scale: 0.95,
         opacity: 0,
-        duration: 1.5,
-        ease: "elastic.out(1, 0.5)"
+        duration: 1.4,
+        ease: "expo.out"
       }, "-=0.8");
     }, containerRef);
 
@@ -91,13 +88,13 @@ const Hero: React.FC<{ onOpenTutorial: () => void }> = ({ onOpenTutorial }) => {
             <div className="bg-[#E60000] rounded-[2.8rem] px-10 py-12 relative overflow-hidden border-4 border-yellow-400/50">
               <div className="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/hexellence.png')]"></div>
 
-              <h1 className="relative flex flex-col items-center font-black leading-tight overflow-hidden">
-                <div className="reveal-mask">
+              <h1 className="relative flex flex-col items-center font-black leading-tight">
+                <div className="overflow-hidden inline-block">
                   <span ref={char1Ref} className="relative block text-[6rem] md:text-[8rem] text-yellow-300 drop-shadow-[0_4px_4px_rgba(0,0,0,0.4)] tracking-tight">
                     八仙
                   </span>
                 </div>
-                <div className="reveal-mask -mt-4">
+                <div className="overflow-hidden inline-block -mt-4">
                   <span ref={char2Ref} className="relative block text-[6.5rem] md:text-[8.5rem] text-white filter drop-shadow-[0_8px_8px_rgba(0,0,0,0.6)] tracking-tight">
                     来财
                   </span>

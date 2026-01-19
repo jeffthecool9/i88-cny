@@ -77,8 +77,8 @@ const removeWhiteBackground = (base64: string): Promise<string> => {
 
 const CelestialHalo = () => (
   <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-    <div className="absolute w-[80%] h-[80%] border border-yellow-400/20 rounded-full animate-[spin_10s_linear_infinite]"></div>
-    <div className="absolute w-[60%] h-[60%] bg-gradient-to-tr from-yellow-400/20 to-transparent rounded-full blur-xl animate-pulse"></div>
+    <div className="absolute w-[85%] h-[85%] border border-yellow-400/20 rounded-full animate-[spin_15s_linear_infinite]"></div>
+    <div className="absolute w-[65%] h-[65%] bg-gradient-to-tr from-yellow-400/10 to-transparent rounded-full blur-2xl animate-pulse"></div>
   </div>
 );
 
@@ -92,7 +92,7 @@ const Mechanics: React.FC = () => {
       const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
       INITIAL_WEAPONS.map(async (weapon) => {
         try {
-          const cacheKey = `artifact_v11_${weapon.id}`; 
+          const cacheKey = `artifact_v13_${weapon.id}`; 
           const cached = await getStoredImage(cacheKey);
           if (cached) {
             setWeapons(prev => prev.map(w => w.id === weapon.id ? { ...w, image: cached } : w));
@@ -100,8 +100,8 @@ const Mechanics: React.FC = () => {
             return;
           }
           const response = await ai.models.generateContent({
-            model: 'gemini-2.5-flash-image',
-            contents: { parts: [{ text: `${weapon.icon}. Hyper-realistic, 3D high-fidelity render, solid white background, gold cinematic lighting.` }] },
+            model: 'gemini-3-flash-preview',
+            contents: { parts: [{ text: `A sacred artifact: ${weapon.icon}. Hyper-realistic, 3D high-fidelity render, solid pure white background, magical gold cinematic lighting, centered composition.` }] },
             config: { imageConfig: { aspectRatio: "1:1" } }
           });
           for (const part of response.candidates[0].content.parts) {
@@ -112,30 +112,32 @@ const Mechanics: React.FC = () => {
               break;
             }
           }
-        } catch (e) { console.error(e); }
+        } catch (e) { 
+          console.error(`Failed to generate image for ${weapon.name}:`, e); 
+        }
         finally { setLoadingIds(prev => { const next = new Set(prev); next.delete(weapon.id); return next; }); }
       });
     };
     generateWeaponImages();
 
-    // 300feetout Stagger Reveal
     const ctx = gsap.context(() => {
+      // 300feetout Stagger Reveal
       gsap.from(".artifact-card", {
         scrollTrigger: {
           trigger: sectionRef.current,
           start: "top 75%",
           toggleActions: "play none none none"
         },
-        y: 60,
+        y: 80,
         opacity: 0,
-        scale: 0.95,
+        scale: 0.9,
         stagger: {
-          amount: 0.8,
+          amount: 1,
           grid: "auto",
           from: "start"
         },
-        duration: 1.2,
-        ease: "power3.out"
+        duration: 1.4,
+        ease: "power4.out"
       });
       
       gsap.from(".mechanics-title", {
@@ -143,9 +145,10 @@ const Mechanics: React.FC = () => {
           trigger: sectionRef.current,
           start: "top 85%",
         },
-        y: 40,
+        y: 50,
         opacity: 0,
-        duration: 1
+        duration: 1.2,
+        ease: "expo.out"
       });
     }, sectionRef);
 
@@ -159,7 +162,7 @@ const Mechanics: React.FC = () => {
           THE PATH TO WEALTH
         </h2>
 
-        <div className="grid grid-cols-2 gap-4 md:gap-6">
+        <div className="grid grid-cols-2 gap-4 md:gap-8">
           {weapons.map((weapon) => {
             const progressPercent = (weapon.count / weapon.max) * 100;
             const isLoading = loadingIds.has(weapon.id);
@@ -167,9 +170,9 @@ const Mechanics: React.FC = () => {
             return (
               <div 
                 key={weapon.id} 
-                className="artifact-card bg-gradient-to-br from-[#FFD700]/10 via-[#4a0101]/95 to-[#2a0101] backdrop-blur-xl p-5 md:p-8 rounded-[3rem] text-center border-4 border-yellow-400/30 shadow-[0_25px_50px_rgba(0,0,0,0.6)] relative overflow-hidden group transition-all"
+                className="artifact-card bg-gradient-to-br from-[#3d0101] via-[#2a0101] to-black backdrop-blur-xl p-5 md:p-10 rounded-[4rem] text-center border-4 border-yellow-400/20 shadow-[0_20px_40px_rgba(0,0,0,0.6)] relative overflow-hidden group transition-all duration-500 ease-out transform hover:scale-[1.03] hover:-translate-y-3 hover:shadow-[0_40px_80px_-15px_rgba(0,0,0,0.8)] hover:border-yellow-400/60"
               >
-                <div className="relative h-44 flex items-center justify-center mb-6">
+                <div className="relative h-48 md:h-56 flex items-center justify-center mb-6">
                   <CelestialHalo />
                   {isLoading ? (
                     <div className="w-12 h-12 rounded-full border-4 border-t-yellow-400 border-white/10 animate-spin"></div>
@@ -179,16 +182,19 @@ const Mechanics: React.FC = () => {
                     <img 
                       src={weapon.image} 
                       alt={weapon.name} 
-                      className="max-w-[90%] max-h-[90%] object-contain drop-shadow-[0_25px_30px_rgba(0,0,0,0.8)] animate-divine-float relative z-20"
+                      className="max-w-[100%] max-h-[100%] object-contain drop-shadow-[0_25px_35px_rgba(0,0,0,0.9)] animate-divine-float relative z-20 group-hover:scale-110 transition-transform duration-700 ease-out"
                     />
                   )}
-                  <div className="absolute bottom-4 w-24 h-4 bg-black/40 rounded-full blur-md"></div>
+                  <div className="absolute bottom-4 w-32 h-6 bg-black/50 rounded-full blur-xl group-hover:w-40 transition-all duration-700"></div>
                 </div>
 
                 <div className="relative z-10">
-                  <div className="text-sm font-black text-white uppercase mb-4 tracking-tighter">{weapon.name}</div>
+                  <div className="text-sm md:text-lg font-black text-white uppercase mb-4 tracking-tighter group-hover:text-yellow-300 transition-colors duration-300">{weapon.name}</div>
                   <div className="w-full bg-black/60 rounded-full h-4 p-[3px] border-2 border-white/10 overflow-hidden mb-2">
-                    <div className="h-full rounded-full bg-gradient-to-r from-yellow-200 via-yellow-400 to-yellow-700 transition-all duration-1000" style={{ width: `${progressPercent || 5}%` }}></div>
+                    <div 
+                      className="h-full rounded-full bg-gradient-to-r from-yellow-200 via-yellow-400 to-yellow-700 transition-all duration-1000" 
+                      style={{ width: `${Math.max(5, progressPercent)}%` }}
+                    ></div>
                   </div>
                   <div className="text-[10px] font-black text-yellow-400/80 tracking-[0.2em] uppercase">PROGRESS {weapon.count}/{weapon.max}</div>
                 </div>

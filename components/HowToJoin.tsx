@@ -14,10 +14,10 @@ const HowToJoin: React.FC = () => {
           trigger: containerRef.current,
           start: "top 80%",
         },
-        x: (index) => index % 2 === 0 ? -100 : 100,
+        x: (index) => index % 2 === 0 ? -60 : 60,
         opacity: 0,
-        duration: 1.5,
-        stagger: 0.3,
+        duration: 1.4,
+        stagger: 0.2,
         ease: "power4.out"
       });
       
@@ -28,7 +28,8 @@ const HowToJoin: React.FC = () => {
         },
         y: 40,
         opacity: 0,
-        duration: 1
+        duration: 1,
+        ease: "power2.out"
       });
     }, containerRef);
 
