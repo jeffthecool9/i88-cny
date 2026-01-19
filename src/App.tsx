@@ -1,3 +1,5 @@
+console.log("✅ App.tsx rendered");
+
 import React, { useEffect, useState } from "react";
 
 import Hero from "./components/Hero";
