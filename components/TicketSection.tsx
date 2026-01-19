@@ -1,33 +1,9 @@
-import React, { useEffect, useRef } from 'react';
+import React from 'react';
 import { TICKET_TIERS } from '../constants.ts';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-
-gsap.registerPlugin(ScrollTrigger);
 
 const TicketSection: React.FC = () => {
-  const sectionRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const ctx = gsap.context(() => {
-      gsap.from(".ticket-card", {
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: "top 80%",
-        },
-        y: 50,
-        opacity: 0,
-        stagger: 0.2,
-        duration: 1.2,
-        ease: "power3.out"
-      });
-    }, sectionRef);
-
-    return () => ctx.revert();
-  }, []);
-
   return (
-    <section ref={sectionRef} className="py-24 bg-transparent overflow-hidden relative">
+    <section className="py-24 bg-transparent overflow-hidden relative">
       <div className="px-6 max-w-6xl mx-auto relative z-10">
         <h2 className="text-4xl md:text-7xl font-black text-center mb-16 text-[#eab308] uppercase tracking-tighter drop-shadow-[0_0_20px_rgba(234,179,8,0.3)]">
           Get Tickets
@@ -37,7 +13,7 @@ const TicketSection: React.FC = () => {
           {TICKET_TIERS.map((tier, idx) => (
             <div 
               key={idx} 
-              className="ticket-card relative bg-[#000814] p-12 rounded-[2.5rem] border-2 border-[#eab308]/20 flex flex-col items-center text-center shadow-[0_20px_40px_rgba(0,0,0,0.6)] group hover:border-[#eab308]/60 transition-all"
+              className="relative bg-[#000814] p-12 rounded-[2.5rem] border-2 border-[#eab308]/20 flex flex-col items-center text-center shadow-[0_20px_40px_rgba(0,0,0,0.6)] group hover:border-[#eab308]/60 transition-all"
             >
               <div className="bg-gradient-to-r from-[#eab308] to-[#854d0e] text-[#000814] font-black px-6 py-1.5 rounded-full text-[10px] uppercase tracking-widest mb-8 shadow-[0_0_15px_rgba(234,179,8,0.4)]">
                 BEST VALUE

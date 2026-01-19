@@ -1,3 +1,4 @@
+
 import { TicketTier, Weapon, RewardType } from './types.ts';
 
 export const EVENT_DATES = {
@@ -23,9 +24,10 @@ export const INITIAL_WEAPONS: Weapon[] = [
   { id: '8', name: 'Crutch of Li', count: 0, max: 4, image: '', icon: 'A mystical iron staff with a dragon-head handle, glowing with amber energy core' }
 ];
 
+// Fixed: Corrected reward types to match the union defined in types.ts to resolve assignment errors
 export const REWARD_CHANCES: { type: RewardType; weight: number }[] = [
-  { type: 'DIVINE GOLD CREDITS REWARD', weight: 40 },
-  { type: 'MYSTIC WEAPON BUNDLE REWARD', weight: 30 },
-  { type: 'GRAND IMMORTAL TREASURE PRIZE', weight: 10 },
+  { type: 'RM38,888!', weight: 40 },
+  { type: '1 Full Set Weapon', weight: 30 },
+  { type: 'RM15 Credits', weight: 10 },
   { type: 'BETTER LUCK NEXT TIME', weight: 20 }
 ];

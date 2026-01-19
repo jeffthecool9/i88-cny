@@ -1,39 +1,11 @@
-import React, { useEffect, useRef } from 'react';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-
-gsap.registerPlugin(ScrollTrigger);
+import React from 'react';
 
 const DivineFortuneBox: React.FC = () => {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const boxRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const ctx = gsap.context(() => {
-      // 300feetout style scrubbed scaling
-      gsap.fromTo(boxRef.current, 
-        { scale: 0.8, opacity: 0.4 },
-        {
-          scale: 1,
-          opacity: 1,
-          scrollTrigger: {
-            trigger: containerRef.current,
-            start: "top bottom",
-            end: "center center",
-            scrub: 1.2
-          }
-        }
-      );
-    }, containerRef);
-
-    return () => ctx.revert();
-  }, []);
-
   return (
-    <section ref={containerRef} className="py-24 px-6 bg-transparent relative overflow-hidden">
+    <section className="py-24 px-6 bg-transparent relative overflow-hidden">
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[90%] h-96 bg-yellow-400/10 blur-[180px] rounded-full pointer-events-none"></div>
       
-      <div ref={boxRef} className="max-w-lg mx-auto relative group">
+      <div className="max-w-lg mx-auto relative group scale-100 opacity-100">
         <div className="relative bg-gradient-to-b from-[#FF0000] to-[#B00000] rounded-[4rem] border-8 border-yellow-400/50 p-12 md:p-16 text-center shadow-[0_30px_80px_rgba(0,0,0,0.5)] overflow-hidden">
           <div className="absolute top-0 left-0 w-24 h-24 border-t-[10px] border-l-[10px] border-yellow-400 rounded-tl-[3.5rem]"></div>
           <div className="absolute top-0 right-0 w-24 h-24 border-t-[10px] border-r-[10px] border-yellow-400 rounded-tr-[3.5rem]"></div>
