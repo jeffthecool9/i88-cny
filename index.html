@@ -2,22 +2,17 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
-  />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <title>八仙过海 | CNY 2026 Event</title>
 
-  <!-- (Optional) Fix favicon 404. If you don't have favicon.ico, remove this line. -->
+  <!-- Favicon (optional, stops 404 noise) -->
   <link rel="icon" href="/favicon.ico" />
 
-  <!-- Tailwind CDN (warning is normal, not the reason your site is blank) -->
+  <!-- Tailwind CDN (OK for now) -->
   <script src="https://cdn.tailwindcss.com"></script>
 
-  <link
-    href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;700;900&family=Playfair+Display:wght@700&display=swap"
-    rel="stylesheet"
-  />
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;700;900&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
 
   <style>
     body {
@@ -51,9 +46,7 @@
       33% { transform: translateY(-12px) rotate(2deg) scale(1.02); }
       66% { transform: translateY(-5px) rotate(-2deg) scale(1.05); }
     }
-    .animate-divine-float {
-      animation: divine-float 6s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite;
-    }
+    .animate-divine-float { animation: divine-float 6s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite; }
 
     @keyframes weapon-glow {
       0%, 100% { opacity: 0.3; transform: scale(1); }
@@ -63,6 +56,7 @@
 
     .animate-float { animation: float 4s ease-in-out infinite; }
     .animate-float-reverse { animation: float-reverse 4s ease-in-out infinite; }
+
     @keyframes float {
       0%, 100% { transform: translateY(0px); }
       50% { transform: translateY(-12px); }
@@ -96,10 +90,7 @@
       50% { background-position: 100% 50%; }
       100% { background-position: 0% 50%; }
     }
-    .animate-energy-flow {
-      background-size: 200% 200%;
-      animation: progress-energy-flow 4s ease infinite;
-    }
+    .animate-energy-flow { background-size: 200% 200%; animation: progress-energy-flow 4s ease infinite; }
 
     @keyframes progress-bar-glow {
       0%, 100% { box-shadow: 0 0 5px rgba(234, 179, 8, 0.1); border-color: rgba(234, 179, 8, 0.1); }
@@ -172,12 +163,6 @@
       animation: scroll 40s linear infinite;
     }
 
-    @keyframes shine {
-      0% { transform: translateX(-150%); }
-      50% { transform: translateX(150%); }
-      100% { transform: translateX(150%); }
-    }
-
     .scrollbar-hide::-webkit-scrollbar { display: none; }
     .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
 
@@ -186,6 +171,7 @@
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
+
     .bg-gold-gradient {
       background: linear-gradient(to bottom, #fde047, #eab308, #854d0e);
     }
@@ -195,7 +181,7 @@
 <body>
   <div id="root"></div>
 
-  <!-- IMPORTANT: For Vite, keep this EXACT. -->
+  <!-- IMPORTANT: Vite entry (must be exactly this path) -->
   <script type="module" src="/src/main.tsx"></script>
 </body>
 </html>
