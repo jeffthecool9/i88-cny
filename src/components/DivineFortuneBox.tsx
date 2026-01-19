@@ -1,14 +1,14 @@
 import React, { useMemo } from "react";
 
 // ✅ Vite-bundled image imports (no /public 404 issues)
-import weapon1 from "../src/weapons/weapon-1.png";
-import weapon2 from "../src/weapons/weapon-2.png";
-import weapon3 from "../src/weapons/weapon-3.png";
-import weapon4 from "../src/weapons/weapon-4.png";
-import weapon5 from "../src/weapons/weapon-5.png";
-import weapon6 from "../src/weapons/weapon-6.png";
-import weapon7 from "../src/weapons/weapon-7.png";
-import weapon8 from "../src/weapons/weapon-8.png";
+import weapon1 from "../weapons/weapon-1.png";
+import weapon2 from "../weapons/weapon-2.png";
+import weapon3 from "../weapons/weapon-3.png";
+import weapon4 from "../weapons/weapon-4.png";
+import weapon5 from "../weapons/weapon-5.png";
+import weapon6 from "../weapons/weapon-6.png";
+import weapon7 from "../weapons/weapon-7.png";
+import weapon8 from "../weapons/weapon-8.png";
 
 type WeaponItem = {
   id: string;
