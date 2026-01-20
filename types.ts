@@ -1,10 +1,9 @@
 
-// Fixed: Updated RewardType to include high-end brand archetypes from constants.ts to resolve type mismatches
 export type RewardType = 
-  | 'RM38,888!' 
-  | '1 Full Set Weapon' 
-  | 'RM15 Credits' 
-  | 'BETTER LUCK NEXT TIME';
+  | '100 Slot Free Spins' 
+  | 'RM10 in Live Casino only' 
+  | 'RM50 Credits' 
+  | 'RM15 Credits';
 
 export interface TicketTier {
   amount: number;

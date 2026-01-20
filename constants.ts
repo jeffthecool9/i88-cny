@@ -1,4 +1,3 @@
-
 import { TicketTier, Weapon, RewardType } from './types.ts';
 
 export const EVENT_DATES = {
@@ -14,20 +13,20 @@ export const TICKET_TIERS: (TicketTier & { isPreEvent?: boolean })[] = [
 ];
 
 export const INITIAL_WEAPONS: Weapon[] = [
-  { id: '1', name: 'Sword of Lu', count: 0, max: 4, image: '', icon: 'A glowing ancient Chinese Jian sword, blue jade hilt with gold filigree, silver shining blade, floating vertically' },
-  { id: '2', name: 'Flute of Han', count: 0, max: 4, image: '', icon: 'A polished green jade bamboo flute, intricate gold carvings, red silk tassels flowing' },
-  { id: '3', name: 'Fan of Zhong', count: 0, max: 4, image: '', icon: 'A mystical giant palm leaf fan, emerald green with glowing golden ribs' },
-  { id: '4', name: 'Flower Basket', count: 0, max: 4, image: '', icon: 'A divine golden woven basket with celestial lilies and glowing peonies inside' },
-  { id: '5', name: 'Gourd of Iron', count: 0, max: 4, image: '', icon: 'A sacred golden gourd vessel tied with red silk cords, floating with mystical mist' },
-  { id: '6', name: 'Lotus of He', count: 0, max: 4, image: '', icon: 'A glowing pink ethereal lotus flower on a crystal stem, sparkling with golden dust' },
-  { id: '7', name: 'Castanets of Cao', count: 0, max: 4, image: '', icon: 'Two large polished imperial green jade tablets joined by heavy gold rings' },
-  { id: '8', name: 'Crutch of Li', count: 0, max: 4, image: '', icon: 'A mystical iron staff with a dragon-head handle, glowing with amber energy core' }
+  { id: '1', name: 'Sword of Lu', count: 0, max: 4, image: '', icon: 'A magnificent ancient Chinese Jian sword, blue jade hilt with gold filigree, silver shining blade' },
+  { id: '2', name: 'Flute of Han', count: 0, max: 4, image: '', icon: 'A polished green jade bamboo flute with intricate gold carvings and flowing red silk tassels' },
+  { id: '3', name: 'Fan of Zhong', count: 0, max: 4, image: '', icon: 'A giant mystical palm leaf fan, emerald green with golden ribs and a glowing core' },
+  { id: '4', name: 'Flower Basket', count: 0, max: 4, image: '', icon: 'A divine woven golden basket overflowing with celestial white lilies and magical peonies' },
+  { id: '5', name: 'Gourd of Iron', count: 0, max: 4, image: '', icon: 'A sacred golden gourd vessel tied with red cords, floating with mystical vapor' },
+  { id: '6', name: 'Lotus of He', count: 0, max: 4, image: '', icon: 'A glowing ethereal pink lotus flower on a crystal stem, sparkling with divine light' },
+  { id: '7', name: 'Castanets of Cao', count: 0, max: 4, image: '', icon: 'Two polished imperial jade tablets joined by gold rings, engraved with ancient symbols' },
+  { id: '8', name: 'Crutch of Li', count: 0, max: 4, image: '', icon: 'A mystical iron staff with a curved dragon-head handle, glowing with amber energy' }
 ];
 
-// Fixed: Corrected reward types to match the union defined in types.ts to resolve assignment errors
+// Added explicit RewardType to ensure synchronization with MiniGame components and fixed naming inconsistency
 export const REWARD_CHANCES: { type: RewardType; weight: number }[] = [
-  { type: 'RM38,888!', weight: 40 },
-  { type: '1 Full Set Weapon', weight: 30 },
-  { type: 'RM15 Credits', weight: 10 },
-  { type: 'BETTER LUCK NEXT TIME', weight: 20 }
+  { type: '100 Slot Free Spins', weight: 40 },
+  { type: 'RM10 in Live Casino only' , weight: 30 },
+  { type: 'RM50 Credits' , weight: 10 },
+  { type: 'RM15 Credits', weight: 20 }
 ];

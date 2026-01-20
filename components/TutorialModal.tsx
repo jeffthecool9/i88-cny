@@ -6,25 +6,28 @@ interface TutorialModalProps {
 }
 
 const steps = [
-  {
-    title: "Master the Divine Weapons",
-    description: "Collect all 8 legendary weapons of the Immortals. Each weapon you collect increases your divine power and brings you closer to the Grand Treasure.",
-    icon: "⚔️",
-    accent: "border-[#3b82f6]",
-    animation: "animate-icon-clash",
-    aura: "animate-aura-blue bg-blue-600/40"
-  },
-  {
-    title: "Play the Fortune Angpow",
-    description: "Use your tickets to open Fortune Angpows. Every play guarantees a weapon unlock. You start with 3 tickets—use them wisely to start your collection!",
+
+   {
+    title: "Event Details",
+    description: "Earn tickets with every deposits, ticket is use to unlock Divine Weapons",
     icon: "🧧",
     accent: "border-[#ef4444]",
     animation: "animate-icon-heartbeat",
     aura: "animate-aura-red bg-red-600/40"
   },
+
   {
-    title: "Unlock Celestial Rewards",
-    description: "Every weapon discovered reveals a reward. Collect 4 sets of all 8 weapons to claim the ultimate Grand Prize. Your destiny awaits!",
+    title: "Event Details",
+    description: "Collect Each Weapon with Guarantee Cash Prizes",
+    icon: "⚔️",
+    accent: "border-[#3b82f6]",
+    animation: "animate-icon-clash",
+    aura: "animate-aura-blue bg-blue-600/40"
+  },
+ 
+  {
+    title: "Event Details",
+    description: "Collect All 8 Divine Weapons to get up to RM38,888",
     icon: "🏆",
     accent: "border-[#eab308]",
     animation: "animate-icon-divine-shine",

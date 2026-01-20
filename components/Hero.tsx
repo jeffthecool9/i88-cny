@@ -1,5 +1,4 @@
 import React from 'react';
-import { motion } from 'framer-motion';
 import { EVENT_DATES } from '../constants.ts';
 
 const DetailedChineseCloud = ({ className }: { className?: string }) => (
@@ -10,90 +9,88 @@ const DetailedChineseCloud = ({ className }: { className?: string }) => (
 
 const Hero: React.FC<{ onOpenTutorial: () => void }> = ({ onOpenTutorial }) => {
   return (
-    <section className="relative min-h-[100vh] flex flex-col items-center justify-center pt-32 pb-32 overflow-hidden bg-[#D40000]">
-      {/* Background Layers - InkGames Style Depth */}
-      <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
-        <div className="absolute inset-0 bg-gradient-to-b from-[#FF2222]/40 via-transparent to-black/60"></div>
-        <div className="absolute -top-1/4 -left-1/4 w-[150%] h-[150%] bg-[radial-gradient(circle_at_center,rgba(253,224,71,0.15)_0%,transparent_70%)] animate-rays"></div>
+    <section 
+      className="relative min-h-[100vh] flex flex-col items-center justify-start pt-16 pb-32 overflow-hidden bg-[#D40000]"
+    >
+      {/* Background Atmosphere */}
+      <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none bg-paper-texture">
+        <div className="absolute inset-0 bg-gradient-to-b from-[#FF2222]/20 via-transparent to-black/20"></div>
         
-        {/* Floating Artifacts Blur */}
-        <div className="absolute top-[20%] left-[10%] w-64 h-64 bg-yellow-400/20 blur-[100px] animate-pulse"></div>
-        <div className="absolute bottom-[20%] right-[10%] w-96 h-96 bg-[#8b0000]/40 blur-[120px] animate-pulse" style={{ animationDelay: '2s' }}></div>
+        {/* Luminous Center Glow */}
+        <div className="absolute top-[20%] left-1/2 -translate-x-1/2 w-[150%] h-[80%] rounded-full bg-yellow-400/20 blur-[120px] animate-[cosmic-pulse_8s_infinite]"></div>
+        
+        {/* Rotating Celestial Rays */}
+        <div className="absolute inset-0 z-10 opacity-20 animate-rays">
+          <div className="absolute -top-1/2 left-1/2 -translate-x-1/2 w-[200%] h-[200%] bg-[conic-gradient(from_0deg_at_50%_50%,transparent_0deg,#FDE047_15deg,transparent_30deg,#FDE047_45deg,transparent_60deg)]"></div>
+        </div>
       </div>
 
-      <div className="relative z-10 flex flex-col items-center text-center px-6 w-full max-w-lg">
-        {/* Secondary Headline (Pill style) */}
-        <motion.div 
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="mb-8 bg-black/20 backdrop-blur-lg border border-white/10 px-6 py-2 rounded-full inline-flex items-center gap-2"
-        >
-          <span className="text-yellow-400 text-[10px] font-black uppercase tracking-[0.3em]">Special Event Launch</span>
-          <div className="w-1 h-1 bg-white/30 rounded-full"></div>
-          <span className="text-white/60 text-[10px] font-black uppercase tracking-[0.3em]">{EVENT_DATES.start}</span>
-        </motion.div>
+      <div className="relative z-50 flex flex-col items-center text-center px-6 w-full">
+        {/* Title Section with better padding to prevent clipping */}
+        <div className="mb-8 relative group scale-[0.9] md:scale-100">
+          <div className="absolute -top-12 -left-12 text-yellow-400/30 w-32 h-32 select-none pointer-events-none">
+            <DetailedChineseCloud className="w-full h-full animate-pulse opacity-60" />
+          </div>
+          <div className="absolute -bottom-12 -right-12 text-yellow-400/30 w-32 h-32 select-none pointer-events-none">
+            <DetailedChineseCloud className="w-full h-full animate-pulse opacity-60 rotate-180" />
+          </div>
 
-        {/* Main Title Stack */}
-        <div className="relative mb-12">
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-            className="relative"
-          >
-            <h1 className="flex flex-col items-center leading-none">
-              <span className="text-[7rem] md:text-[9rem] font-black text-white cny-font drop-shadow-[0_20px_50px_rgba(0,0,0,0.5)] leading-[0.8] tracking-tighter">
-                八仙
-              </span>
-              <span className="text-[7rem] md:text-[9rem] font-black text-yellow-400 cny-font drop-shadow-[0_20px_50px_rgba(0,0,0,0.5)] leading-[0.8] tracking-tighter">
-                来财
-              </span>
-            </h1>
-          </motion.div>
-          
-          {/* Subtitle - Professional Layout */}
-          <div className="mt-8 flex items-center justify-center gap-4 w-full">
-            <div className="h-[1px] flex-1 bg-gradient-to-r from-transparent to-yellow-400/30"></div>
-            <p className="text-yellow-400/80 text-xs font-black uppercase tracking-[0.5em] whitespace-nowrap">
-              8 Immortals Treasure
-            </p>
-            <div className="h-[1px] flex-1 bg-gradient-to-l from-transparent to-yellow-400/30"></div>
+          <div className="relative p-1.5 rounded-[3rem] bg-gradient-to-br from-yellow-200 via-yellow-400 to-yellow-700 shadow-[0_15px_40px_rgba(0,0,0,0.4)]">
+            <div className="bg-[#E60000] rounded-[2.8rem] px-10 py-12 relative overflow-hidden border-4 border-yellow-400/50">
+              <div className="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/hexellence.png')]"></div>
+
+              <h1 className="relative flex flex-col items-center font-black leading-tight">
+                <span className="relative block text-[6rem] md:text-[8rem] text-yellow-300 drop-shadow-[0_4px_4px_rgba(0,0,0,0.4)] tracking-tight">
+                  八仙
+                </span>
+                <span className="relative block text-[6.5rem] md:text-[8.5rem] text-white filter drop-shadow-[0_8px_8px_rgba(0,0,0,0.6)] tracking-tight -mt-4">
+                  来财
+                </span>
+              </h1>
+            </div>
           </div>
         </div>
-
-        {/* Action Group */}
-        <div className="flex flex-col items-center gap-6 w-full">
-          <button 
-            onClick={() => document.getElementById('mechanics')?.scrollIntoView({ behavior: 'smooth' })}
-            className="w-full py-6 bg-gradient-to-b from-[#fde047] via-[#eab308] to-[#854d0e] text-[#2a0101] rounded-[2rem] font-black text-2xl uppercase tracking-tighter shadow-[0_25px_60px_rgba(0,0,0,0.4)] border-b-8 border-[#4a2a00] hover:scale-[1.02] active:scale-[0.98] transition-all"
-          >
-            Enter The Portal 🏮
-          </button>
-          
-          <button 
-            onClick={onOpenTutorial}
-            className="group flex items-center gap-2 text-white/40 hover:text-white transition-colors"
-          >
-            <span className="text-[10px] font-black uppercase tracking-[0.4em]">How to Play</span>
-            <div className="w-5 h-5 rounded-full border border-white/20 flex items-center justify-center group-hover:border-white transition-colors">
-              <svg className="w-2.5 h-2.5 translate-x-0.5" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M8 5v14l11-7z" />
-              </svg>
-            </div>
-          </button>
+        
+        {/* Redesigned Sub-Plaque: From Dark to Gold */}
+        <div className="w-full max-w-[340px] bg-gradient-to-b from-yellow-300 to-yellow-600 border-2 border-white/40 px-4 py-6 rounded-3xl shadow-[0_20px_40px_rgba(0,0,0,0.3)] mb-8 transform hover:scale-105 transition-transform">
+          <p className="text-[#8B0000] text-2xl font-black tracking-[0.15em] uppercase">
+            8 IMMORTALS<br/>TREASURE
+          </p>
         </div>
+
+        {/* Date Capsule */}
+        <div className="w-full max-w-[320px] bg-black/30 backdrop-blur-md text-yellow-400 px-6 py-3 rounded-full font-black text-xs shadow-xl mb-6 border border-yellow-400/30 uppercase tracking-[0.15em]">
+          {EVENT_DATES.full}
+        </div>
+
+        <button 
+          onClick={onOpenTutorial}
+          className="text-white font-black text-sm uppercase tracking-[0.3em] hover:text-yellow-400 transition-all mb-10 drop-shadow-lg underline decoration-yellow-400 underline-offset-8"
+        >
+          HOW TO PLAY?
+        </button>
+
+        {/* Action Button */}
+        <button 
+          onClick={() => document.getElementById('mechanics')?.scrollIntoView({ behavior: 'smooth' })}
+          className="w-full max-w-[300px] bg-gradient-to-b from-yellow-200 via-yellow-400 to-yellow-600 text-[#4a0101] py-6 rounded-[2rem] font-black text-3xl uppercase tracking-tighter border-b-8 border-[#854d0e] shadow-[0_20px_50px_rgba(0,0,0,0.4)] active:translate-y-2 active:border-b-0 transition-all"
+        >
+          Explore Now 🏮
+        </button>
       </div>
 
-      {/* Marquee Footer - Solid & Professional */}
-      <div className="absolute bottom-0 w-full bg-black/40 backdrop-blur-xl py-5 border-t border-white/10">
+      {/* Marquee Ticker - Anchored at bottom with clear separation */}
+      <div className="absolute bottom-0 w-full bg-[#3d0101] text-yellow-300 py-6 font-black text-[10px] uppercase z-50 border-t-2 border-yellow-400/20 tracking-[0.2em]">
         <div className="overflow-hidden">
-          <div className="animate-marquee whitespace-nowrap opacity-60">
+          <div className="animate-marquee whitespace-nowrap">
             {[...Array(6)].map((_, i) => (
-              <span key={i} className="flex items-center gap-12 mx-6 text-white font-black text-[9px] uppercase tracking-[0.3em]">
-                <span>● LIMITED EDITION WEAPONS</span>
-                <span>● TOTAL PRIZE POOL 8.8M</span>
-                <span>● COLLECT TO UNLOCK DIVINE MODE</span>
+              <span key={i} className="flex items-center gap-8 mx-4">
+                <span>🏮 HUAT AH!</span>
+                <span className="opacity-30">●</span>
+                <span>STARTS {EVENT_DATES.start}</span>
+                <span className="opacity-30">●</span>
+                <span>COLLECT DIVINE WEAPONS</span>
+                <span className="opacity-30">●</span>
               </span>
             ))}
           </div>
