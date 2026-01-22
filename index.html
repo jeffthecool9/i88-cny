@@ -8,7 +8,7 @@
     />
     <title>八仙过海 | CNY 2026 Event</title>
 
-    <!-- If you want fast styling without Tailwind install, keep CDN -->
+    <!-- Tailwind CDN (OK for now) -->
     <script src="https://cdn.tailwindcss.com"></script>
 
     <link
@@ -35,18 +35,6 @@
         background-image: url("https://www.transparenttextures.com/patterns/rice-paper-2.png");
         background-blend-mode: soft-light;
         opacity: 0.8;
-      }
-
-      @keyframes cosmic-pulse {
-        0%,
-        100% {
-          transform: scale(1);
-          opacity: 0.3;
-        }
-        50% {
-          transform: scale(1.1);
-          opacity: 0.6;
-        }
       }
 
       @keyframes rays-pulse {
@@ -83,33 +71,4 @@
           transform: translateX(-50%);
         }
       }
-      .animate-marquee {
-        display: flex;
-        width: 200%;
-        animation: marquee 25s linear infinite;
-      }
-
-      .bg-red-packet {
-        background: linear-gradient(
-          135deg,
-          var(--cny-red-bright) 0%,
-          var(--cny-red-deep) 100%
-        );
-      }
-
-      button {
-        touch-action: manipulation;
-      }
-    </style>
-
-    <!-- ✅ REMOVE this. It causes the Vercel warning if file doesn't exist -->
-    <!-- <link rel="stylesheet" href="/index.css" /> -->
-  </head>
-
-  <body>
-    <div id="root"></div>
-
-    <!-- ✅ IMPORTANT: point to your REAL entry file -->
-    <script type="module" src="/index.tsx"></script>
-  </body>
-</html>
+      .a
