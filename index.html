@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>八仙过海 | CNY 2026 Event</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;700;900&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --cny-red-bright: #FF0000;
+      --cny-red-deep: #D40000;
+      --cny-gold: #FDE047;
+      --cny-gold-dark: #EAB308;
+    }
+
+    body {
+      background-color: var(--cny-red-deep);
+      color: #ffffff;
+      font-family: 'Noto Sans SC', sans-serif;
+      overflow-x: hidden;
+    }
+    
+    /* Global Texture Overlay - Brighter Rice Paper */
+    .bg-paper-texture {
+      background-image: url('https://www.transparenttextures.com/patterns/rice-paper-2.png');
+      background-blend-mode: soft-light;
+      opacity: 0.8;
+    }
+
+    @keyframes cosmic-pulse {
+      0%, 100% { transform: scale(1); opacity: 0.3; }
+      50% { transform: scale(1.1); opacity: 0.6; }
+    }
+    
+    @keyframes rays-pulse {
+      0%, 100% { opacity: 0.1; }
+      50% { opacity: 0.3; }
+    }
+    .animate-rays {
+      animation: rays-pulse 6s ease-in-out infinite;
+    }
+
+    @keyframes divine-float {
+      0%, 100% { transform: translateY(0px) rotate(0deg); }
+      50% { transform: translateY(-15px) rotate(2deg); }
+    }
+    .animate-divine-float {
+      animation: divine-float 5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+    }
+
+    @keyframes marquee {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+    .animate-marquee {
+      display: flex;
+      width: 200%;
+      animation: marquee 25s linear infinite;
+    }
+
+    .bg-red-packet {
+      background: linear-gradient(135deg, var(--cny-red-bright) 0%, var(--cny-red-deep) 100%);
+    }
+
+    /* Better hit areas for mobile */
+    button {
+      touch-action: manipulation;
+    }
+  </style>
+<script type="importmap">
+{
+  "imports": {
+    "react": "https://esm.sh/react@^19.2.3",
+    "react-dom/": "https://esm.sh/react-dom@^19.2.3/",
+    "react/": "https://esm.sh/react@^19.2.3/",
+    "@google/genai": "https://esm.sh/@google/genai@^1.37.0",
+    "framer-motion": "https://esm.sh/framer-motion@^12.27.1"
+  }
+}
+</script>
+<link rel="stylesheet" href="/index.css">
+</head>
+<body>
+  <div id="root"></div>
+<script type="module" src="/index.tsx"></script>
+</body>
+</html>
