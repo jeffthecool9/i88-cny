@@ -16,74 +16,37 @@
       rel="stylesheet"
     />
 
-    <!-- ✅ IMPORTANT: keep your CSS here -->
-    <style>
-      :root {
-        --cny-red-bright: #ff0000;
-        --cny-red-deep: #d40000;
-        --cny-gold: #fde047;
-        --cny-gold-dark: #eab308;
-      }
+    <!-- ✅ stop favicon 404 -->
+    <link rel="icon" href="/favicon.ico" />
 
+    <style>
       body {
-        background-color: var(--cny-red-deep);
+        background-color: #000814;
         color: #ffffff;
         font-family: "Noto Sans SC", sans-serif;
         overflow-x: hidden;
       }
 
-      .bg-paper-texture {
-        background-image: url("https://www.transparenttextures.com/patterns/rice-paper-2.png");
-        background-blend-mode: soft-light;
-        opacity: 0.8;
-      }
+      /* ✅ KEEP YOUR ORIGINAL CSS HERE (you can paste your whole style block) */
 
-      @keyframes rays-pulse {
+      @keyframes float {
         0%,
         100% {
-          opacity: 0.1;
+          transform: translateY(0px);
         }
         50% {
-          opacity: 0.3;
+          transform: translateY(-12px);
         }
       }
-      .animate-rays {
-        animation: rays-pulse 6s ease-in-out infinite;
-      }
-
-      @keyframes divine-float {
-        0%,
-        100% {
-          transform: translateY(0px) rotate(0deg);
-        }
-        50% {
-          transform: translateY(-15px) rotate(2deg);
-        }
-      }
-      .animate-divine-float {
-        animation: divine-float 5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
-      }
-
-      @keyframes marquee {
-        0% {
-          transform: translateX(0);
-        }
-        100% {
-          transform: translateX(-50%);
-        }
-      }
-      .marquee {
-        animation: marquee 30s linear infinite;
-        will-change: transform;
+      .animate-float {
+        animation: float 4s ease-in-out infinite;
       }
     </style>
   </head>
-
   <body>
-    <!-- ✅ CRITICAL: this must exist -->
     <div id="root"></div>
 
-    <!-- ✅ CRITICAL: Vite entry must be EXACTLY this -->
+    <!-- ✅ IMPORTANT: must point to /src/main.tsx -->
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
