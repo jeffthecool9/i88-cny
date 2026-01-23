@@ -8,7 +8,7 @@
     />
     <title>八仙过海 | CNY 2026 Event</title>
 
-    <!-- Tailwind CDN (OK for now) -->
+    <!-- Tailwind CDN (ok for now) -->
     <script src="https://cdn.tailwindcss.com"></script>
 
     <link
@@ -16,6 +16,7 @@
       rel="stylesheet"
     />
 
+    <!-- ✅ IMPORTANT: keep your CSS here -->
     <style>
       :root {
         --cny-red-bright: #ff0000;
@@ -71,4 +72,18 @@
           transform: translateX(-50%);
         }
       }
-      .a
+      .marquee {
+        animation: marquee 30s linear infinite;
+        will-change: transform;
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- ✅ CRITICAL: this must exist -->
+    <div id="root"></div>
+
+    <!-- ✅ CRITICAL: Vite entry must be EXACTLY this -->
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
