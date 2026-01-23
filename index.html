@@ -2,53 +2,16 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
-    />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>八仙过海 | CNY 2026 Event</title>
 
-    <!-- Tailwind CDN (ok for now) -->
     <script src="https://cdn.tailwindcss.com"></script>
 
-    <link
-      href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;700;900&family=Playfair+Display:wght@700&display=swap"
-      rel="stylesheet"
-    />
-
-    <!-- ✅ stop favicon 404 -->
     <link rel="icon" href="/favicon.ico" />
-
-    <style>
-      body {
-        background-color: #000814;
-        color: #ffffff;
-        font-family: "Noto Sans SC", sans-serif;
-        overflow-x: hidden;
-      }
-
-      /* ✅ KEEP YOUR ORIGINAL CSS HERE (you can paste your whole style block) */
-
-      @keyframes float {
-        0%,
-        100% {
-          transform: translateY(0px);
-        }
-        50% {
-          transform: translateY(-12px);
-        }
-      }
-      .animate-float {
-        animation: float 4s ease-in-out infinite;
-      }
-    </style>
   </head>
+
   <body>
     <div id="root"></div>
-
-    <!-- ✅ IMPORTANT: must point to /src/main.tsx -->
     <script type="module" src="/src/main.tsx"></script>
   </body>
-  deploy test
-
 </html>
