@@ -44,7 +44,6 @@ const App: React.FC = () => {
 
   return (
     <main className="min-h-screen bg-[#000814] relative">
-      {/* FLOATING ACTION BAR */}
       <div
         className={`fixed bottom-10 left-1/2 -translate-x-1/2 z-[60] w-full px-6 max-w-md pointer-events-none transition-all duration-500 ease-in-out ${
           showFloatingButton && !isGameOpen && !isTutorialOpen
@@ -65,7 +64,6 @@ const App: React.FC = () => {
         </div>
       </div>
 
-      {/* SCROLL TO TOP */}
       <button
         onClick={scrollToTop}
         aria-label="Scroll to top"
@@ -96,7 +94,6 @@ const App: React.FC = () => {
       <div className="bg-gradient-to-b from-[#000814] via-[#4a0404] to-[#000814] relative">
         <Mechanics />
         <HowToJoin />
-        {/* ✅ KEEP YOUR WEAPON SECTION EXACTLY AS YOU HAD IT */}
         <DivineFortuneBox />
         <FooterCTA />
       </div>
