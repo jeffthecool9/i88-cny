@@ -67,7 +67,7 @@ const PreEventSection: React.FC = () => {
               <div className="flex items-center gap-4">
                 <div className="h-10 w-[1px] bg-white/10"></div>
                 <div className="text-center">
-                  <span className="block text-yellow-400 text-[10px] font-black uppercase tracking-[0.3em] mb-0.5">Yields</span>
+                  <span className="block text-yellow-400 text-[10px] font-black uppercase tracking-[0.3em] mb-0.5">s</span>
                   <div className="flex items-baseline gap-1">
                     <span className="text-white text-4xl font-black tracking-tighter leading-none">{tier.tickets}</span>
                     <span className="text-yellow-400 text-[10px] font-black uppercase">Tickets</span>
