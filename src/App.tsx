@@ -62,7 +62,7 @@ const App: React.FC = () => {
             onClick={handlePlayNow}
             className="w-full py-6 bg-gradient-to-b from-[#fde047] via-[#eab308] to-[#854d0e] text-[#2a0101] font-black rounded-3xl shadow-[0_30px_60px_rgba(0,0,0,0.8),0_0_40px_rgba(234,179,8,0.3)] border-b-6 border-[#4a2a00] active:translate-y-1 active:border-b-0 transition-all text-2xl relative overflow-hidden group"
           >
-            {tickets > 0 ? "How It Works? 🧧" : "GET MORE TICKETS 🧧"}
+            {tickets > 0 ? "How It Works? 🧧" : "Play Demo 🧧"}
             <span className="block text-[11px] uppercase font-black tracking-[0.2em] opacity-80 mt-1">
               Tickets Left: {tickets}
             </span>
