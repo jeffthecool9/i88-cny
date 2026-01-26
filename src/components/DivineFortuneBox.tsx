@@ -1,24 +1,41 @@
+import React from "react";
+import { motion } from "framer-motion";
 
-import React from 'react';
-import { motion } from 'framer-motion';
+type FloatingAngpowProps = {
+  delay?: number;
+  x?: number; // px offset
+  y?: number; // px offset
+  scale?: number;
+  size?: string; // tailwind text size
+};
 
-const FloatingAngpow = ({ delay = 0, x = 0, y = 0, scale = 1 }) => (
+const FloatingAngpow: React.FC<FloatingAngpowProps> = ({
+  delay = 0,
+  x = 0,
+  y = 0,
+  scale = 1,
+  size = "text-3xl",
+}) => (
   <motion.div
     initial={{ opacity: 0, scale: 0 }}
-    animate={{ 
-      opacity: [0.4, 1, 0.4],
-      scale: [scale, scale * 1.2, scale],
-      y: [y, y - 20, y],
-      x: [x, x + 10, x]
+    animate={{
+      opacity: [0.35, 1, 0.35],
+      scale: [scale, scale * 1.15, scale],
+      y: [y, y - 18, y],
+      x: [x, x + 10, x],
     }}
-    transition={{ 
-      duration: 4, 
-      repeat: Infinity, 
+    transition={{
+      duration: 4,
+      repeat: Infinity,
       delay,
-      ease: "easeInOut"
+      ease: "easeInOut",
     }}
-    className="absolute text-3xl pointer-events-none select-none z-0"
-    style={{ left: `${50 + x}%`, top: `${50 + y}%` }}
+    className={`absolute pointer-events-none select-none z-0 ${size}`}
+    style={{
+      left: "50%",
+      top: "50%",
+      transform: `translate(-50%, -50%) translate(${x}px, ${y}px)`,
+    }}
   >
     🧧
   </motion.div>
@@ -26,72 +43,110 @@ const FloatingAngpow = ({ delay = 0, x = 0, y = 0, scale = 1 }) => (
 
 const DivineFortuneBox: React.FC = () => {
   return (
-    <section id="register-section" className="py-24 px-6 bg-transparent relative overflow-hidden">
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[90%] h-96 bg-yellow-400/10 blur-[180px] rounded-full pointer-events-none"></div>
-      
-      <motion.div 
-        initial={{ opacity: 0, scale: 0.8, rotate: -2 }}
+    <section
+      id="register-section"
+      className="py-24 px-6 bg-transparent relative overflow-hidden"
+    >
+      {/* ambient glow */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[92%] h-96 bg-yellow-400/10 blur-[180px] rounded-full pointer-events-none" />
+
+      <motion.div
+        initial={{ opacity: 0, scale: 0.85, rotate: -2 }}
         whileInView={{ opacity: 1, scale: 1, rotate: 0 }}
         viewport={{ once: true, amount: 0.5 }}
-        transition={{ duration: 1, type: "spring", bounce: 0.4 }}
+        transition={{ duration: 1, type: "spring", bounce: 0.35 }}
         className="max-w-lg mx-auto relative group"
       >
         <div className="relative bg-gradient-to-b from-[#FF0000] to-[#B00000] rounded-[4rem] border-8 border-yellow-400/50 p-12 md:p-16 text-center shadow-[0_30px_80px_rgba(0,0,0,0.5)] overflow-hidden">
           {/* Decorative Corners */}
-          <div className="absolute top-0 left-0 w-24 h-24 border-t-[10px] border-l-[10px] border-yellow-400 rounded-tl-[3.5rem]"></div>
-          <div className="absolute top-0 right-0 w-24 h-24 border-t-[10px] border-r-[10px] border-yellow-400 rounded-tr-[3.5rem]"></div>
-          <div className="absolute bottom-0 left-0 w-24 h-24 border-b-[10px] border-l-[10px] border-yellow-400 rounded-bl-[3.5rem]"></div>
-          <div className="absolute bottom-0 right-0 w-24 h-24 border-b-[10px] border-r-[10px] border-yellow-400 rounded-br-[3.5rem]"></div>
+          <div className="absolute top-0 left-0 w-24 h-24 border-t-[10px] border-l-[10px] border-yellow-400 rounded-tl-[3.5rem]" />
+          <div className="absolute top-0 right-0 w-24 h-24 border-t-[10px] border-r-[10px] border-yellow-400 rounded-tr-[3.5rem]" />
+          <div className="absolute bottom-0 left-0 w-24 h-24 border-b-[10px] border-l-[10px] border-yellow-400 rounded-bl-[3.5rem]" />
+          <div className="absolute bottom-0 right-0 w-24 h-24 border-b-[10px] border-r-[10px] border-yellow-400 rounded-br-[3.5rem]" />
 
-          <motion.div 
-            initial={{ y: 20 }}
+          {/* main angpow */}
+          <motion.div
+            initial={{ y: 18 }}
             animate={{ y: 0 }}
-            transition={{ duration: 2, repeat: Infinity, repeatType: "reverse", ease: "easeInOut" }}
+            transition={{
+              duration: 2,
+              repeat: Infinity,
+              repeatType: "reverse",
+              ease: "easeInOut",
+            }}
             className="inline-block mb-10 relative"
           >
-            <div className="text-[9rem] filter drop-shadow-[0_15px_15px_rgba(0,0,0,0.4)]">🧧</div>
-            <div className="absolute inset-0 bg-yellow-400 blur-[80px] opacity-40"></div>
+            <div className="text-[9rem] filter drop-shadow-[0_15px_15px_rgba(0,0,0,0.4)]">
+              🧧
+            </div>
+            <div className="absolute inset-0 bg-yellow-400 blur-[90px] opacity-35" />
           </motion.div>
 
+          {/* headline */}
           <h2 className="text-5xl md:text-7xl font-black mb-8 leading-none tracking-tighter uppercase flex flex-col items-center">
             <span className="text-white drop-shadow-md">Get Your</span>
-            <span className="text-yellow-300 drop-shadow-[0_5px_10px_rgba(0,0,0,0.5)] scale-110">RM38,888 NOW</span>
+
+            {/* GOLD TEXT */}
+            <span
+              className="
+                mt-3 text-6xl md:text-8xl font-black uppercase
+                bg-gradient-to-b from-[#fff6cc] via-[#facc15] to-[#d97706]
+                bg-clip-text text-transparent
+                drop-shadow-[0_10px_40px_rgba(250,204,21,0.55)]
+              "
+            >
+              RM38,888 NOW
+            </span>
           </h2>
 
-          <div className="w-32 h-1.5 bg-yellow-300 mx-auto mb-8 rounded-full"></div>
-        
+          {/* gold underline */}
+          <div
+            className="
+              w-44 md:w-56 h-2 mx-auto mb-10 rounded-full
+              bg-gradient-to-r from-yellow-300 via-yellow-400 to-yellow-600
+              shadow-[0_0_30px_rgba(250,204,21,0.85)]
+            "
+          />
 
-          {/* Integrated CTA Section from Footer */}
+          {/* CTA */}
           <div className="relative group max-w-md mx-auto h-32 flex items-center justify-center">
-            {/* Surrounding Animated Angpows */}
-            <FloatingAngpow delay={0} x={-60} y={-40} scale={1.2} />
-            <FloatingAngpow delay={1} x={65} y={-35} scale={0.8} />
-            <FloatingAngpow delay={0.5} x={-75} y={10} scale={1} />
-            <FloatingAngpow delay={1.5} x={70} y={25} scale={1.1} />
-            <FloatingAngpow delay={2} x={-10} y={-55} scale={0.7} />
-            <FloatingAngpow delay={0.8} x={15} y={45} scale={0.9} />
+            {/* Floating Angpows (balanced) */}
+            <FloatingAngpow delay={0} x={-180} y={-70} scale={1.15} size="text-4xl" />
+            <FloatingAngpow delay={1} x={180} y={-60} scale={0.9} />
+            <FloatingAngpow delay={0.5} x={-220} y={20} scale={1.05} />
+            <FloatingAngpow delay={1.5} x={210} y={40} scale={1.1} size="text-4xl" />
+            <FloatingAngpow delay={2} x={-40} y={-95} scale={0.75} />
+            <FloatingAngpow delay={0.8} x={50} y={95} scale={0.85} />
 
-            {/* Enhanced Red Glow */}
-            <div className="absolute -inset-4 bg-gradient-to-r from-[#FFD700] to-[#FFA500] rounded-2xl blur-2xl opacity-10 group-hover:opacity-40 transition duration-500"></div>
-            
-            <motion.button 
+            {/* GOLD glow behind CTA */}
+            <div className="absolute -inset-6 bg-gradient-to-r from-[#fff6cc] via-[#facc15] to-[#d97706] rounded-[2.2rem] blur-3xl opacity-15 group-hover:opacity-40 transition duration-500" />
+
+            <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className="relative w-full py-6 bg-gradient-to-b from-[#FF2222] via-[#D40000] to-[#8B0000] text-white font-black text-2xl rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.4)] transition-all uppercase tracking-tighter border-b-8 border-[#5F0000] active:border-b-0 z-10"
+              className="
+                relative w-full py-6
+                bg-gradient-to-b from-[#FF2A2A] via-[#D40000] to-[#8B0000]
+                text-white font-black text-2xl
+                rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.45)]
+                transition-all uppercase tracking-tighter
+                border-b-8 border-[#5F0000] active:border-b-0 z-10
+              "
             >
               REGISTER NOW 🧧
             </motion.button>
           </div>
 
-          <div className="absolute inset-0 pointer-events-none opacity-40">
-            {[...Array(8)].map((_, i) => (
-              <div 
+          {/* subtle sparkles */}
+          <div className="absolute inset-0 pointer-events-none opacity-35">
+            {[...Array(10)].map((_, i) => (
+              <div
                 key={i}
                 className="absolute bg-white w-1.5 h-1.5 rounded-full animate-ping"
                 style={{
-                  top: Math.random() * 100 + '%',
-                  left: Math.random() * 100 + '%',
-                  animationDelay: `${i * 0.7}s`,
+                  top: Math.random() * 100 + "%",
+                  left: Math.random() * 100 + "%",
+                  animationDelay: `${i * 0.55}s`,
                 }}
               />
             ))}
