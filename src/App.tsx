@@ -8,7 +8,6 @@ import MiniGame from "./components/MiniGame";
 import DivineFortuneBox from "./components/DivineFortuneBox";
 import TutorialModal from "./components/TutorialModal";
 
-
 const App: React.FC = () => {
   const [isGameOpen, setIsGameOpen] = useState(false);
   const [isTutorialOpen, setIsTutorialOpen] = useState(false);
