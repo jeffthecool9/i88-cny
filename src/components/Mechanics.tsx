@@ -23,7 +23,8 @@ const Mechanics: React.FC = () => {
             <p className="text-white text-base md:text-xl font-bold uppercase tracking-tight leading-relaxed">
               Unlock the secrets of the Immortals.
               <span className="block mt-2 text-yellow-300">
-                Collect all 8 weapons shown on the Scroll to claim your REAL CASH PRIZES
+                Collect all 8 weapons shown on the Scroll to claim your REAL CASH
+                PRIZES
               </span>
             </p>
           </div>
@@ -71,19 +72,31 @@ const Mechanics: React.FC = () => {
           </div>
         </motion.div>
 
-        {/* PRIZE */}
+        {/* PRIZE (UPDATED TO STAMP STYLE like your Picture 2) */}
         <div className="mt-16 text-center">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="inline-block relative mb-12"
+            className="flex justify-center mb-10"
           >
-            <div className="absolute -inset-8 bg-white/20 blur-3xl rounded-full" />
-            <div className="relative bg-white text-[#D40000] px-12 py-5 rounded-[2.5rem] shadow-[0_20px_60px_rgba(0,0,0,0.3)] border-4 border-yellow-400">
-              <h3 className="text-4xl md:text-6xl font-black uppercase tracking-tighter leading-none">
-                GRAND PRIZE <br /> <span className="text-5xl md:text-7xl">RM38,888</span>
-              </h3>
+            <div
+              className="
+                inline-flex flex-col items-center justify-center
+                bg-[#C40000]
+                border-4 border-[#FFD54A]
+                px-10 py-5
+                rounded-md
+                shadow-[0_6px_0_#8a0000]
+              "
+            >
+              <span className="text-white text-xl md:text-2xl font-black uppercase tracking-wide">
+                GRAND PRIZE
+              </span>
+
+              <span className="text-white text-3xl md:text-4xl font-black tracking-tight mt-1">
+                RM38,888
+              </span>
             </div>
           </motion.div>
 
