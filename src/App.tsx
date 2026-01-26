@@ -8,6 +8,8 @@ import FooterCTA from "./components/FooterCTA";
 import MiniGame from "./components/MiniGame";
 import DivineFortuneBox from "./components/DivineFortuneBox";
 import TutorialModal from "./components/TutorialModal";
+import FooterCTA from "./components/FooterCTA";
+
 
 const App: React.FC = () => {
   const [isGameOpen, setIsGameOpen] = useState(false);
