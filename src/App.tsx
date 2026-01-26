@@ -15,10 +15,13 @@ const App: React.FC = () => {
   const [showFloatingButton, setShowFloatingButton] = useState(false);
 
   useEffect(() => {
+    // Tutorial first-time view
     try {
       const hasSeenTutorial = localStorage.getItem("hasSeenTutorial");
       if (!hasSeenTutorial) setIsTutorialOpen(true);
-    } catch {}
+    } catch {
+      // ignore
+    }
 
     const handleScroll = () => setShowFloatingButton(window.scrollY > 400);
 
@@ -35,15 +38,19 @@ const App: React.FC = () => {
     setIsTutorialOpen(false);
     try {
       localStorage.setItem("hasSeenTutorial", "true");
-    } catch {}
+    } catch {
+      // ignore
+    }
   };
 
   const useTicket = () => setTickets((prev) => Math.max(0, prev - 1));
+  const refillTickets = () => setTickets(3);
 
   const scrollToTop = () => window.scrollTo({ top: 0, behavior: "smooth" });
 
   return (
     <main className="min-h-screen bg-[#000814] relative">
+      {/* Floating CTA Button */}
       <div
         className={`fixed bottom-10 left-1/2 -translate-x-1/2 z-[60] w-full px-6 max-w-md pointer-events-none transition-all duration-500 ease-in-out ${
           showFloatingButton && !isGameOpen && !isTutorialOpen
@@ -64,6 +71,7 @@ const App: React.FC = () => {
         </div>
       </div>
 
+      {/* Scroll To Top */}
       <button
         onClick={scrollToTop}
         aria-label="Scroll to top"
@@ -89,8 +97,10 @@ const App: React.FC = () => {
         </svg>
       </button>
 
+      {/* Hero */}
       <Hero onOpenTutorial={handleOpenTutorial} />
 
+      {/* Main Content */}
       <div className="bg-gradient-to-b from-[#000814] via-[#4a0404] to-[#000814] relative">
         <Mechanics />
         <HowToJoin />
@@ -98,15 +108,19 @@ const App: React.FC = () => {
         <FooterCTA />
       </div>
 
+      {/* MiniGame Modal */}
       <MiniGame
         isOpen={isGameOpen}
         onClose={() => setIsGameOpen(false)}
         onTicketUse={useTicket}
         tickets={tickets}
+        onRefill={refillTickets}
       />
 
+      {/* Tutorial Modal */}
       <TutorialModal isOpen={isTutorialOpen} onClose={closeTutorial} />
 
+      {/* Footer */}
       <footer className="bg-black pt-16 pb-40 px-6 border-t border-[#eab308]/10 text-center text-[#eab308]/20 text-[10px] font-black uppercase tracking-[0.4em]">
         &copy; 2026 八仙来财 | MALAYSIA • SINGAPORE EXCLUSIVE
       </footer>
