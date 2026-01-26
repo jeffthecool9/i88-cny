@@ -40,7 +40,7 @@ const Hero: React.FC<HeroProps> = ({ onOpenTutorial }) => {
         >
           <div className="mx-auto w-full rounded-[2.6rem] bg-red-600/40 border-4 border-yellow-300/70 shadow-[0_35px_120px_rgba(0,0,0,0.45)] backdrop-blur-xl px-8 py-10">
             <div className="text-yellow-200 font-black tracking-[0.25em] text-[11px] uppercase mb-4">
-              CNY 2026 • Malaysia & Singapore
+              CNY 2026 • Malaysia
             </div>
 
             <h1 className="font-black leading-none tracking-tight">
