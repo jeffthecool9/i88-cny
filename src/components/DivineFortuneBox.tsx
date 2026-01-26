@@ -128,24 +128,23 @@ const DivineFortuneBox: React.FC = () => {
             {/* glow */}
             <div className="absolute -inset-6 bg-gradient-to-r from-[#fff6cc] via-[#facc15] to-[#d97706] rounded-[2.2rem] blur-3xl opacity-15 group-hover:opacity-40 transition duration-500" />
 
-            {/* ✅ GOLD CTA BUTTON */}
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="
-                relative w-full py-6
-                bg-[linear-gradient(180deg,#F9F295,#E0AA3E,#B88A44)]
-                text-white font-black text-2xl
-                rounded-2xl
-                shadow-[0_20px_50px_rgba(0,0,0,0.45),0_0_30px_rgba(224,170,62,0.6)]
-                transition-all uppercase tracking-tighter
-                border-b-8 border-[#8a5a20]
-                active:border-b-0 z-10
-              "
-            >
-              REGISTER NOW 🧧
-            </motion.button>
-          </div>
+           <motion.button
+  whileHover={{ scale: 1.05 }}
+  whileTap={{ scale: 0.95 }}
+  className="
+    relative w-full py-6
+    bg-[linear-gradient(180deg,#F9F295,#E0AA3E,#B88A44)]
+    text-[#8B0000] font-black text-2xl
+    rounded-2xl
+    shadow-[0_20px_50px_rgba(0,0,0,0.45),0_0_30px_rgba(224,170,62,0.6)]
+    transition-all uppercase tracking-tighter
+    border-b-8 border-[#8a5a20]
+    active:border-b-0 z-10
+  "
+>
+  REGISTER NOW 🧧
+</motion.button>
+
 
           {/* sparkles */}
           <div className="absolute inset-0 pointer-events-none opacity-35">
