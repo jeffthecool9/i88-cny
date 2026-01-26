@@ -72,49 +72,70 @@ const Mechanics: React.FC = () => {
           </div>
         </motion.div>
 
-        {/* PRIZE (UPDATED TO STAMP STYLE like your Picture 2) */}
-        <div className="mt-16 text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="flex justify-center mb-10"
-          >
-            <div
-              className="
-                inline-flex flex-col items-center justify-center
-                bg-[#C40000]
-                border-4 border-[#FFD54A]
-                px-10 py-5
-                rounded-md
-                shadow-[0_6px_0_#8a0000]
-              "
-            >
-              <span className="text-white text-xl md:text-2xl font-black uppercase tracking-wide">
-                GRAND PRIZE
-              </span>
+       {/* PRIZE — GOLD FRAME & GOLD TEXT */}
+<div className="mt-16 text-center">
+  <motion.div
+    initial={{ opacity: 0, y: 30 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    viewport={{ once: true }}
+    className="flex justify-center mb-10"
+  >
+    <div
+      className="
+        relative inline-flex flex-col items-center justify-center
+        px-12 py-6
+        rounded-xl
+        bg-gradient-to-r
+        from-[#F9F295] via-[#E0AA3E] via-[#FAF398] to-[#B88A44]
+        shadow-[0_12px_40px_rgba(224,170,62,0.55)]
+      "
+    >
+      {/* inner card */}
+      <div
+        className="
+          bg-[#fff8e1]
+          px-10 py-5
+          rounded-lg
+          shadow-inner
+          text-center
+        "
+      >
+        <span className="block text-[#7a3e00] text-xl md:text-2xl font-black uppercase tracking-wide">
+          GRAND PRIZE
+        </span>
 
-              <span className="text-white text-3xl md:text-4xl font-black tracking-tight mt-1">
-                RM38,888
-              </span>
-            </div>
-          </motion.div>
+        <span
+          className="
+            block mt-1
+            text-4xl md:text-5xl font-black
+            bg-gradient-to-b
+            from-[#F9F295] via-[#E0AA3E] to-[#B88A44]
+            bg-clip-text text-transparent
+            tracking-tight
+          "
+        >
+          RM38,888
+        </span>
+      </div>
+    </div>
+  </motion.div>
 
-          <p className="text-yellow-100/60 font-black text-xs md:text-sm uppercase tracking-[0.5em] mb-8">
-            1 TICKET = 1 RANDOM UNLOCK &amp; GUARANTEED CASH
-          </p>
+  <p className="text-yellow-100/60 font-black text-xs md:text-sm uppercase tracking-[0.5em] mb-8">
+    1 TICKET = 1 RANDOM UNLOCK &amp; GUARANTEED CASH
+  </p>
 
-          <button
-            onClick={() =>
-              document
-                .getElementById("register-section")
-                ?.scrollIntoView({ behavior: "smooth", block: "center" })
-            }
-            className="w-full max-w-sm py-6 bg-gradient-to-b from-yellow-200 via-yellow-400 to-yellow-600 text-[#4a0101] rounded-[2rem] font-black text-2xl uppercase tracking-widest shadow-[0_20px_50px_rgba(0,0,0,0.5)] border-b-8 border-[#854d0e] active:translate-y-2 active:border-b-0 transition-all hover:brightness-110"
-          >
-            Earn Tickets 🏮
-          </button>
-        </div>
+  <button
+    onClick={() =>
+      document
+        .getElementById("register-section")
+        ?.scrollIntoView({ behavior: "smooth", block: "center" })
+    }
+    className="w-full max-w-sm py-6 bg-gradient-to-b from-yellow-200 via-yellow-400 to-yellow-600 text-[#4a0101] rounded-[2rem] font-black text-2xl uppercase tracking-widest shadow-[0_20px_50px_rgba(0,0,0,0.5)] border-b-8 border-[#854d0e] active:translate-y-2 active:border-b-0 transition-all hover:brightness-110"
+  >
+    Earn Tickets 🏮
+  </button>
+</div>
+
       </div>
     </section>
   );
