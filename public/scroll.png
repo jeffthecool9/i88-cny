@@ -1,8 +1,1 @@
-const Mechanics: React.FC = () => {
-  const [scrollImg, setScrollImg] = useState<string | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
 
-  useEffect(() => {
-    setScrollImg("/scroll.png");
-    setIsLoading(false);
-  }, []);
