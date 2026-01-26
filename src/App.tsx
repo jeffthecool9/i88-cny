@@ -6,6 +6,7 @@ import HowToJoin from "./components/HowToJoin";
 import MiniGame from "./components/MiniGame";
 import DivineFortuneBox from "./components/DivineFortuneBox";
 import TutorialModal from "./components/TutorialModal";
+import PreEventSection from "./components/PreEventSection";
 
 const App: React.FC = () => {
   const [isGameOpen, setIsGameOpen] = useState(false);
