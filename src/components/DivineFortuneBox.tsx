@@ -83,28 +83,36 @@ const DivineFortuneBox: React.FC = () => {
           </motion.div>
 
           {/* headline */}
-          <h2 className="text-5xl md:text-7xl font-black mb-8 leading-none tracking-tighter uppercase flex flex-col items-center">
-            <span className="text-white drop-shadow-md">Get Your</span>
+          <div className="mb-8 leading-none tracking-tighter uppercase flex flex-col items-center">
+            <div className="text-white drop-shadow-md text-5xl md:text-7xl font-black">
+              Get Your
+            </div>
 
-            {/* GOLD TEXT */}
-            <span
-              className="
-                mt-3 text-6xl md:text-8xl font-black uppercase
-                bg-gradient-to-b from-[#fff6cc] via-[#facc15] to-[#d97706]
-                bg-clip-text text-transparent
-                drop-shadow-[0_10px_40px_rgba(250,204,21,0.55)]
-              "
-            >
-              RM38,888 NOW
-            </span>
-          </h2>
+            {/* ONLY RM38,888 is gold */}
+            <div className="mt-3 flex flex-col items-center gap-2">
+              <div
+                className="
+                  text-6xl md:text-8xl font-black uppercase
+                  bg-[linear-gradient(90deg,#F9F295_0%,#E0AA3E_25%,#FAF398_50%,#B88A44_75%,#F9F295_100%)]
+                  bg-clip-text text-transparent
+                  drop-shadow-[0_10px_40px_rgba(0,0,0,0.55)]
+                "
+              >
+                RM38,888
+              </div>
 
-          {/* gold underline */}
+              <div className="text-yellow-300 drop-shadow-lg text-5xl md:text-7xl font-black uppercase">
+                NOW
+              </div>
+            </div>
+          </div>
+
+          {/* premium gold underline (same palette as your reference) */}
           <div
             className="
               w-44 md:w-56 h-2 mx-auto mb-10 rounded-full
-              bg-gradient-to-r from-yellow-300 via-yellow-400 to-yellow-600
-              shadow-[0_0_30px_rgba(250,204,21,0.85)]
+              bg-[linear-gradient(90deg,#F9F295,#E0AA3E,#FAF398,#B88A44)]
+              shadow-[0_0_32px_rgba(250,204,21,0.75)]
             "
           />
 
@@ -119,7 +127,7 @@ const DivineFortuneBox: React.FC = () => {
             <FloatingAngpow delay={0.8} x={50} y={95} scale={0.85} />
 
             {/* GOLD glow behind CTA */}
-            <div className="absolute -inset-6 bg-gradient-to-r from-[#fff6cc] via-[#facc15] to-[#d97706] rounded-[2.2rem] blur-3xl opacity-15 group-hover:opacity-40 transition duration-500" />
+            <div className="absolute -inset-6 bg-[linear-gradient(90deg,#F9F295,#E0AA3E,#FAF398,#B88A44)] rounded-[2.2rem] blur-3xl opacity-15 group-hover:opacity-40 transition duration-500" />
 
             <motion.button
               whileHover={{ scale: 1.05 }}
