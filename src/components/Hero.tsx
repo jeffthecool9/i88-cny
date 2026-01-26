@@ -41,12 +41,13 @@ const Hero: React.FC<{ onOpenTutorial: () => void }> = ({ onOpenTutorial }) => {
         >
           {/* Logo container with space */}
           <div className="h-14 md:h-20 w-auto px-6 py-2 bg-white/5 backdrop-blur-md rounded-2xl border border-white/10 shadow-xl flex items-center justify-center">
-            <img 
-              src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e4/Cloud9_logo.svg/2560px-Cloud9_logo.svg.png" 
-              alt="Company Logo" 
-              className="h-full w-auto object-contain filter drop-shadow-[0_2px_10px_rgba(0,174,239,0.4)]"
-              style={{ maxHeight: '100%' }}
-            />
+           <img
+  src="/i88-logo.png"
+  alt="i88 Logo"
+  className="h-full w-auto object-contain filter drop-shadow-[0_2px_10px_rgba(0,174,239,0.4)]"
+  style={{ maxHeight: "100%" }}
+/>
+
           </div>
         </motion.div>
 
