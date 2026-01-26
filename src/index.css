@@ -44,18 +44,7 @@ a {
   text-decoration: none;
 }
 
-/* ============================
-   TAILWIND DIRECTIVES
-   (required if you're using Tailwind)
-============================ */
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
-/* ============================
-   CUSTOM THEME CLASSES
-============================ */
 
 /* Red packet base texture */
 .bg-red-packet {
