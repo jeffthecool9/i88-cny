@@ -82,37 +82,38 @@ const DivineFortuneBox: React.FC = () => {
             <div className="absolute inset-0 bg-yellow-400 blur-[90px] opacity-35" />
           </motion.div>
 
-          {/* headline */}
-          <div className="mb-8 leading-none tracking-tighter uppercase flex flex-col items-center">
-            <div className="text-white drop-shadow-md text-5xl md:text-7xl font-black">
-              Get Your
+          {/* headline (UPDATED) */}
+          <div className="mb-10 leading-none tracking-tight uppercase flex flex-col items-center px-6 md:px-12">
+            {/* GET YOUR (smaller) */}
+            <div className="text-white drop-shadow-md text-4xl md:text-5xl font-black mb-2">
+              GET YOUR
             </div>
 
-            {/* ONLY RM38,888 is gold */}
-            <div className="mt-3 flex flex-col items-center gap-2">
-              <div
-                className="
-                  text-6xl md:text-8xl font-black uppercase
-                  bg-[linear-gradient(90deg,#F9F295_0%,#E0AA3E_25%,#FAF398_50%,#B88A44_75%,#F9F295_100%)]
-                  bg-clip-text text-transparent
-                  drop-shadow-[0_10px_40px_rgba(0,0,0,0.55)]
-                "
-              >
-                RM38,888
-              </div>
+            {/* RM38,888 (GOLD focus) */}
+            <div
+              className="
+                my-2 text-6xl md:text-8xl font-black uppercase text-center
+                bg-[linear-gradient(90deg,#F9F295_0%,#E0AA3E_25%,#FAF398_50%,#B88A44_75%,#F9F295_100%)]
+                bg-clip-text text-transparent
+                drop-shadow-[0_8px_30px_rgba(0,0,0,0.55)]
+              "
+            >
+              RM38,888
+            </div>
 
-              <div className="text-yellow-300 drop-shadow-lg text-5xl md:text-7xl font-black uppercase">
-                NOW
-              </div>
+            {/* NOW (white + smaller) */}
+            <div className="text-white drop-shadow text-4xl md:text-5xl font-black mt-1">
+              NOW
             </div>
           </div>
 
-          {/* premium gold underline (same palette as your reference) */}
+          {/* gold underline */}
           <div
             className="
-              w-44 md:w-56 h-2 mx-auto mb-10 rounded-full
+              mx-auto mb-12
+              w-36 md:w-44 h-2 rounded-full
               bg-[linear-gradient(90deg,#F9F295,#E0AA3E,#FAF398,#B88A44)]
-              shadow-[0_0_32px_rgba(250,204,21,0.75)]
+              shadow-[0_0_28px_rgba(250,204,21,0.7)]
             "
           />
 
@@ -127,7 +128,7 @@ const DivineFortuneBox: React.FC = () => {
             <FloatingAngpow delay={0.8} x={50} y={95} scale={0.85} />
 
             {/* GOLD glow behind CTA */}
-            <div className="absolute -inset-6 bg-[linear-gradient(90deg,#F9F295,#E0AA3E,#FAF398,#B88A44)] rounded-[2.2rem] blur-3xl opacity-15 group-hover:opacity-40 transition duration-500" />
+            <div className="absolute -inset-6 bg-gradient-to-r from-[#fff6cc] via-[#facc15] to-[#d97706] rounded-[2.2rem] blur-3xl opacity-15 group-hover:opacity-40 transition duration-500" />
 
             <motion.button
               whileHover={{ scale: 1.05 }}
