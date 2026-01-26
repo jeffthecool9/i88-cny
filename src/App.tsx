@@ -2,11 +2,12 @@ import React, { useEffect, useState } from "react";
 
 import Hero from "./components/Hero";
 import Mechanics from "./components/Mechanics";
+import PreEventSection from "./components/PreEventSection";
 import HowToJoin from "./components/HowToJoin";
+import FooterCTA from "./components/FooterCTA";
 import MiniGame from "./components/MiniGame";
 import DivineFortuneBox from "./components/DivineFortuneBox";
 import TutorialModal from "./components/TutorialModal";
-import PreEventSection from "./components/PreEventSection";
 
 const App: React.FC = () => {
   const [isGameOpen, setIsGameOpen] = useState(false);
@@ -15,13 +16,10 @@ const App: React.FC = () => {
   const [showFloatingButton, setShowFloatingButton] = useState(false);
 
   useEffect(() => {
-    // Tutorial first-time view
     try {
       const hasSeenTutorial = localStorage.getItem("hasSeenTutorial");
       if (!hasSeenTutorial) setIsTutorialOpen(true);
-    } catch {
-      // ignore
-    }
+    } catch {}
 
     const handleScroll = () => setShowFloatingButton(window.scrollY > 400);
 
@@ -38,13 +36,10 @@ const App: React.FC = () => {
     setIsTutorialOpen(false);
     try {
       localStorage.setItem("hasSeenTutorial", "true");
-    } catch {
-      // ignore
-    }
+    } catch {}
   };
 
   const useTicket = () => setTickets((prev) => Math.max(0, prev - 1));
-  const refillTickets = () => setTickets(3);
 
   const scrollToTop = () => window.scrollTo({ top: 0, behavior: "smooth" });
 
@@ -63,7 +58,7 @@ const App: React.FC = () => {
             onClick={handlePlayNow}
             className="w-full py-6 bg-gradient-to-b from-[#fde047] via-[#eab308] to-[#854d0e] text-[#2a0101] font-black rounded-3xl shadow-[0_30px_60px_rgba(0,0,0,0.8),0_0_40px_rgba(234,179,8,0.3)] border-b-6 border-[#4a2a00] active:translate-y-1 active:border-b-0 transition-all text-2xl relative overflow-hidden group"
           >
-            {tickets > 0 ? "Play Demo 🧧" : "Play Demo 🧧"}
+            {tickets > 0 ? "How It Works? 🧧" : "GET MORE TICKETS 🧧"}
             <span className="block text-[11px] uppercase font-black tracking-[0.2em] opacity-80 mt-1">
               Tickets Left: {tickets}
             </span>
@@ -71,7 +66,7 @@ const App: React.FC = () => {
         </div>
       </div>
 
-      {/* Scroll To Top */}
+      {/* Scroll to top */}
       <button
         onClick={scrollToTop}
         aria-label="Scroll to top"
@@ -100,26 +95,28 @@ const App: React.FC = () => {
       {/* Hero */}
       <Hero onOpenTutorial={handleOpenTutorial} />
 
-      {/* Main Content */}
+      {/* Main Sections */}
       <div className="bg-gradient-to-b from-[#000814] via-[#4a0404] to-[#000814] relative">
+        {/* ✅ THIS is what you are missing */}
+        <PreEventSection />
+
         <Mechanics />
         <HowToJoin />
         <DivineFortuneBox />
+        <FooterCTA />
       </div>
 
-      {/* MiniGame Modal */}
+      {/* MiniGame */}
       <MiniGame
         isOpen={isGameOpen}
         onClose={() => setIsGameOpen(false)}
         onTicketUse={useTicket}
         tickets={tickets}
-        onRefill={refillTickets}
       />
 
-      {/* Tutorial Modal */}
+      {/* Tutorial */}
       <TutorialModal isOpen={isTutorialOpen} onClose={closeTutorial} />
 
-      {/* Footer */}
       <footer className="bg-black pt-16 pb-40 px-6 border-t border-[#eab308]/10 text-center text-[#eab308]/20 text-[10px] font-black uppercase tracking-[0.4em]">
         &copy; 2026 八仙来财 | MALAYSIA • SINGAPORE EXCLUSIVE
       </footer>
