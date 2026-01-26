@@ -1,5 +1,5 @@
 {
-  "name": "八仙来财-8-immortals-treasure-event",
+  "name": "i88-cny",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -9,9 +9,9 @@
     "preview": "vite preview"
   },
   "dependencies": {
-"react": "^18.3.1",
-"react-dom": "^18.3.1"
-    "framer-motion": "^12.27.1"
+    "framer-motion": "^12.27.1",
+    "react": "^19.2.3",
+    "react-dom": "^19.2.3"
   },
   "devDependencies": {
     "@types/node": "^22.14.0",
