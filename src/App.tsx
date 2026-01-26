@@ -104,7 +104,6 @@ const App: React.FC = () => {
         <Mechanics />
         <HowToJoin />
         <DivineFortuneBox />
-        <FooterCTA />
       </div>
 
       {/* MiniGame Modal */}
