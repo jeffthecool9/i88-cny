@@ -3,10 +3,10 @@ import { motion } from "framer-motion";
 
 type FloatingAngpowProps = {
   delay?: number;
-  x?: number; // px offset
-  y?: number; // px offset
+  x?: number;
+  y?: number;
   scale?: number;
-  size?: string; // tailwind text size
+  size?: string;
 };
 
 const FloatingAngpow: React.FC<FloatingAngpowProps> = ({
@@ -82,28 +82,24 @@ const DivineFortuneBox: React.FC = () => {
             <div className="absolute inset-0 bg-yellow-400 blur-[90px] opacity-35" />
           </motion.div>
 
-          {/* headline (UPDATED) */}
+          {/* headline */}
           <div className="mb-10 leading-none tracking-tight uppercase flex flex-col items-center px-6 md:px-12">
-            {/* GET YOUR (smaller) */}
             <div className="text-white drop-shadow-md text-4xl md:text-5xl font-black mb-2">
               GET YOUR
             </div>
 
-            {/* RM38,888 (GOLD focus) */}
-          <div
-  className="
-    my-2 text-6xl md:text-8xl font-black uppercase text-center
-    px-4 md:px-6
-    bg-[linear-gradient(90deg,#F9F295_0%,#E0AA3E_25%,#FAF398_50%,#B88A44_75%,#F9F295_100%)]
-    bg-clip-text text-transparent
-    drop-shadow-[0_8px_30px_rgba(0,0,0,0.55)]
-  "
->
-  RM38,888
-</div>
+            <div
+              className="
+                my-2 text-6xl md:text-8xl font-black uppercase text-center
+                px-4 md:px-6
+                bg-[linear-gradient(90deg,#F9F295_0%,#E0AA3E_25%,#FAF398_50%,#B88A44_75%,#F9F295_100%)]
+                bg-clip-text text-transparent
+                drop-shadow-[0_8px_30px_rgba(0,0,0,0.55)]
+              "
+            >
+              RM38,888
+            </div>
 
-
-            {/* NOW (white + smaller) */}
             <div className="text-white drop-shadow text-4xl md:text-5xl font-black mt-1">
               NOW
             </div>
@@ -121,7 +117,7 @@ const DivineFortuneBox: React.FC = () => {
 
           {/* CTA */}
           <div className="relative group max-w-md mx-auto h-32 flex items-center justify-center">
-            {/* Floating Angpows (balanced) */}
+            {/* Floating Angpows */}
             <FloatingAngpow delay={0} x={-180} y={-70} scale={1.15} size="text-4xl" />
             <FloatingAngpow delay={1} x={180} y={-60} scale={0.9} />
             <FloatingAngpow delay={0.5} x={-220} y={20} scale={1.05} />
@@ -129,26 +125,29 @@ const DivineFortuneBox: React.FC = () => {
             <FloatingAngpow delay={2} x={-40} y={-95} scale={0.75} />
             <FloatingAngpow delay={0.8} x={50} y={95} scale={0.85} />
 
-            {/* GOLD glow behind CTA */}
+            {/* glow */}
             <div className="absolute -inset-6 bg-gradient-to-r from-[#fff6cc] via-[#facc15] to-[#d97706] rounded-[2.2rem] blur-3xl opacity-15 group-hover:opacity-40 transition duration-500" />
 
+            {/* ✅ GOLD CTA BUTTON */}
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               className="
                 relative w-full py-6
-                bg-gradient-to-b from-[#FF2A2A] via-[#D40000] to-[#8B0000]
+                bg-[linear-gradient(180deg,#F9F295,#E0AA3E,#B88A44)]
                 text-white font-black text-2xl
-                rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.45)]
+                rounded-2xl
+                shadow-[0_20px_50px_rgba(0,0,0,0.45),0_0_30px_rgba(224,170,62,0.6)]
                 transition-all uppercase tracking-tighter
-                border-b-8 border-[#5F0000] active:border-b-0 z-10
+                border-b-8 border-[#8a5a20]
+                active:border-b-0 z-10
               "
             >
               REGISTER NOW 🧧
             </motion.button>
           </div>
 
-          {/* subtle sparkles */}
+          {/* sparkles */}
           <div className="absolute inset-0 pointer-events-none opacity-35">
             {[...Array(10)].map((_, i) => (
               <div
