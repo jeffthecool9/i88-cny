@@ -41,12 +41,13 @@ const Mechanics: React.FC = () => {
             <div className="bg-[#8B0000] rounded-[3.2rem] overflow-hidden relative min-h-[260px] flex items-center justify-center">
               {/* top badge */}
               <div className="absolute top-6 left-1/2 -translate-x-1/2 z-10">
-                <div className="bg-black/35 backdrop-blur-md px-6 py-2 rounded-full border border-white/20 shadow-lg">
-                  <span className="text-white text-[10px] font-black uppercase tracking-[0.45em]">
-                    WEAPONS COLLECTION
-                  </span>
-                </div>
-              </div>
+               {/* Overlay Text for the Scroll Area */}
+<div className="absolute top-4 left-1/2 -translate-x-1/2 bg-black/40 backdrop-blur-md px-4 py-1 rounded-full border border-white/20">
+  <span className="text-white text-[10px] font-black uppercase tracking-[0.4em]">
+    Weapons Collection
+  </span>
+</div>
+
 
               {/* image */}
               <img
