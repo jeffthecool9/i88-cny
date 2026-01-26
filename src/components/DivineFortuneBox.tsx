@@ -90,16 +90,18 @@ const DivineFortuneBox: React.FC = () => {
             </div>
 
             {/* RM38,888 (GOLD focus) */}
-            <div
-              className="
-                my-2 text-6xl md:text-8xl font-black uppercase text-center
-                bg-[linear-gradient(90deg,#F9F295_0%,#E0AA3E_25%,#FAF398_50%,#B88A44_75%,#F9F295_100%)]
-                bg-clip-text text-transparent
-                drop-shadow-[0_8px_30px_rgba(0,0,0,0.55)]
-              "
-            >
-              RM38,888
-            </div>
+          <div
+  className="
+    my-2 text-6xl md:text-8xl font-black uppercase text-center
+    px-4 md:px-6
+    bg-[linear-gradient(90deg,#F9F295_0%,#E0AA3E_25%,#FAF398_50%,#B88A44_75%,#F9F295_100%)]
+    bg-clip-text text-transparent
+    drop-shadow-[0_8px_30px_rgba(0,0,0,0.55)]
+  "
+>
+  RM38,888
+</div>
+
 
             {/* NOW (white + smaller) */}
             <div className="text-white drop-shadow text-4xl md:text-5xl font-black mt-1">
