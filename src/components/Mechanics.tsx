@@ -2,19 +2,13 @@ import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 
 const Mechanics: React.FC = () => {
-  const [scrollImg, setScrollImg] = useState<string>("/scroll.png");
-  const [isLoading, setIsLoading] = useState(true);
+  const [ready, setReady] = useState(false);
 
   useEffect(() => {
-    // Preload avoids layout jump on slower connections
     const img = new Image();
     img.src = "/scroll.png";
-    img.onload = () => setIsLoading(false);
-    img.onerror = () => {
-      // If scroll.png missing, fail gracefully
-      setIsLoading(false);
-      setScrollImg("");
-    };
+    img.onload = () => setReady(true);
+    img.onerror = () => setReady(true); // still render UI even if missing
   }, []);
 
   return (
@@ -22,11 +16,9 @@ const Mechanics: React.FC = () => {
       id="mechanics"
       className="py-24 px-6 relative bg-gradient-to-b from-[#D40000] to-[#990000] overflow-hidden"
     >
-      {/* Decorative Background Elements */}
       <div className="absolute top-0 left-0 w-full h-full opacity-10 pointer-events-none bg-[url('https://www.transparenttextures.com/patterns/oriental-tiles.png')]"></div>
 
       <div className="max-w-5xl mx-auto relative z-10">
-        {/* EVENT DESCRIPTION HEADER */}
         <div className="text-center mb-12">
           <motion.h2
             initial={{ opacity: 0, y: -20 }}
@@ -46,46 +38,33 @@ const Mechanics: React.FC = () => {
           </div>
         </div>
 
-        {/* THE IMPERIAL SCROLL */}
         <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
           whileInView={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.8 }}
           className="relative group"
         >
-          {/* Outer Glow */}
           <div className="absolute -inset-4 bg-yellow-400/20 blur-[60px] rounded-[5rem] group-hover:bg-yellow-400/30 transition-all duration-1000"></div>
 
           <div className="relative bg-gradient-to-b from-yellow-100 via-yellow-400 to-yellow-600 p-1.5 md:p-2 rounded-[3.5rem] shadow-[0_40px_100px_rgba(0,0,0,0.6)]">
             <div className="bg-[#8B0000] rounded-[3.2rem] overflow-hidden relative min-h-[300px] flex items-center justify-center">
-              {isLoading ? (
+              {!ready ? (
                 <div className="flex flex-col items-center gap-4">
                   <div className="w-12 h-12 border-4 border-t-yellow-400 border-white/20 rounded-full animate-spin"></div>
                   <span className="text-yellow-400 font-black text-xs uppercase tracking-widest animate-pulse">
                     Unrolling Scroll...
                   </span>
                 </div>
-              ) : scrollImg ? (
+              ) : (
                 <motion.img
-                  src={scrollImg}
+                  src="/scroll.png"
                   alt="The Sacred Scroll of 8 Immortals"
                   className="w-full h-auto object-cover scale-105"
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                 />
-              ) : (
-                <div className="text-center px-8 py-16">
-                  <p className="text-yellow-200 font-black uppercase tracking-widest text-sm">
-                    Scroll image missing
-                  </p>
-                  <p className="text-white/60 text-xs mt-3">
-                    Put <span className="text-white font-bold">scroll.png</span> inside the{" "}
-                    <span className="text-white font-bold">/public</span> folder.
-                  </p>
-                </div>
               )}
 
-              {/* Overlay Text */}
               <div className="absolute top-4 left-1/2 -translate-x-1/2 bg-black/40 backdrop-blur-md px-4 py-1 rounded-full border border-white/20">
                 <span className="text-white text-[10px] font-black uppercase tracking-[0.4em]">
                   Weapons Collection
@@ -95,7 +74,6 @@ const Mechanics: React.FC = () => {
           </div>
         </motion.div>
 
-        {/* PRIZE & CTA SECTION */}
         <div className="mt-16 text-center">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
