@@ -40,12 +40,14 @@ const Hero: React.FC<{ onOpenTutorial: () => void }> = ({ onOpenTutorial }) => {
           className="mb-8 relative z-[60]"
         >
           {/* Logo container with space */}
-          <div className="h-14 md:h-20 w-auto px-6 py-2 bg-white/5 backdrop-blur-md rounded-2xl border border-white/10 shadow-xl flex items-center justify-center">
-           <img
-  src="/i88-logo.png"
-  alt="i88 Logo"
-  className="h-full w-auto object-contain filter drop-shadow-[0_2px_10px_rgba(0,174,239,0.4)]"
-  style={{ maxHeight: "100%" }}
+         <div className="relative mx-auto mb-10 w-32 h-32 md:w-40 md:h-40 rounded-3xl bg-white/10 backdrop-blur-xl border border-white/20 shadow-2xl flex items-center justify-center">
+  <img
+    src="/i88-logo.png"
+    alt="i88 Logo"
+    className="w-4/5 h-4/5 object-contain drop-shadow-[0_4px_20px_rgba(0,0,0,0.4)]"
+  />
+</div>
+
 />
 
           </div>
