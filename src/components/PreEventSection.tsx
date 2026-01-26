@@ -84,7 +84,7 @@ const PreEventSection: React.FC = () => {
           className="mt-10 text-center"
         >
           <p className="text-white/30 text-[8px] font-bold uppercase tracking-[0.4em] leading-relaxed max-w-[300px] mx-auto">
-            Early bird tickets automatically unseal exclusive bonus multipliers upon event start.
+            Pre Event Tickets Promo only valid between 10 Feb - 12 Feb. Deposit after this will return to 1 ticket each RM100 Deposit.
           </p>
         </motion.div>
       </div>
