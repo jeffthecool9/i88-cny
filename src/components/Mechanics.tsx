@@ -29,7 +29,7 @@ const Mechanics: React.FC = () => {
           </div>
         </div>
 
-        {/* SCROLL CARD (matches your screenshot) */}
+        {/* SCROLL CARD */}
         <motion.div
           initial={{ opacity: 0, scale: 0.97 }}
           whileInView={{ opacity: 1, scale: 1 }}
@@ -38,22 +38,33 @@ const Mechanics: React.FC = () => {
           className="relative"
         >
           <div className="relative bg-gradient-to-b from-yellow-100 via-yellow-400 to-yellow-600 p-2 rounded-[3.5rem] shadow-[0_40px_100px_rgba(0,0,0,0.6)]">
-            <div className="bg-[#8B0000] rounded-[3.2rem] overflow-hidden relative min-h-[260px] flex items-center justify-center">
-              {/* top badge */}
-              <div className="absolute top-6 left-1/2 -translate-x-1/2 z-10">
-               {/* Overlay Text for the Scroll Area */}
-<div className="absolute top-4 left-1/2 -translate-x-1/2 bg-black/40 backdrop-blur-md px-4 py-1 rounded-full border border-white/20">
-  <span className="text-white text-[10px] font-black uppercase tracking-[0.4em]">
-    Weapons Collection
-  </span>
-</div>
+            <div className="bg-[#8B0000] rounded-[3.2rem] overflow-hidden relative min-h-[260px] md:min-h-[320px] flex items-center justify-center">
+              {/* Scroll Title Badge */}
+              <div className="absolute top-6 md:top-7 left-1/2 -translate-x-1/2 z-10">
+                <div
+                  className="px-10 md:px-12 py-3 md:py-3.5 rounded-full
+                             bg-gradient-to-b from-[#5c0000] to-[#2a0000]
+                             border-2 border-yellow-400/60
+                             shadow-[0_10px_30px_rgba(0,0,0,0.5)]
+                             flex items-center justify-center"
+                >
+                  <span
+                    className="block text-yellow-200
+                               text-sm md:text-base
+                               font-black uppercase
+                               tracking-[0.35em]
+                               text-center whitespace-nowrap"
+                  >
+                    WEAPONS COLLECTION
+                  </span>
+                </div>
+              </div>
 
-
-              {/* image */}
+              {/* Scroll Image */}
               <img
                 src="/scroll.png"
                 alt="Weapons Collection Scroll"
-                className="block w-[86%] max-w-[520px] h-auto object-contain mt-10"
+                className="block w-[86%] max-w-[560px] h-auto object-contain mt-16 md:mt-20"
                 draggable={false}
               />
             </div>
@@ -77,7 +88,7 @@ const Mechanics: React.FC = () => {
           </motion.div>
 
           <p className="text-yellow-100/60 font-black text-xs md:text-sm uppercase tracking-[0.5em] mb-8">
-            1 TICKET = 1 RANDOM UNLOCK & GUARANTEED CASH
+            1 TICKET = 1 RANDOM UNLOCK &amp; GUARANTEED CASH
           </p>
 
           <button
