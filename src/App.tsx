@@ -67,7 +67,7 @@ const App: React.FC = () => {
               transition-all text-2xl relative overflow-hidden group
             "
           >
-            {tickets > 0 ? "Play Demo 🧧" : "GET MORE TICKETS 🧧"}
+            {tickets > 0 ? "Play Demo 🧧" : "PLAY REAL NOW 🧧"}
             <span className="block text-[11px] uppercase font-black tracking-[0.2em] opacity-80 mt-1">
               Tickets Left: {tickets}
             </span>
@@ -135,7 +135,7 @@ const App: React.FC = () => {
       <TutorialModal isOpen={isTutorialOpen} onClose={closeTutorial} />
 
       <footer className="bg-black pt-16 pb-40 px-6 border-t border-[#eab308]/10 text-center text-[#eab308]/20 text-[10px] font-black uppercase tracking-[0.4em]">
-        &copy; 2026 八仙来财 | MALAYSIA • SINGAPORE EXCLUSIVE
+        &copy; 2026 八仙来财 | MALAYSIA • EXCLUSIVE
       </footer>
     </main>
   );
