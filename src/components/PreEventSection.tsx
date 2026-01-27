@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { motion } from 'framer-motion';
 import { PRE_EVENT_TIERS, REGULAR_RATE, EVENT_DATES } from '../constants.ts';
@@ -35,7 +36,7 @@ const PreEventSection: React.FC = () => {
           <div className="flex items-center justify-between px-4">
              <div className="text-left">
                 <span className="block text-white/40 text-[9px] font-black uppercase tracking-widest">Regular Event Rate</span>
-                <span className="text-white font-black text-lg">RM{REGULAR_RATE.amount} = {REGULAR_RATE.tickets} Ticket</span>
+                <span className="text-white font-black text-lg">${REGULAR_RATE.amount} = {REGULAR_RATE.tickets} Ticket</span>
              </div>
              <div className="w-[1px] h-10 bg-white/10 mx-4"></div>
              <div className="text-right">
@@ -66,7 +67,6 @@ const PreEventSection: React.FC = () => {
               <div className="flex items-center gap-4">
                 <div className="h-10 w-[1px] bg-white/10"></div>
                 <div className="text-center">
-                  <span className="block text-yellow-400 text-[10px] font-black uppercase tracking-[0.3em] mb-0.5">s</span>
                   <span className="block text-yellow-400 text-[10px] font-black uppercase tracking-[0.3em] mb-0.5"></span>
                   <div className="flex items-baseline gap-1">
                     <span className="text-white text-4xl font-black tracking-tighter leading-none">{tier.tickets}</span>
@@ -91,3 +91,5 @@ const PreEventSection: React.FC = () => {
     </section>
   );
 };
+
+export default PreEventSection;
