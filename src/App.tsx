@@ -8,7 +8,6 @@ import FooterCTA from "./components/FooterCTA";
 import MiniGame from "./components/MiniGame";
 import DivineFortuneBox from "./components/DivineFortuneBox";
 import TutorialModal from "./components/TutorialModal";
-import FooterCTA from "./components/FooterCTA";
 
 const App: React.FC = () => {
   const [isGameOpen, setIsGameOpen] = useState(false);
@@ -114,9 +113,12 @@ const App: React.FC = () => {
 
       {/* Main Sections */}
       <div className="bg-gradient-to-b from-[#000814] via-[#4a0404] to-[#000814] relative">
-        <PreEventSection />
         <Mechanics />
         <HowToJoin />
+
+        {/* ✅ moved here: Pre-Event Section will now appear under How To Join */}
+        <PreEventSection />
+
         <DivineFortuneBox />
         <FooterCTA />
       </div>
