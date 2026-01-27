@@ -23,7 +23,7 @@ const PreEventSection: React.FC = () => {
             Pre-Event <span className="text-yellow-400">Sales</span>
           </h2>
           <p className="text-white/60 font-bold uppercase tracking-widest text-[10px]">
-            Limited Time: {EVENT_DATES.preFull}
+            Limited Time 10 - 11 Feb 2026 {EVENT_DATES.preFull}
           </p>
         </motion.div>
 
