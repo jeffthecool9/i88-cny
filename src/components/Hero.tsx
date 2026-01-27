@@ -60,7 +60,8 @@ const Hero: React.FC<HeroProps> = ({ onOpenTutorial }) => {
 
             <p className="mt-8 text-white/85 font-bold text-sm md:text-base max-w-xl mx-auto">
               Collect the 8 Immortal Treasures, unlock massive rewards, and test your luck with the
-              Angpow Demo 🧧
+              Angpow Demo 
+              12-27 Feb 2026🧧
             </p>
 
             <div className="mt-10 flex flex-col md:flex-row gap-4 justify-center">
@@ -93,8 +94,8 @@ const Hero: React.FC<HeroProps> = ({ onOpenTutorial }) => {
         <div className="overflow-hidden">
           <div className="whitespace-nowrap animate-[marquee_14s_linear_infinite]">
             <span className="mx-6">八仙来财 • 8 Immortals Treasure • CNY 2026 •</span>
-            <span className="mx-6">Collect weapons to unlock RM38888 • Angpow Demo •</span>
-            <span className="mx-6">Malaysia • Singapore • Limited Time Event •</span>
+            <span className="mx-6">Collect weapons to unlock RM38,888 • Angpow Demo •</span>
+            <span className="mx-6">Malaysia  • Limited Time Event •</span>
             <span className="mx-6">八仙来财 • 8 Immortals Treasure • CNY 2026 •</span>
           </div>
         </div>
