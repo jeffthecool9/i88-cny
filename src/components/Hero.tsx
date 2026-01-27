@@ -74,7 +74,7 @@ const Hero: React.FC<HeroProps> = ({ onOpenTutorial }) => {
                 }}
                 className="w-full md:w-auto px-10 py-5 rounded-2xl bg-gradient-to-b from-[#fde047] via-[#eab308] to-[#854d0e] text-[#2a0101] font-black uppercase tracking-widest shadow-[0_25px_70px_rgba(0,0,0,0.5)] border-b-8 border-[#4a2a00] active:translate-y-1 active:border-b-0 transition-all"
               >
-                Go To Event 🏮
+                Go To Event 
               </motion.button>
 
               <motion.button
