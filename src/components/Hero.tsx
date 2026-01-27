@@ -82,7 +82,7 @@ const Hero: React.FC<HeroProps> = ({ onOpenTutorial }) => {
                 onClick={() => onOpenTutorial?.()}
                 className="w-full md:w-auto px-10 py-5 rounded-2xl bg-white/10 text-white font-black uppercase tracking-widest border border-white/20 backdrop-blur-xl hover:bg-white/15 transition-all"
               >
-                How It Works? 🧧
+                How It Works? 
               </motion.button>
             </div>
           </div>
