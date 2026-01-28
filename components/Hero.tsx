@@ -131,9 +131,7 @@ const Hero: React.FC<{ onOpenTutorial: () => void }> = ({ onOpenTutorial }) => {
             Pre-Register Now
           </button>
 
-          <div className="mt-4 text-[10px] tracking-[0.45em] uppercase font-bold text-white/70">
-            Register now • claim reward instantly
-          </div>
+    
         </motion.div>
       </motion.div>
     </section>
