@@ -86,20 +86,7 @@ const Hero: React.FC<{ onOpenTutorial: () => void }> = ({ onOpenTutorial }) => {
           >
             Visit The Event 
           </button>
-          
-          <div className="mt-10 flex justify-center gap-12">
-            <div className="flex flex-col items-center">
-              <span className="text-white text-2xl">🛡️</span>
-              <span className="text-[#FF5F5F] text-xs font-black tracking-widest mt-2">SECURE</span>
-            </div>
-            <div className="flex flex-col items-center">
-              <span className="text-white text-2xl">⚡</span>
-              <span className="text-[#FF5F5F] text-xs font-black tracking-widest mt-2">FAST</span>
-            </div>
-            <div className="flex flex-col items-center">
-              <span className="text-white text-2xl">💎</span>
-              <span className="text-[#FF5F5F] text-xs font-black tracking-widest mt-2">TRUST</span>
-            </div>
+        
           </div>
         </motion.div>
       </motion.div>
