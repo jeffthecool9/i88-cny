@@ -1,4 +1,6 @@
 import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import WheelSection from "./WheelSection";
+
 
 /** -----------------------------
  *  CONFIG (edit these only)
