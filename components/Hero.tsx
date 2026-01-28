@@ -84,7 +84,7 @@ const Hero: React.FC<{ onOpenTutorial: () => void }> = ({ onOpenTutorial }) => {
             onClick={handleCtaClick}
             className="relative w-full py-7 bg-gradient-to-b from-yellow-200 via-yellow-400 to-yellow-600 text-[#4a0101] rounded-[2.2rem] font-black text-2xl uppercase tracking-widest shadow-[0_25px_60px_rgba(0,0,0,0.5)] border-b-8 border-[#854d0e] transition-all transform hover:-translate-y-1 active:translate-y-1 active:border-b-0"
           >
-            ENTER THE FATE 🧧
+            Visit The Event 
           </button>
           
           <div className="mt-10 flex justify-center gap-12">
