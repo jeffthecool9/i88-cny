@@ -1,11 +1,10 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 
 /** -----------------------------
  *  CONFIG (EDIT THESE ONLY)
  *  ----------------------------- */
 const MAX_SPINS = 1; // session limit
 const SPIN_SECONDS = 4.0; // spin duration feel
-const FORCE_WIN_INDEX: number | undefined = undefined; // set number (0..PRIZES-1) to force win
 
 type Prize = {
   id: string;
@@ -43,7 +42,7 @@ function SimplePointer() {
           <filter id="ptrShadow" x="-30%" y="-30%" width="160%" height="160%">
             <feGaussianBlur in="SourceAlpha" stdDeviation="3" result="blur" />
             <feOffset dx="0" dy="4" result="off" />
-            <feFlood floodColor="black" floodOpacity="0.5" result="col" />
+            <feFlood floodColor="black" floodOpacity="0.55" result="col" />
             <feComposite in="col" in2="off" operator="in" result="shadow" />
             <feMerge>
               <feMergeNode in="shadow" />
@@ -59,7 +58,7 @@ function SimplePointer() {
             stroke="#3b2a10"
             strokeWidth="2"
           />
-          <circle cx="60" cy="44" r="6" fill="#ee1c25" opacity="0.9" />
+          <circle cx="60" cy="44" r="6" fill="#ee1c25" opacity="0.95" />
         </g>
       </svg>
     </div>
@@ -85,21 +84,26 @@ const FortuneWheel: React.FC = () => {
 
   const isLimitReached = spinsUsed >= MAX_SPINS;
 
+  // ✅ Always force to 100 FREE SPINS
+  const forcedWinIndex = useMemo(() => {
+    const idx = PRIZES.findIndex((p) => p.label.trim().toUpperCase() === "100 FREE SPINS");
+    return idx >= 0 ? idx : 0;
+  }, []);
+
+  const winner = winnerIndex !== null ? PRIZES[winnerIndex] : null;
+
   /** Spin logic */
   const spin = () => {
     if (isSpinning) return;
     if (isLimitReached) return;
 
-    // ✅ Hide YOU WON angpow during spin
+    // hide winner UI while spinning
     setShowAngpowWin(false);
     setWinnerIndex(null);
     setIsSpinning(true);
     finishedRef.current = false;
 
-    const targetIndex =
-      typeof FORCE_WIN_INDEX === "number"
-        ? Math.max(0, Math.min(segments - 1, FORCE_WIN_INDEX))
-        : Math.floor(Math.random() * segments);
+    const targetIndex = forcedWinIndex;
 
     // aim center of the target slice under the pointer
     const segmentOffset = anglePerSegment / 2;
@@ -108,7 +112,7 @@ const FortuneWheel: React.FC = () => {
     const currentRotation = rotationRef.current % 360;
     const delta = (targetAngle - currentRotation + 360) % 360;
 
-    const extraRotations = 8; // feel
+    const extraRotations = 8;
     const finalRotation = rotationRef.current + extraRotations * 360 + delta;
 
     rotationRef.current = finalRotation;
@@ -116,7 +120,7 @@ const FortuneWheel: React.FC = () => {
     setWinnerIndex(targetIndex);
   };
 
-  /** Transition end -> show YOU WON */
+  /** Transition end -> show YOU WON + congratulations message */
   useEffect(() => {
     const el = wheelRef.current;
     if (!el) return;
@@ -131,7 +135,7 @@ const FortuneWheel: React.FC = () => {
       setIsSpinning(false);
       setSpinsUsed((v) => v + 1);
 
-      // ✅ Show YOU WON only after wheel stops
+      // show winner angpow + congrats only after stop
       setShowAngpowWin(true);
     };
 
@@ -144,18 +148,12 @@ const FortuneWheel: React.FC = () => {
       {/* ✅ push the whole wheel LOWER */}
       <div className="relative mt-10 sm:mt-14 md:mt-16">
         {/* Pointer */}
-        <div
-          className={`absolute -top-[6%] left-1/2 -translate-x-1/2 z-50 
-            drop-shadow-[0_10px_20px_rgba(0,0,0,0.55)]
-            transition-transform duration-500 origin-bottom
-            ${!isSpinning && !isLimitReached ? "hover:scale-105" : ""}`}
-        >
+        <div className="absolute -top-[6%] left-1/2 -translate-x-1/2 z-50 drop-shadow-[0_10px_20px_rgba(0,0,0,0.55)]">
           <SimplePointer />
         </div>
 
-        {/* Wheel Wrapper */}
+        {/* Wheel */}
         <div className="relative w-full aspect-square flex items-center justify-center">
-          {/* Rotating Wheel Container */}
           <div
             ref={wheelRef}
             className="w-full h-full relative"
@@ -166,7 +164,7 @@ const FortuneWheel: React.FC = () => {
                 : "none",
             }}
           >
-            {/* Gloss overlay */}
+            {/* gloss */}
             <div className="absolute inset-0 rounded-full shadow-[inset_0_0_120px_rgba(255,255,255,0.15)] z-20 pointer-events-none border-[2px] sm:border-[4px] border-white/10" />
 
             <svg viewBox={`0 0 ${WHEEL_SIZE} ${WHEEL_SIZE}`} className="w-full h-full overflow-visible">
@@ -180,12 +178,7 @@ const FortuneWheel: React.FC = () => {
                 </linearGradient>
 
                 <pattern id="scalePattern" x="0" y="0" width="20" height="12" patternUnits="userSpaceOnUse">
-                  <path
-                    d="M0 12 Q5 0 10 12 Q15 0 20 12"
-                    fill="none"
-                    stroke="rgba(0,0,0,0.35)"
-                    strokeWidth="0.5"
-                  />
+                  <path d="M0 12 Q5 0 10 12 Q15 0 20 12" fill="none" stroke="rgba(0,0,0,0.35)" strokeWidth="0.5" />
                   <path
                     d="M0 6 Q5 -6 10 6 Q15 -6 20 6"
                     fill="none"
@@ -214,22 +207,12 @@ const FortuneWheel: React.FC = () => {
                     <fePointLight x="300" y="-100" z="400" />
                   </feSpecularLighting>
                   <feComposite in="spec" in2="SourceAlpha" operator="in" result="specular" />
-                  <feComposite
-                    in="SourceGraphic"
-                    in2="specular"
-                    operator="arithmetic"
-                    k1="0"
-                    k2="1"
-                    k3="1"
-                    k4="0"
-                  />
+                  <feComposite in="SourceGraphic" in2="specular" operator="arithmetic" k1="0" k2="1" k3="1" k4="0" />
                 </filter>
               </defs>
 
-              {/* base face */}
               <circle cx={WHEEL_SIZE / 2} cy={WHEEL_SIZE / 2} r={WHEEL_SIZE / 2 - 5} fill="url(#redLacquer)" />
 
-              {/* segments */}
               <g>
                 {PRIZES.map((prize, i) => {
                   const startAngle = i * anglePerSegment;
@@ -281,7 +264,6 @@ const FortuneWheel: React.FC = () => {
                 })}
               </g>
 
-              {/* rim */}
               <g filter="url(#rimSpecular)">
                 <circle
                   cx={WHEEL_SIZE / 2}
@@ -308,12 +290,19 @@ const FortuneWheel: React.FC = () => {
                   stroke="rgba(255,255,255,0.35)"
                   strokeWidth="1"
                 />
-                <circle cx={WHEEL_SIZE / 2} cy={WHEEL_SIZE / 2} r={WHEEL_SIZE / 2} fill="none" stroke="rgba(0,0,0,0.18)" strokeWidth="2" />
+                <circle
+                  cx={WHEEL_SIZE / 2}
+                  cy={WHEEL_SIZE / 2}
+                  r={WHEEL_SIZE / 2}
+                  fill="none"
+                  stroke="rgba(0,0,0,0.18)"
+                  strokeWidth="2"
+                />
               </g>
             </svg>
           </div>
 
-          {/* ✅ SPIN angpow (small) - ONLY while not showing YOU WON */}
+          {/* SPIN angpow - only before win overlay */}
           <button
             onClick={spin}
             disabled={isSpinning || isLimitReached}
@@ -328,12 +317,7 @@ const FortuneWheel: React.FC = () => {
               transition: "opacity 220ms ease",
             }}
           >
-            <div
-              className="w-full h-full bg-gradient-to-b from-[#ee1c25] via-[#ee1c25] to-[#7f1d1d]
-              rounded-lg sm:rounded-xl
-              shadow-[0_10px_30px_rgba(0,0,0,0.55),_inset_0_2px_12px_rgba(255,255,255,0.35)]
-              border-2 border-white/30 relative flex flex-col items-center justify-center overflow-hidden"
-            >
+            <div className="w-full h-full bg-gradient-to-b from-[#ee1c25] via-[#ee1c25] to-[#7f1d1d] rounded-lg sm:rounded-xl shadow-[0_10px_30px_rgba(0,0,0,0.55),_inset_0_2px_12px_rgba(255,255,255,0.35)] border-2 border-white/30 relative flex flex-col items-center justify-center overflow-hidden">
               <div className="absolute top-0 w-full bg-[#c41212] rounded-b-[18px] sm:rounded-b-[22px] border-b border-white/20 h-7 sm:h-10 z-20" />
               <div className="z-30 flex flex-col items-center justify-center mt-2 sm:mt-4 px-2 text-center">
                 <span className="cinzel text-[#f9df9d] text-3xl xs:text-4xl sm:text-5xl font-black mb-1 drop-shadow-[0_2px_5px_rgba(0,0,0,0.45)]">
@@ -347,17 +331,10 @@ const FortuneWheel: React.FC = () => {
             </div>
           </button>
 
-          {/* ✅ YOU WON angpow overlay - ONLY AFTER wheel stops */}
-          {showAngpowWin && winnerIndex !== null && (
+          {/* YOU WON angpow - only after stop */}
+          {showAngpowWin && winner && (
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-[46%] z-40">
-              <div
-                className="w-24 h-36 xs:w-28 xs:h-40 sm:w-32 sm:h-48
-                bg-gradient-to-b from-[#ee1c25] via-[#ee1c25] to-[#7f1d1d]
-                rounded-lg sm:rounded-xl
-                shadow-[0_15px_50px_rgba(0,0,0,0.7),_inset_0_2px_15px_rgba(255,255,255,0.4)]
-                border-2 border-white/30 relative flex flex-col items-center justify-center overflow-hidden
-                animate-popIn"
-              >
+              <div className="w-24 h-36 xs:w-28 xs:h-40 sm:w-32 sm:h-48 bg-gradient-to-b from-[#ee1c25] via-[#ee1c25] to-[#7f1d1d] rounded-lg sm:rounded-xl shadow-[0_15px_50px_rgba(0,0,0,0.7),_inset_0_2px_15px_rgba(255,255,255,0.4)] border-2 border-white/30 relative flex flex-col items-center justify-center overflow-hidden animate-popIn">
                 <div className="absolute top-0 w-full bg-[#c41212] rounded-b-[18px] sm:rounded-b-[22px] border-b border-white/20 h-8 sm:h-12 z-20" />
                 <div className="z-30 flex flex-col items-center justify-center mt-2 sm:mt-5 px-2 text-center">
                   <span className="cinzel text-[#f9df9d] text-4xl sm:text-5xl font-black mb-1 drop-shadow-[0_2px_5px_rgba(0,0,0,0.5)]">
@@ -373,15 +350,35 @@ const FortuneWheel: React.FC = () => {
           )}
         </div>
 
-        {/* Optional helper text */}
-        <div className="mt-6 text-center">
-          <p className="cinzel text-[10px] sm:text-xs tracking-[0.45em] uppercase text-[#f9df9d]/70 font-bold">
-            {isLimitReached ? "LIMIT REACHED" : "CLICK THE RED ANGPOW"}
-          </p>
-        </div>
+        {/* ✅ Congratulations message (only after stop) */}
+        {showAngpowWin && (
+          <div className="mt-6 text-center px-4">
+            <div className="cinzel text-[12px] sm:text-sm tracking-[0.45em] uppercase text-white/90">
+              CONGRATULATIONS
+            </div>
+
+            <div className="mt-2 cinzel text-xl sm:text-2xl font-black tracking-wide">
+              <span className="goldWinText">
+                You won 100 FREE SPINS on SLOT
+              </span>
+            </div>
+
+            <div className="mt-3 cinzel text-[10px] sm:text-xs tracking-[0.45em] uppercase text-[#f9df9d]/70 font-bold">
+              {isLimitReached ? "LIMIT REACHED" : "CLICK THE RED ANGPOW"}
+            </div>
+          </div>
+        )}
+
+        {/* If not won yet, show the normal helper line */}
+        {!showAngpowWin && (
+          <div className="mt-6 text-center">
+            <p className="cinzel text-[10px] sm:text-xs tracking-[0.45em] uppercase text-[#f9df9d]/70 font-bold">
+              {isLimitReached ? "LIMIT REACHED" : "CLICK THE RED ANGPOW"}
+            </p>
+          </div>
+        )}
       </div>
 
-      {/* Animations */}
       <style>{`
         @keyframes vibrate {
           0%, 100% { transform: translate(-50%, -46%) rotate(0deg); }
@@ -406,6 +403,17 @@ const FortuneWheel: React.FC = () => {
           to { opacity: 1; transform: translateY(0) scale(1); }
         }
         .animate-popIn { animation: popIn 420ms cubic-bezier(0.2, 1, 0.3, 1) both; }
+
+        /* ✅ bright gold win text */
+        .goldWinText {
+          background: linear-gradient(180deg, #ffffff 0%, #fff3b0 18%, #fde68a 38%, #fbbf24 62%, #d4af37 100%);
+          -webkit-background-clip: text;
+          background-clip: text;
+          color: transparent;
+          text-shadow:
+            0 0 14px rgba(253, 224, 71, 0.32),
+            0 8px 24px rgba(0, 0, 0, 0.55);
+        }
       `}</style>
     </div>
   );
