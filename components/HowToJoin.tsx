@@ -13,17 +13,17 @@ const HowToJoin: React.FC = () => {
           className="text-center mb-16"
         >
           <h2 className="text-5xl font-black text-white uppercase tracking-tighter mb-4">
-            Simple <span className="text-yellow-400 italic">Onboarding</span>
+           How To <span className="text-yellow-400 italic">Join</span>
           </h2>
           <p className="text-[#FF5F5F] font-bold uppercase tracking-[0.2em] text-sm">
-            Start Your Journey in Seconds
+            Registration Steps
           </p>
         </motion.div>
 
         <div className="space-y-8">
           {[
-            { step: 1, title: "Create Identity", desc: "Quick registration using your preferred region (MY/SG)." },
-            { step: 2, title: "Qualifying Deposit", desc: "Deposit RM50 or SGD50 to unlock the welcome reward." },
+            { step: 1, title: "Create Account", desc: "Quick registration with simple requirements." },
+            { step: 2, title: "Deposit Promo Amount", desc: "Deposit RM50 unlock the welcome reward." },
             { step: 3, title: "Claim & Explore", desc: "Enjoy your 100 free spins and explore the 8 Immortals Event." }
           ].map((s, i) => (
             <motion.div 
