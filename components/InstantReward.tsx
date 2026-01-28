@@ -176,7 +176,7 @@ const InstantReward: React.FC = () => {
             </div>
 
             <div className="goldPill">
-              <span className="goldPillText">3 Min Withdrawal</span>
+              <span className="goldPillText">3 Minute Withdrawal</span>
             </div>
 
             <div className="goldPill">
