@@ -420,7 +420,7 @@ const InstantReward: React.FC = () => {
 
               <div className="mt-4 inline-flex items-center justify-center gap-2 px-5 py-3 rounded-full goldButton">
                 <span className="text-[11px] sm:text-xs font-black tracking-[0.35em] uppercase text-black/90">
-                 Register & Deposit Now
+                 Register & Deposit
                 </span>
                 <span className="text-black/85 font-black">→</span>
               </div>
