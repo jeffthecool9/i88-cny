@@ -22,7 +22,7 @@ const PRIZES: Prize[] = [
   { id: "p5", label: "i88 BONUS", value: "LUCKY DRAW", color: "#a30f0f" },
 ];
 
-const WHEEL_SIZE = 520; // SVG viewBox size
+const WHEEL_SIZE = 520;
 const OUTER_BORDER_WIDTH = 28;
 
 /** -----------------------------
@@ -75,7 +75,11 @@ const FortuneWheel: React.FC = () => {
 
   const [isSpinning, setIsSpinning] = useState(false);
   const [rotation, setRotation] = useState(0);
+
+  // ✅ winner is ONLY committed after spin ends
   const [winnerIndex, setWinnerIndex] = useState<number | null>(null);
+  const [pendingWinnerIndex, setPendingWinnerIndex] = useState<number | null>(null);
+
   const [showAngpowWin, setShowAngpowWin] = useState(false);
   const [spinsUsed, setSpinsUsed] = useState(0);
 
@@ -86,7 +90,9 @@ const FortuneWheel: React.FC = () => {
 
   // ✅ Always force to 100 FREE SPINS
   const forcedWinIndex = useMemo(() => {
-    const idx = PRIZES.findIndex((p) => p.label.trim().toUpperCase() === "100 FREE SPINS");
+    const idx = PRIZES.findIndex(
+      (p) => p.label.trim().toUpperCase() === "100 FREE SPINS"
+    );
     return idx >= 0 ? idx : 0;
   }, []);
 
@@ -97,16 +103,17 @@ const FortuneWheel: React.FC = () => {
     if (isSpinning) return;
     if (isLimitReached) return;
 
-    // hide winner UI while spinning
+    // reset UI for a clean spin
     setShowAngpowWin(false);
     setWinnerIndex(null);
+    setPendingWinnerIndex(forcedWinIndex);
+
     setIsSpinning(true);
     finishedRef.current = false;
 
+    // Aim center of the target slice under the pointer (top)
     const targetIndex = forcedWinIndex;
-
-    // aim center of the target slice under the pointer
-    const segmentOffset = anglePerSegment / 2;
+    const segmentOffset = anglePerSegment / 2; // center of slice
     const targetAngle = 360 - targetIndex * anglePerSegment - segmentOffset;
 
     const currentRotation = rotationRef.current % 360;
@@ -117,10 +124,9 @@ const FortuneWheel: React.FC = () => {
 
     rotationRef.current = finalRotation;
     setRotation(finalRotation);
-    setWinnerIndex(targetIndex);
   };
 
-  /** Transition end -> show YOU WON + congratulations message */
+  /** Transition end -> COMMIT winner + show YOU WON + message */
   useEffect(() => {
     const el = wheelRef.current;
     if (!el) return;
@@ -135,19 +141,22 @@ const FortuneWheel: React.FC = () => {
       setIsSpinning(false);
       setSpinsUsed((v) => v + 1);
 
-      // show winner angpow + congrats only after stop
+      // ✅ Commit winner ONLY after stop
+      setWinnerIndex(pendingWinnerIndex ?? forcedWinIndex);
+
+      // ✅ Show winner angpow + congrats ONLY after stop
       setShowAngpowWin(true);
     };
 
     el.addEventListener("transitionend", onEnd);
     return () => el.removeEventListener("transitionend", onEnd);
-  }, []);
+  }, [pendingWinnerIndex, forcedWinIndex]);
 
   return (
     <div className="relative w-full max-w-[min(92vw,560px)] mx-auto">
       {/* ✅ push the whole wheel LOWER */}
-      <div className="relative mt-10 sm:mt-14 md:mt-16">
-        {/* Pointer */}
+      <div className="relative mt-12 sm:mt-16 md:mt-20">
+        {/* Pointer (always points to the top slice) */}
         <div className="absolute -top-[6%] left-1/2 -translate-x-1/2 z-50 drop-shadow-[0_10px_20px_rgba(0,0,0,0.55)]">
           <SimplePointer />
         </div>
@@ -167,9 +176,18 @@ const FortuneWheel: React.FC = () => {
             {/* gloss */}
             <div className="absolute inset-0 rounded-full shadow-[inset_0_0_120px_rgba(255,255,255,0.15)] z-20 pointer-events-none border-[2px] sm:border-[4px] border-white/10" />
 
-            <svg viewBox={`0 0 ${WHEEL_SIZE} ${WHEEL_SIZE}`} className="w-full h-full overflow-visible">
+            <svg
+              viewBox={`0 0 ${WHEEL_SIZE} ${WHEEL_SIZE}`}
+              className="w-full h-full overflow-visible"
+            >
               <defs>
-                <linearGradient id="goldMetallic" x1="0%" y1="0%" x2="100%" y2="100%">
+                <linearGradient
+                  id="goldMetallic"
+                  x1="0%"
+                  y1="0%"
+                  x2="100%"
+                  y2="100%"
+                >
                   <stop offset="0%" stopColor="#ffffff" />
                   <stop offset="20%" stopColor="#fffacd" />
                   <stop offset="50%" stopColor="#f9df9d" />
@@ -177,8 +195,20 @@ const FortuneWheel: React.FC = () => {
                   <stop offset="100%" stopColor="#433010" />
                 </linearGradient>
 
-                <pattern id="scalePattern" x="0" y="0" width="20" height="12" patternUnits="userSpaceOnUse">
-                  <path d="M0 12 Q5 0 10 12 Q15 0 20 12" fill="none" stroke="rgba(0,0,0,0.35)" strokeWidth="0.5" />
+                <pattern
+                  id="scalePattern"
+                  x="0"
+                  y="0"
+                  width="20"
+                  height="12"
+                  patternUnits="userSpaceOnUse"
+                >
+                  <path
+                    d="M0 12 Q5 0 10 12 Q15 0 20 12"
+                    fill="none"
+                    stroke="rgba(0,0,0,0.35)"
+                    strokeWidth="0.5"
+                  />
                   <path
                     d="M0 6 Q5 -6 10 6 Q15 -6 20 6"
                     fill="none"
@@ -207,11 +237,24 @@ const FortuneWheel: React.FC = () => {
                     <fePointLight x="300" y="-100" z="400" />
                   </feSpecularLighting>
                   <feComposite in="spec" in2="SourceAlpha" operator="in" result="specular" />
-                  <feComposite in="SourceGraphic" in2="specular" operator="arithmetic" k1="0" k2="1" k3="1" k4="0" />
+                  <feComposite
+                    in="SourceGraphic"
+                    in2="specular"
+                    operator="arithmetic"
+                    k1="0"
+                    k2="1"
+                    k3="1"
+                    k4="0"
+                  />
                 </filter>
               </defs>
 
-              <circle cx={WHEEL_SIZE / 2} cy={WHEEL_SIZE / 2} r={WHEEL_SIZE / 2 - 5} fill="url(#redLacquer)" />
+              <circle
+                cx={WHEEL_SIZE / 2}
+                cy={WHEEL_SIZE / 2}
+                r={WHEEL_SIZE / 2 - 5}
+                fill="url(#redLacquer)"
+              />
 
               <g>
                 {PRIZES.map((prize, i) => {
@@ -219,10 +262,18 @@ const FortuneWheel: React.FC = () => {
                   const endAngle = (i + 1) * anglePerSegment;
                   const outerR = WHEEL_SIZE / 2 - OUTER_BORDER_WIDTH;
 
-                  const x1 = WHEEL_SIZE / 2 + outerR * Math.cos(((startAngle - 90) * Math.PI) / 180);
-                  const y1 = WHEEL_SIZE / 2 + outerR * Math.sin(((startAngle - 90) * Math.PI) / 180);
-                  const x2 = WHEEL_SIZE / 2 + outerR * Math.cos(((endAngle - 90) * Math.PI) / 180);
-                  const y2 = WHEEL_SIZE / 2 + outerR * Math.sin(((endAngle - 90) * Math.PI) / 180);
+                  const x1 =
+                    WHEEL_SIZE / 2 +
+                    outerR * Math.cos(((startAngle - 90) * Math.PI) / 180);
+                  const y1 =
+                    WHEEL_SIZE / 2 +
+                    outerR * Math.sin(((startAngle - 90) * Math.PI) / 180);
+                  const x2 =
+                    WHEEL_SIZE / 2 +
+                    outerR * Math.cos(((endAngle - 90) * Math.PI) / 180);
+                  const y2 =
+                    WHEEL_SIZE / 2 +
+                    outerR * Math.sin(((endAngle - 90) * Math.PI) / 180);
 
                   const d = `M ${WHEEL_SIZE / 2} ${WHEEL_SIZE / 2} L ${x1} ${y1} A ${outerR} ${outerR} 0 0 1 ${x2} ${y2} Z`;
 
@@ -238,7 +289,11 @@ const FortuneWheel: React.FC = () => {
                         strokeWidth="1"
                       />
 
-                      <g transform={`rotate(${startAngle + anglePerSegment / 2}, ${WHEEL_SIZE / 2}, ${WHEEL_SIZE / 2})`}>
+                      <g
+                        transform={`rotate(${startAngle + anglePerSegment / 2}, ${
+                          WHEEL_SIZE / 2
+                        }, ${WHEEL_SIZE / 2})`}
+                      >
                         <text
                           x={WHEEL_SIZE / 2}
                           y={105}
@@ -302,7 +357,7 @@ const FortuneWheel: React.FC = () => {
             </svg>
           </div>
 
-          {/* SPIN angpow - only before win overlay */}
+          {/* SPIN angpow (only BEFORE win overlay) */}
           <button
             onClick={spin}
             disabled={isSpinning || isLimitReached}
@@ -331,7 +386,7 @@ const FortuneWheel: React.FC = () => {
             </div>
           </button>
 
-          {/* YOU WON angpow - only after stop */}
+          {/* YOU WON angpow (only AFTER stop) */}
           {showAngpowWin && winner && (
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-[46%] z-40">
               <div className="w-24 h-36 xs:w-28 xs:h-40 sm:w-32 sm:h-48 bg-gradient-to-b from-[#ee1c25] via-[#ee1c25] to-[#7f1d1d] rounded-lg sm:rounded-xl shadow-[0_15px_50px_rgba(0,0,0,0.7),_inset_0_2px_15px_rgba(255,255,255,0.4)] border-2 border-white/30 relative flex flex-col items-center justify-center overflow-hidden animate-popIn">
@@ -350,23 +405,23 @@ const FortuneWheel: React.FC = () => {
           )}
         </div>
 
-        {/* ✅ Congratulations message (only after stop) */}
+        {/* ✅ Congratulations message (ONLY after stop) */}
         {showAngpowWin && (
-        <div className="mt-7 text-center px-4">
-  <div className="winKicker">CONGRATULATIONS</div>
+          <div className="mt-7 text-center px-4">
+            <div className="winKicker">CONGRATULATIONS</div>
 
-  <div className="winHeadline">
-    <span className="winGold">YOU WON 100 FREE SPINS</span>
-    <span className="winGoldSub">ON SLOT</span>
-  </div>
+            <div className="winHeadline">
+              <span className="winGold">YOU WON 100 FREE SPINS</span>
+              <span className="winGoldSub">ON SLOT</span>
+            </div>
 
-  <div className="mt-4 cinzel text-[10px] sm:text-xs tracking-[0.45em] uppercase text-[#f9df9d]/70 font-bold">
-    {isLimitReached ? "LIMIT REACHED" : "CLICK THE RED ANGPOW"}
-  </div>
+            <div className="mt-4 cinzel text-[10px] sm:text-xs tracking-[0.45em] uppercase text-[#f9df9d]/70 font-bold">
+              {isLimitReached ? "LIMIT REACHED" : "CLICK THE RED ANGPOW"}
+            </div>
           </div>
         )}
 
-        {/* If not won yet, show the normal helper line */}
+        {/* Helper line before spin/win */}
         {!showAngpowWin && (
           <div className="mt-6 text-center">
             <p className="cinzel text-[10px] sm:text-xs tracking-[0.45em] uppercase text-[#f9df9d]/70 font-bold">
@@ -401,15 +456,89 @@ const FortuneWheel: React.FC = () => {
         }
         .animate-popIn { animation: popIn 420ms cubic-bezier(0.2, 1, 0.3, 1) both; }
 
-        /* ✅ bright gold win text */
-        .goldWinText {
-          background: linear-gradient(180deg, #ffffff 0%, #fff3b0 18%, #fde68a 38%, #fbbf24 62%, #d4af37 100%);
+        /* ✅ Premium win headline */
+        .winKicker{
+          font-family: "Cinzel", serif;
+          font-weight: 700;
+          letter-spacing: 0.55em;
+          text-transform: uppercase;
+          font-size: 12px;
+          opacity: 0.92;
+          color: rgba(255,255,255,0.92);
+          text-shadow:
+            0 2px 10px rgba(0,0,0,0.55),
+            0 0 22px rgba(255,255,255,0.10);
+        }
+        .winHeadline{
+          margin-top: 10px;
+          display: inline-flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 6px;
+          position: relative;
+          padding: 10px 14px;
+        }
+        .winHeadline::before{
+          content:"";
+          position:absolute;
+          inset:-6px -18px;
+          border-radius: 18px;
+          background:
+            radial-gradient(circle at 50% 35%, rgba(255,244,199,0.10), transparent 60%),
+            linear-gradient(180deg, rgba(255,255,255,0.06), rgba(0,0,0,0));
+          box-shadow: inset 0 0 0 1px rgba(255,255,255,0.06);
+          pointer-events:none;
+        }
+        .winGold{
+          font-family: "Cinzel", serif;
+          font-weight: 900;
+          text-transform: uppercase;
+          letter-spacing: 0.08em;
+          font-size: 26px;
+          line-height: 1.05;
+          padding: 2px 6px;
+          background: linear-gradient(
+            180deg,
+            #ffffff 0%,
+            #fff4c9 10%,
+            #fce48a 26%,
+            #fbbf24 55%,
+            #d4af37 78%,
+            #7a5a17 100%
+          );
           -webkit-background-clip: text;
           background-clip: text;
           color: transparent;
           text-shadow:
-            0 0 14px rgba(253, 224, 71, 0.32),
-            0 8px 24px rgba(0, 0, 0, 0.55);
+            0 1px 0 rgba(255,255,255,0.35),
+            0 10px 26px rgba(0,0,0,0.65),
+            0 0 18px rgba(253,224,71,0.25);
+        }
+        .winGoldSub{
+          font-family: "Cinzel", serif;
+          font-weight: 900;
+          text-transform: uppercase;
+          letter-spacing: 0.22em;
+          font-size: 20px;
+          line-height: 1.05;
+          background: linear-gradient(
+            180deg,
+            #ffffff 0%,
+            #fde68a 35%,
+            #f59e0b 70%,
+            #6b4f12 100%
+          );
+          -webkit-background-clip: text;
+          background-clip: text;
+          color: transparent;
+          text-shadow:
+            0 1px 0 rgba(255,255,255,0.30),
+            0 10px 26px rgba(0,0,0,0.65),
+            0 0 16px rgba(253,224,71,0.18);
+        }
+        @media (min-width: 640px){
+          .winGold{ font-size: 34px; }
+          .winGoldSub{ font-size: 26px; }
         }
       `}</style>
     </div>
