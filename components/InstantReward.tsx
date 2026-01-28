@@ -287,40 +287,58 @@ export default function FortuneWheel() {
           </svg>
         </div>
 
-        {/* ✅ Angpow Button — now actually spins */}
-        <button
-          onClick={spin}
-          disabled={isSpinning || isLimitReached}
-          className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-[46%]
-            w-20 h-28 xs:w-24 xs:h-34 sm:w-28 sm:h-40
-            z-40 focus:outline-none transition-transform duration-500
-            ${isSpinning ? "animate-vibrate" : "hover:scale-105 active:scale-95"}
-            ${isLimitReached ? "opacity-70 cursor-not-allowed" : ""}`}
-        >
-          <div
-            className={`w-full h-full bg-gradient-to-b from-[#ee1c25] via-[#ee1c25] to-[#7f1d1d]
-              rounded-lg sm:rounded-xl
-              shadow-[0_10px_30px_rgba(0,0,0,0.55),_inset_0_2px_12px_rgba(255,255,255,0.35)]
-              border-2 border-white/30 relative flex flex-col items-center justify-center overflow-hidden transition-all duration-700`}
-          >
-            <div className="absolute top-0 w-full bg-[#c41212] rounded-b-[18px] sm:rounded-b-[22px] shadow-[0_4px_10px_rgba(0,0,0,0.35)] border-b border-white/20 h-7 sm:h-10 z-20" />
+    {/* ✅ Spin Button (always available until limit reached) */}
+<button
+  onClick={spin}
+  disabled={isSpinning || isLimitReached}
+  className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-[46%]
+    w-20 h-28 xs:w-24 xs:h-34 sm:w-28 sm:h-40
+    z-40 focus:outline-none transition-transform duration-500
+    ${isSpinning ? "animate-vibrate" : "hover:scale-105 active:scale-95"}
+    ${isLimitReached ? "opacity-70 cursor-not-allowed" : ""}`}
+  style={{
+    opacity: showAngpow ? 0 : 1,          // ✅ disappear when angpow appears
+    pointerEvents: showAngpow ? "none" : "auto",
+    transition: "opacity 250ms ease",
+  }}
+>
+  <div className="w-full h-full bg-gradient-to-b from-[#ee1c25] via-[#ee1c25] to-[#7f1d1d]
+    rounded-lg sm:rounded-xl
+    shadow-[0_10px_30px_rgba(0,0,0,0.55),_inset_0_2px_12px_rgba(255,255,255,0.35)]
+    border-2 border-white/30 relative flex flex-col items-center justify-center overflow-hidden">
+    <div className="absolute top-0 w-full bg-[#c41212] rounded-b-[18px] sm:rounded-b-[22px] border-b border-white/20 h-7 sm:h-10 z-20" />
+    <div className="z-30 flex flex-col items-center justify-center mt-2 sm:mt-4 px-2 text-center">
+      <span className="cinzel text-[#f9df9d] text-3xl xs:text-4xl sm:text-5xl font-black mb-1 drop-shadow-[0_2px_5px_rgba(0,0,0,0.45)]">福</span>
+      <span className="montserrat text-[#f9df9d] font-black tracking-widest uppercase text-[9px] xs:text-[10px] sm:text-sm leading-tight drop-shadow-md">
+        SPIN
+      </span>
+    </div>
+    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent skew-x-[-20deg] animate-shimmer-slow pointer-events-none" />
+  </div>
+</button>
 
-            <div className="z-30 flex flex-col items-center justify-center mt-2 sm:mt-4 px-2 text-center">
-              <span className="cinzel text-[#f9df9d] text-3xl xs:text-4xl sm:text-5xl font-black mb-1 drop-shadow-[0_2px_5px_rgba(0,0,0,0.45)]">
-                福
-              </span>
-              <span className="montserrat text-[#f9df9d] font-black tracking-widest uppercase text-[9px] xs:text-[10px] sm:text-sm leading-tight drop-shadow-md">
-                {isLimitReached ? "YOU WON" : "SPIN"}
-              </span>
-            </div>
+{/* ✅ Angpow "YOU WON" overlay ONLY after spin ends */}
+{showAngpow && winnerIndex !== null && (
+  <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-[46%] z-40">
+    <div className="w-24 h-36 xs:w-28 xs:h-40 sm:w-32 sm:h-48
+      bg-gradient-to-b from-[#ee1c25] via-[#ee1c25] to-[#7f1d1d]
+      rounded-lg sm:rounded-xl
+      shadow-[0_15px_50px_rgba(0,0,0,0.7),_inset_0_2px_15px_rgba(255,255,255,0.4)]
+      border-2 border-white/30 relative flex flex-col items-center justify-center overflow-hidden
+      animate-horse-entrance"
+    >
+      <div className="absolute top-0 w-full bg-[#c41212] rounded-b-[18px] sm:rounded-b-[22px] border-b border-white/20 h-8 sm:h-12 z-20" />
+      <div className="z-30 flex flex-col items-center justify-center mt-2 sm:mt-5 px-2 text-center">
+        <span className="cinzel text-[#f9df9d] text-4xl sm:text-5xl font-black mb-1 drop-shadow-[0_2px_5px_rgba(0,0,0,0.5)]">福</span>
+        <span className="montserrat text-[#f9df9d] font-black tracking-widest uppercase text-[10px] sm:text-sm leading-tight drop-shadow-md">
+          YOU WON
+        </span>
+      </div>
+      <div className="absolute inset-0 bg-gradient-to-t from-transparent via-white/20 to-transparent animate-shimmer-fast pointer-events-none" />
+    </div>
+  </div>
+)}
 
-            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent skew-x-[-20deg] animate-shimmer-slow pointer-events-none" />
-          </div>
-
-          {!isSpinning && !isLimitReached && (
-            <div className="absolute inset-[-10px] sm:inset-[-12px] rounded-2xl border-2 border-[#ee1c25]/35 animate-ping pointer-events-none" />
-          )}
-        </button>
 
         {/* Winner text (optional) */}
         {winnerIndex !== null && (
