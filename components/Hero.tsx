@@ -110,44 +110,7 @@ const Hero: React.FC<{ onOpenTutorial: () => void }> = ({ onOpenTutorial }) => {
           <CountdownTimer pageVariant="cny_visual_v2" />
         </motion.div>
 
-        {/* ✅ Benefits = “button bullets” (premium outline) */}
-        <motion.div variants={item} className="w-full mb-10">
-          <div className="mx-auto w-full max-w-[560px] rounded-3xl border border-white/10 bg-black/15 backdrop-blur-xl p-4 sm:p-5 shadow-[0_18px_70px_rgba(0,0,0,0.55)]">
-            <div className="text-[10px] tracking-[0.45em] uppercase font-black text-[#F9F295]/75 mb-3">
-              MEMBER BENEFITS
-            </div>
-
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-              {[
-                "Instant Credit to your account",
-                "3 Min Withdrawal",
-                "VIP tier 24/7 customer service",
-              ].map((t) => (
-                <div
-                  key={t}
-                  className="group rounded-2xl p-[1px]"
-                  style={{
-                    background:
-                      "linear-gradient(90deg, rgba(249,242,149,0.55), rgba(224,170,62,0.55), rgba(250,243,152,0.55), rgba(184,138,68,0.55))",
-                  }}
-                >
-                  <div className="rounded-2xl px-4 py-3 bg-[#240202]/85 border border-black/30 shadow-[inset_0_1px_0_rgba(255,255,255,0.08)] transition-transform duration-200 group-hover:scale-[1.01]">
-                    <div className="flex items-start gap-2.5">
-                      <span className="mt-[2px] text-[#F9F295] font-black">•</span>
-                      <span className="text-white/88 font-extrabold tracking-wide text-[12px] sm:text-[11px] leading-snug">
-                        {t}
-                      </span>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-
-            <div className="mt-4 text-[10px] tracking-[0.45em] uppercase font-bold text-[#F9F295]/65">
-              Spin the demo wheel below ↓
-            </div>
-          </div>
-        </motion.div>
+    
 
         {/* CTA */}
         <motion.div variants={item} className="w-full relative group">
