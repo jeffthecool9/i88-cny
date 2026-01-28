@@ -132,7 +132,7 @@ const InstantReward: React.FC = () => {
   return (
     <section className="relative w-full max-w-[560px] mx-auto px-4 pt-10 pb-10">
       {/* =============================
-          CNY INTRO (WITH BULLETS)
+          CNY INTRO (WITH GOLD BUTTONS)
       ============================= */}
       <div className="relative text-center rounded-[28px] p-6 sm:p-7 overflow-hidden border border-[#F9F295]/18 bg-black/10 shadow-[0_18px_80px_rgba(0,0,0,0.55)]">
         {/* background glow */}
@@ -165,17 +165,23 @@ const InstantReward: React.FC = () => {
           </h2>
 
           <p className="mt-3 text-sm sm:text-base text-white/78 leading-relaxed max-w-[440px] mx-auto">
-            Deposit & play — rewards are credited fast. Spin the wheel to reveal
+            Deposit & play — rewards are credited instantly. Spin the wheel to reveal
             your welcome reward.
           </p>
 
-          {/* ✅ EXACT bullet format */}
-          <div className="mt-6 max-w-[420px] mx-auto text-left">
-            <ul className="space-y-2 bulletList">
-              <li>- Instant Credit to your account</li>
-              <li>- 3 Min Withdrawal</li>
-              <li>- VIP tier 24/7 customer service</li>
-            </ul>
+          {/* ✅ REPLACED: 3 GOLD BUTTONS (reference style) */}
+          <div className="mt-6 max-w-[460px] mx-auto flex flex-col gap-3">
+            <div className="goldPill">
+              <span className="goldPillText">Instant Credit to your account</span>
+            </div>
+
+            <div className="goldPill">
+              <span className="goldPillText">3 Min Withdrawal</span>
+            </div>
+
+            <div className="goldPill">
+              <span className="goldPillText">VIP tier 24/7 customer service</span>
+            </div>
           </div>
 
           <div className="mt-6 text-[11px] tracking-[0.45em] uppercase font-bold text-[#F9F295]/70">
@@ -189,7 +195,11 @@ const InstantReward: React.FC = () => {
       ============================= */}
       <div className="relative mt-8 sm:mt-10">
         {/* glow behind wheel */}
-        <div className={`absolute inset-0 -z-10 rounded-[40px] ${showWin ? "winGlow" : "baseGlow"}`} />
+        <div
+          className={`absolute inset-0 -z-10 rounded-[40px] ${
+            showWin ? "winGlow" : "baseGlow"
+          }`}
+        />
 
         {/* pointer */}
         <div className="absolute -top-8 left-1/2 -translate-x-1/2 z-40 drop-shadow-[0_10px_24px_rgba(0,0,0,0.55)]">
@@ -208,7 +218,10 @@ const InstantReward: React.FC = () => {
                 : "none",
             }}
           >
-            <svg viewBox={`0 0 ${WHEEL_SIZE} ${WHEEL_SIZE}`} className="w-full h-full overflow-visible">
+            <svg
+              viewBox={`0 0 ${WHEEL_SIZE} ${WHEEL_SIZE}`}
+              className="w-full h-full overflow-visible"
+            >
               <defs>
                 <radialGradient id="redLacquerV2" cx="50%" cy="45%" r="60%">
                   <stop offset="0%" stopColor="#ff3b3b" />
@@ -216,7 +229,13 @@ const InstantReward: React.FC = () => {
                   <stop offset="100%" stopColor="#5a0606" />
                 </radialGradient>
 
-                <linearGradient id="goldRimV2" x1="0%" y1="0%" x2="100%" y2="100%">
+                <linearGradient
+                  id="goldRimV2"
+                  x1="0%"
+                  y1="0%"
+                  x2="100%"
+                  y2="100%"
+                >
                   <stop offset="0%" stopColor="#F9F295" />
                   <stop offset="28%" stopColor="#E0AA3E" />
                   <stop offset="55%" stopColor="#FAF398" />
@@ -224,8 +243,20 @@ const InstantReward: React.FC = () => {
                   <stop offset="100%" stopColor="#B88A44" />
                 </linearGradient>
 
-                <pattern id="rimPatternV2" x="0" y="0" width="18" height="10" patternUnits="userSpaceOnUse">
-                  <path d="M0 10 Q4 0 9 10 Q14 0 18 10" fill="none" stroke="rgba(0,0,0,0.25)" strokeWidth="0.6" />
+                <pattern
+                  id="rimPatternV2"
+                  x="0"
+                  y="0"
+                  width="18"
+                  height="10"
+                  patternUnits="userSpaceOnUse"
+                >
+                  <path
+                    d="M0 10 Q4 0 9 10 Q14 0 18 10"
+                    fill="none"
+                    stroke="rgba(0,0,0,0.25)"
+                    strokeWidth="0.6"
+                  />
                 </pattern>
 
                 <radialGradient id="glossV2" cx="35%" cy="25%" r="70%">
@@ -243,17 +274,30 @@ const InstantReward: React.FC = () => {
                 </filter>
               </defs>
 
-              <circle cx={WHEEL_SIZE / 2} cy={WHEEL_SIZE / 2} r={WHEEL_SIZE / 2 - 6} fill="url(#redLacquerV2)" />
+              <circle
+                cx={WHEEL_SIZE / 2}
+                cy={WHEEL_SIZE / 2}
+                r={WHEEL_SIZE / 2 - 6}
+                fill="url(#redLacquerV2)"
+              />
 
               {PRIZES.map((p, i) => {
                 const start = i * anglePerSegment;
                 const end = (i + 1) * anglePerSegment;
                 const r = WHEEL_SIZE / 2 - OUTER_BORDER_WIDTH;
 
-                const x1 = WHEEL_SIZE / 2 + r * Math.cos(((start - 90) * Math.PI) / 180);
-                const y1 = WHEEL_SIZE / 2 + r * Math.sin(((start - 90) * Math.PI) / 180);
-                const x2 = WHEEL_SIZE / 2 + r * Math.cos(((end - 90) * Math.PI) / 180);
-                const y2 = WHEEL_SIZE / 2 + r * Math.sin(((end - 90) * Math.PI) / 180);
+                const x1 =
+                  WHEEL_SIZE / 2 +
+                  r * Math.cos(((start - 90) * Math.PI) / 180);
+                const y1 =
+                  WHEEL_SIZE / 2 +
+                  r * Math.sin(((start - 90) * Math.PI) / 180);
+                const x2 =
+                  WHEEL_SIZE / 2 +
+                  r * Math.cos(((end - 90) * Math.PI) / 180);
+                const y2 =
+                  WHEEL_SIZE / 2 +
+                  r * Math.sin(((end - 90) * Math.PI) / 180);
 
                 const d = `M ${WHEEL_SIZE / 2} ${WHEEL_SIZE / 2} L ${x1} ${y1} A ${r} ${r} 0 0 1 ${x2} ${y2} Z`;
 
@@ -271,7 +315,11 @@ const InstantReward: React.FC = () => {
                       strokeWidth="1"
                     />
 
-                    <g transform={`rotate(${start + anglePerSegment / 2}, ${WHEEL_SIZE / 2}, ${WHEEL_SIZE / 2})`}>
+                    <g
+                      transform={`rotate(${
+                        start + anglePerSegment / 2
+                      }, ${WHEEL_SIZE / 2}, ${WHEEL_SIZE / 2})`}
+                    >
                       <text
                         x={WHEEL_SIZE / 2}
                         y={110}
@@ -286,7 +334,11 @@ const InstantReward: React.FC = () => {
                         x={WHEEL_SIZE / 2}
                         y={130}
                         textAnchor="middle"
-                        fill={isWinnerSlice ? "rgba(255,255,255,0.95)" : "rgba(255,255,255,0.82)"}
+                        fill={
+                          isWinnerSlice
+                            ? "rgba(255,255,255,0.95)"
+                            : "rgba(255,255,255,0.82)"
+                        }
                         className="font-bold text-[9px] tracking-[0.22em] uppercase"
                       >
                         {p.value}
@@ -296,7 +348,13 @@ const InstantReward: React.FC = () => {
                 );
               })}
 
-              <circle cx={WHEEL_SIZE / 2} cy={WHEEL_SIZE / 2} r={WHEEL_SIZE / 2 - 12} fill="url(#glossV2)" opacity={0.8} />
+              <circle
+                cx={WHEEL_SIZE / 2}
+                cy={WHEEL_SIZE / 2}
+                r={WHEEL_SIZE / 2 - 12}
+                fill="url(#glossV2)"
+                opacity={0.8}
+              />
 
               <circle
                 cx={WHEEL_SIZE / 2}
@@ -362,7 +420,7 @@ const InstantReward: React.FC = () => {
 
               <div className="mt-4 inline-flex items-center justify-center gap-2 px-5 py-3 rounded-full goldButton">
                 <span className="text-[11px] sm:text-xs font-black tracking-[0.35em] uppercase text-black/90">
-                  TAP TO CLAIM NOW
+                 Register & Deposit Now
                 </span>
                 <span className="text-black/85 font-black">→</span>
               </div>
@@ -380,23 +438,29 @@ const InstantReward: React.FC = () => {
           text-shadow: 0 10px 40px rgba(0,0,0,0.65), 0 0 18px rgba(253,224,71,0.22);
         }
 
-        /* ✅ Bullet style: EXACT format, premium */
-        .bulletList{
-          font-weight: 800;
-          letter-spacing: 0.06em;
-          color: rgba(255,255,255,0.82);
-          font-size: 12px;
-          line-height: 1.6;
-          padding: 14px 16px;
-          border-radius: 16px;
-          border: 1px solid rgba(249,242,149,0.16);
-          background: rgba(0,0,0,0.18);
-          box-shadow: inset 0 1px 0 rgba(255,255,255,0.06);
+        /* ✅ The 3 gold buttons (reference style) */
+        .goldPill{
+          width: 100%;
+          padding: 14px 18px;
+          border-radius: 999px;
+          background: linear-gradient(90deg,#F9F295,#E0AA3E,#FAF398,#B88A44);
+          box-shadow:
+            inset 0 1px 0 rgba(255,255,255,0.65),
+            0 12px 40px rgba(0,0,0,0.45);
+          border: 1px solid rgba(0,0,0,0.18);
+        }
+        .goldPillText{
+          display:block;
+          font-weight: 900;
+          letter-spacing: 0.18em;
+          text-transform: uppercase;
+          color: rgba(0,0,0,0.82);
+          font-size: 11px;
+          line-height: 1.2;
+          text-align: center;
         }
         @media (min-width: 640px){
-          .bulletList{
-            font-size: 13px;
-          }
+          .goldPillText{ font-size: 12px; }
         }
 
         .baseGlow{
