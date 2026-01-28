@@ -352,20 +352,17 @@ const FortuneWheel: React.FC = () => {
 
         {/* ✅ Congratulations message (only after stop) */}
         {showAngpowWin && (
-          <div className="mt-6 text-center px-4">
-            <div className="cinzel text-[12px] sm:text-sm tracking-[0.45em] uppercase text-white/90">
-              CONGRATULATIONS
-            </div>
+        <div className="mt-7 text-center px-4">
+  <div className="winKicker">CONGRATULATIONS</div>
 
-            <div className="mt-2 cinzel text-xl sm:text-2xl font-black tracking-wide">
-              <span className="goldWinText">
-                You won 100 FREE SPINS on SLOT
-              </span>
-            </div>
+  <div className="winHeadline">
+    <span className="winGold">YOU WON 100 FREE SPINS</span>
+    <span className="winGoldSub">ON SLOT</span>
+  </div>
 
-            <div className="mt-3 cinzel text-[10px] sm:text-xs tracking-[0.45em] uppercase text-[#f9df9d]/70 font-bold">
-              {isLimitReached ? "LIMIT REACHED" : "CLICK THE RED ANGPOW"}
-            </div>
+  <div className="mt-4 cinzel text-[10px] sm:text-xs tracking-[0.45em] uppercase text-[#f9df9d]/70 font-bold">
+    {isLimitReached ? "LIMIT REACHED" : "CLICK THE RED ANGPOW"}
+  </div>
           </div>
         )}
 
