@@ -2,9 +2,8 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Hero from './components/Hero.tsx';
-import AboutSection from './components/AboutSection.tsx';
-import InstantReward from './components/InstantReward.tsx';
 import PromosSection from './components/PromosSection.tsx';
+import InstantReward from './components/InstantReward.tsx';
 import HowToJoin from './components/HowToJoin.tsx';
 import MiniGame from './components/MiniGame.tsx';
 
