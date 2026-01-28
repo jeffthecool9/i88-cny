@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import Hero from './components/Hero.tsx';
 import InstantReward from './components/InstantReward.tsx';
 import HowToJoin from './components/HowToJoin.tsx';
-import MiniGame from './components/MiniGame.tsx';
+
 
 const StickyHeader: React.FC<{ visible: boolean }> = ({ visible }) => (
   <AnimatePresence>
@@ -60,14 +60,6 @@ const App: React.FC = () => {
         <div id="how-to-join" className="bg-gradient-to-b from-[#450a0a] to-[#1a0101]">
            <HowToJoin />
         </div>
-
-        <MiniGame 
-          isOpen={isGameOpen}
-          onClose={() => setIsGameOpen(false)}
-          onTicketUse={() => setTickets(p => Math.max(0, p-1))}
-          tickets={tickets}
-          onRefill={() => setTickets(3)}
-        />
       
 
         <footer className="bg-[#000a12] pt-20 pb-40 px-10 text-center border-t border-white/5">
