@@ -128,7 +128,7 @@ const Hero: React.FC<{ onOpenTutorial: () => void }> = ({ onOpenTutorial }) => {
               borderBottomColor: "#6a4f1a",
             }}
           >
-            Visit The Event
+            Pre-Register Now
           </button>
 
           <div className="mt-4 text-[10px] tracking-[0.45em] uppercase font-bold text-white/70">
