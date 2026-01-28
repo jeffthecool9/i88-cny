@@ -92,23 +92,39 @@ const InstantReward: React.FC = () => {
   }, []);
 
   const spin = () => {
-    if (isSpinning || isLimitReached) return;
+  if (isSpinning || isLimitReached) return;
 
-    setIsSpinning(true);
-    setShowWin(false);
-    finishedRef.current = false;
+  setIsSpinning(true);
+  setShowWin(false);
+  finishedRef.current = false;
 
-    const segmentOffset = anglePerSegment / 2;
-    const targetAngle = 360 - forcedWinIndex * anglePerSegment - segmentOffset;
+  const segments = PRIZES.length;
+  const anglePerSegment = 360 / segments;
 
-    const current = rotationRef.current % 360;
-    const delta = (targetAngle - current + 360) % 360;
+  // 🎯 center of the winning slice
+  const targetSliceCenter =
+    FORCED_WIN_INDEX * anglePerSegment + anglePerSegment / 2;
 
-    const finalRotation = rotationRef.current + 8 * 360 + delta;
+  /**
+   * Pointer is at 0deg (top).
+   * SVG wheels start at 3 o’clock, so we subtract 90deg.
+   */
+  const targetRotation = 360 - targetSliceCenter - 90;
 
-    rotationRef.current = finalRotation;
-    setRotation(finalRotation);
-  };
+  const currentRotation = rotationRef.current % 360;
+  const delta =
+    (targetRotation - currentRotation + 360) % 360;
+
+  // extra spins for drama
+  const extraSpins = 8;
+
+  const finalRotation =
+    rotationRef.current + extraSpins * 360 + delta;
+
+  rotationRef.current = finalRotation;
+  setRotation(finalRotation);
+};
+
 
   useEffect(() => {
     const el = wheelRef.current;
