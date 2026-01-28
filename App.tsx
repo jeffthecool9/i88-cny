@@ -77,7 +77,7 @@ const App: React.FC = () => {
             Official i88 Digital Entertainment
           </p>
           <p className="text-[#FF5F5F] text-xs leading-relaxed uppercase tracking-[0.2em] max-w-sm mx-auto">
-            Operating Since 2017 • Serving Malaysia & Singapore for 9 Consecutive Years. Verified Regional Service. 18+ Only.
+            Operating Since 2017 • Serving Malaysia for 9 Consecutive Years. Verified Regional Service. 21+ Only.
           </p>
         </footer>
 
