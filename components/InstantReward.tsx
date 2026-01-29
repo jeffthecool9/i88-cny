@@ -98,35 +98,27 @@ const InstantReward: React.FC = () => {
    * - Our wheel slices start from 12 o’clock because we subtract 90deg in slice math.
    * - We want the CENTER of the slice to align with pointer.
    */
-  const spin = () => {
-    if (isSpinning || isLimitReached) return;
+ const spin = () => {
+  if (isSpinning || isLimitReached) return;
 
-    setIsSpinning(true);
-    setShowWin(false);
-    finishedRef.current = false;
+  setIsSpinning(true);
+  setShowWin(false);
+  finishedRef.current = false;
 
-    // center angle of target slice in wheel coordinates (starting at 12 o'clock)
-    const targetCenter = forcedWinIndex * anglePerSegment + anglePerSegment / 2;
+  // ✅ pointer is fixed at top (0deg in our wheel coordinate system)
+  // ✅ we want the TOP divider line to be the START of "100 FREE SPINS" slice
+  const desired = (360 - forcedWinIndex * anglePerSegment) % 360;
 
-    /**
-     * Our slice construction uses (angle - 90) when computing points,
-     * meaning "0" slice starts at 12 o'clock visually.
-     * So the wheel "visual" angle for the slice center is targetCenter.
-     *
-     * To bring that center to the pointer at top, we rotate wheel by:
-     *    finalAngle = 360 - targetCenter
-     */
-    const desired = (360 - targetCenter) % 360;
+  const current = ((rotationRef.current % 360) + 360) % 360;
+  const delta = (desired - current + 360) % 360;
 
-    const current = ((rotationRef.current % 360) + 360) % 360;
-    const delta = (desired - current + 360) % 360;
+  const extraSpins = 8; // drama spins
+  const finalRotation = rotationRef.current + extraSpins * 360 + delta;
 
-    const extraSpins = 8; // drama
-    const finalRotation = rotationRef.current + extraSpins * 360 + delta;
+  rotationRef.current = finalRotation;
+  setRotation(finalRotation);
+};
 
-    rotationRef.current = finalRotation;
-    setRotation(finalRotation);
-  };
 
   useEffect(() => {
     const el = wheelRef.current;
