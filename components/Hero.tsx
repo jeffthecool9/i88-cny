@@ -52,17 +52,17 @@ const Hero: React.FC<{ onOpenTutorial: () => void }> = () => {
         className="relative z-10 flex flex-col items-center text-center px-6 w-full max-w-xl"
       >
         {/* Logo */}
-        <motion.div variants={item} className="mb-9">
-          <div className="h-14 px-6 py-2 bg-white/5 backdrop-blur-xl rounded-2xl border border-white/10 shadow-2xl flex items-center justify-center">
-           <img
-  src="/i88-logo.png"
-  alt="i88"
-  className="h-8 sm:h-10 w-auto object-contain"
-  draggable={false}
-/>
+      <motion.div variants={item} className="mb-9">
+  <div className="px-6 py-3 rounded-2xl bg-white/5 backdrop-blur-xl border border-white/10 shadow-[0_10px_40px_rgba(0,0,0,0.45)]">
+    <img
+      src="/i88-logo.png"
+      alt="i88"
+      className="h-9 sm:h-11 w-auto object-contain"
+      draggable={false}
+    />
+  </div>
+</motion.div>
 
-          </div>
-        </motion.div>
 
         {/* Title */}
         <motion.div variants={item} className="mb-10">
