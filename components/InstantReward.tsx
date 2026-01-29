@@ -41,7 +41,13 @@ function SimplePointer() {
             <stop offset="78%" stopColor="#E0AA3E" />
             <stop offset="100%" stopColor="#B88A44" />
           </linearGradient>
-          <filter id="ptrShadow2" x="-30%" y="-30%" width="160%" height="160%">
+          <filter
+            id="ptrShadow2"
+            x="-30%"
+            y="-30%"
+            width="160%"
+            height="160%"
+          >
             <feGaussianBlur in="SourceAlpha" stdDeviation="3" result="blur" />
             <feOffset dx="0" dy="5" result="off" />
             <feFlood floodColor="black" floodOpacity="0.55" result="col" />
@@ -93,32 +99,45 @@ const InstantReward: React.FC = () => {
   }, []);
 
   /**
-   * ✅ Correct spin math (pointer always lands on forced slice after spin)
-   * - Pointer is at top (0deg).
-   * - Our wheel slices start from 12 o’clock because we subtract 90deg in slice math.
-   * - We want the CENTER of the slice to align with pointer.
+   * ✅ Correct spin math (GUARANTEED align pointer to the CENTER of the forced slice)
+   *
+   * Important: Your wedges are drawn using (start - 90).
+   * That means slice 0 starts at 12 o'clock (top).
+   *
+   * Pointer is at top. We want pointer to land at the CENTER of slice.
    */
- const spin = () => {
-  if (isSpinning || isLimitReached) return;
+  const spin = () => {
+    if (isSpinning || isLimitReached) return;
 
-  setIsSpinning(true);
-  setShowWin(false);
-  finishedRef.current = false;
+    setIsSpinning(true);
+    setShowWin(false);
+    finishedRef.current = false;
 
-  // ✅ pointer is fixed at top (0deg in our wheel coordinate system)
-  // ✅ we want the TOP divider line to be the START of "100 FREE SPINS" slice
-  const desired = (360 - forcedWinIndex * anglePerSegment) % 360;
+    // If pointer tip isn't perfectly centered, adjust ± degrees here
+    const TUNE_DEG = 0; // try +4 or -4 if you want micro alignment
 
-  const current = ((rotationRef.current % 360) + 360) % 360;
-  const delta = (desired - current + 360) % 360;
+    // Center angle of the forced slice in "wheel slice coordinate"
+    const targetCenter =
+      forcedWinIndex * anglePerSegment + anglePerSegment / 2;
 
-  const extraSpins = 8; // drama spins
-  const finalRotation = rotationRef.current + extraSpins * 360 + delta;
+    /**
+     * Our slice math uses (start - 90) when drawing.
+     * That effectively shifts everything so slice 0 is at the top.
+     *
+     * To align the CENTER under the pointer at top:
+     * desiredRotation = 360 - targetCenter + TUNE
+     */
+    const desired = (360 - targetCenter + TUNE_DEG) % 360;
 
-  rotationRef.current = finalRotation;
-  setRotation(finalRotation);
-};
+    const current = ((rotationRef.current % 360) + 360) % 360;
+    const delta = (desired - current + 360) % 360;
 
+    const extraSpins = 8;
+    const finalRotation = rotationRef.current + extraSpins * 360 + delta;
+
+    rotationRef.current = finalRotation;
+    setRotation(finalRotation);
+  };
 
   useEffect(() => {
     const el = wheelRef.current;
@@ -268,7 +287,13 @@ const InstantReward: React.FC = () => {
                   <stop offset="100%" stopColor="rgba(255,255,255,0)" />
                 </radialGradient>
 
-                <filter id="winBloomV2" x="-80%" y="-80%" width="260%" height="260%">
+                <filter
+                  id="winBloomV2"
+                  x="-80%"
+                  y="-80%"
+                  width="260%"
+                  height="260%"
+                >
                   <feGaussianBlur stdDeviation="10" result="blur" />
                   <feMerge>
                     <feMergeNode in="blur" />
@@ -307,7 +332,10 @@ const InstantReward: React.FC = () => {
                 const isWinnerSlice = showWin && i === forcedWinIndex;
 
                 return (
-                  <g key={p.id} filter={isWinnerSlice ? "url(#winBloomV2)" : "none"}>
+                  <g
+                    key={p.id}
+                    filter={isWinnerSlice ? "url(#winBloomV2)" : "none"}
+                  >
                     <path d={d} fill={p.color} opacity={0.98} />
                     <line
                       x1={WHEEL_SIZE / 2}
