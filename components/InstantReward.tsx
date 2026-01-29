@@ -84,6 +84,7 @@ const InstantReward: React.FC = () => {
   const anglePerSegment = 360 / segments;
   const isLimitReached = spinsUsed >= MAX_SPINS;
 
+  // ✅ Always win "100 FREE SPINS"
   const forcedWinIndex = useMemo(() => {
     const idx = PRIZES.findIndex(
       (p) => p.label.trim().toUpperCase() === "100 FREE SPINS"
@@ -91,40 +92,41 @@ const InstantReward: React.FC = () => {
     return idx >= 0 ? idx : 0;
   }, []);
 
-  const spin = () => {
-  if (isSpinning || isLimitReached) return;
-
-  setIsSpinning(true);
-  setShowWin(false);
-  finishedRef.current = false;
-
-  const segments = PRIZES.length;
-  const anglePerSegment = 360 / segments;
-
-  // 🎯 center of the winning slice
-  const targetSliceCenter =
-    FORCED_WIN_INDEX * anglePerSegment + anglePerSegment / 2;
-
   /**
-   * Pointer is at 0deg (top).
-   * SVG wheels start at 3 o’clock, so we subtract 90deg.
+   * ✅ Correct spin math (pointer always lands on forced slice after spin)
+   * - Pointer is at top (0deg).
+   * - Our wheel slices start from 12 o’clock because we subtract 90deg in slice math.
+   * - We want the CENTER of the slice to align with pointer.
    */
-  const targetRotation = 360 - targetSliceCenter - 90;
+  const spin = () => {
+    if (isSpinning || isLimitReached) return;
 
-  const currentRotation = rotationRef.current % 360;
-  const delta =
-    (targetRotation - currentRotation + 360) % 360;
+    setIsSpinning(true);
+    setShowWin(false);
+    finishedRef.current = false;
 
-  // extra spins for drama
-  const extraSpins = 8;
+    // center angle of target slice in wheel coordinates (starting at 12 o'clock)
+    const targetCenter = forcedWinIndex * anglePerSegment + anglePerSegment / 2;
 
-  const finalRotation =
-    rotationRef.current + extraSpins * 360 + delta;
+    /**
+     * Our slice construction uses (angle - 90) when computing points,
+     * meaning "0" slice starts at 12 o'clock visually.
+     * So the wheel "visual" angle for the slice center is targetCenter.
+     *
+     * To bring that center to the pointer at top, we rotate wheel by:
+     *    finalAngle = 360 - targetCenter
+     */
+    const desired = (360 - targetCenter) % 360;
 
-  rotationRef.current = finalRotation;
-  setRotation(finalRotation);
-};
+    const current = ((rotationRef.current % 360) + 360) % 360;
+    const delta = (desired - current + 360) % 360;
 
+    const extraSpins = 8; // drama
+    const finalRotation = rotationRef.current + extraSpins * 360 + delta;
+
+    rotationRef.current = finalRotation;
+    setRotation(finalRotation);
+  };
 
   useEffect(() => {
     const el = wheelRef.current;
@@ -151,7 +153,6 @@ const InstantReward: React.FC = () => {
           CNY INTRO (WITH GOLD BUTTONS)
       ============================= */}
       <div className="relative text-center rounded-[28px] p-6 sm:p-7 overflow-hidden border border-[#F9F295]/18 bg-black/10 shadow-[0_18px_80px_rgba(0,0,0,0.55)]">
-        {/* background glow */}
         <div className="pointer-events-none absolute inset-0">
           <div className="absolute -top-24 left-1/2 -translate-x-1/2 w-[520px] h-[520px] rounded-full bg-[#ff1f2d]/25 blur-[90px]" />
           <div className="absolute -bottom-28 left-1/2 -translate-x-1/2 w-[620px] h-[620px] rounded-full bg-[#F9F295]/10 blur-[120px]" />
@@ -181,20 +182,17 @@ const InstantReward: React.FC = () => {
           </h2>
 
           <p className="mt-3 text-sm sm:text-base text-white/78 leading-relaxed max-w-[440px] mx-auto">
-            Deposit & play — rewards are credited instantly. Spin the wheel to reveal
-            your welcome reward.
+            Deposit & play — rewards are credited instantly. Spin the wheel to
+            reveal your welcome reward.
           </p>
 
-          {/* ✅ REPLACED: 3 GOLD BUTTONS (reference style) */}
           <div className="mt-6 max-w-[460px] mx-auto flex flex-col gap-3">
             <div className="goldPill">
               <span className="goldPillText">Instant Credit to your account</span>
             </div>
-
             <div className="goldPill">
               <span className="goldPillText">3 Minute Withdrawal</span>
             </div>
-
             <div className="goldPill">
               <span className="goldPillText">VIP tier 24/7 customer service</span>
             </div>
@@ -210,19 +208,16 @@ const InstantReward: React.FC = () => {
           WHEEL (V2 LOOK)
       ============================= */}
       <div className="relative mt-8 sm:mt-10">
-        {/* glow behind wheel */}
         <div
           className={`absolute inset-0 -z-10 rounded-[40px] ${
             showWin ? "winGlow" : "baseGlow"
           }`}
         />
 
-        {/* pointer */}
         <div className="absolute -top-8 left-1/2 -translate-x-1/2 z-40 drop-shadow-[0_10px_24px_rgba(0,0,0,0.55)]">
           <SimplePointer />
         </div>
 
-        {/* wheel wrapper */}
         <div className="relative aspect-square rounded-[40px] overflow-visible">
           <div
             ref={wheelRef}
@@ -330,7 +325,6 @@ const InstantReward: React.FC = () => {
                       stroke="rgba(255,255,255,0.14)"
                       strokeWidth="1"
                     />
-
                     <g
                       transform={`rotate(${
                         start + anglePerSegment / 2
@@ -416,7 +410,6 @@ const InstantReward: React.FC = () => {
           )}
         </div>
 
-        {/* WIN CTA */}
         {showWin && (
           <a
             href={CTA_URL}
@@ -436,7 +429,7 @@ const InstantReward: React.FC = () => {
 
               <div className="mt-4 inline-flex items-center justify-center gap-2 px-5 py-3 rounded-full goldButton">
                 <span className="text-[11px] sm:text-xs font-black tracking-[0.35em] uppercase text-black/90">
-                 Register & Deposit
+                  Register & Deposit
                 </span>
                 <span className="text-black/85 font-black">→</span>
               </div>
@@ -446,6 +439,13 @@ const InstantReward: React.FC = () => {
       </div>
 
       <style>{`
+        @keyframes vibrate {
+          0%, 100% { transform: translate(-50%, -50%) rotate(0deg); }
+          25% { transform: translate(calc(-50% + 1px), calc(-50% + 1px)) rotate(0.35deg); }
+          75% { transform: translate(calc(-50% - 1px), calc(-50% - 1px)) rotate(-0.35deg); }
+        }
+        .animate-vibrate { animation: vibrate 0.18s linear infinite; }
+
         .goldTitle{
           background: linear-gradient(180deg,#fff,#FAF398 18%,#F9F295 42%,#E0AA3E 72%,#B88A44);
           -webkit-background-clip:text;
@@ -454,15 +454,12 @@ const InstantReward: React.FC = () => {
           text-shadow: 0 10px 40px rgba(0,0,0,0.65), 0 0 18px rgba(253,224,71,0.22);
         }
 
-        /* ✅ The 3 gold buttons (reference style) */
         .goldPill{
           width: 100%;
           padding: 14px 18px;
           border-radius: 999px;
           background: linear-gradient(90deg,#F9F295,#E0AA3E,#FAF398,#B88A44);
-          box-shadow:
-            inset 0 1px 0 rgba(255,255,255,0.65),
-            0 12px 40px rgba(0,0,0,0.45);
+          box-shadow: inset 0 1px 0 rgba(255,255,255,0.65), 0 12px 40px rgba(0,0,0,0.45);
           border: 1px solid rgba(0,0,0,0.18);
         }
         .goldPillText{
