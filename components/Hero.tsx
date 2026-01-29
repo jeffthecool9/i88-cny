@@ -54,12 +54,13 @@ const Hero: React.FC<{ onOpenTutorial: () => void }> = () => {
         {/* Logo */}
         <motion.div variants={item} className="mb-9">
           <div className="h-14 px-6 py-2 bg-white/5 backdrop-blur-xl rounded-2xl border border-white/10 shadow-2xl flex items-center justify-center">
-            <img
-              src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e4/Cloud9_logo.svg/2560px-Cloud9_logo.svg.png"
-              alt="i88"
-              className="h-full w-auto"
-              draggable={false}
-            />
+           <img
+  src="/i88-logo.png"
+  alt="i88"
+  className="h-8 sm:h-10 w-auto object-contain"
+  draggable={false}
+/>
+
           </div>
         </motion.div>
 
