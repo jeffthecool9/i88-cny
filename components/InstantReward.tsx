@@ -106,38 +106,34 @@ const InstantReward: React.FC = () => {
    *
    * Pointer is at top. We want pointer to land at the CENTER of slice.
    */
-  const spin = () => {
-    if (isSpinning || isLimitReached) return;
+ const spin = () => {
+  if (isSpinning || isLimitReached) return;
 
-    setIsSpinning(true);
-    setShowWin(false);
-    finishedRef.current = false;
+  setIsSpinning(true);
+  setShowWin(false);
+  finishedRef.current = false;
 
-    // If pointer tip isn't perfectly centered, adjust ± degrees here
-    const TUNE_DEG = 0; // try +4 or -4 if you want micro alignment
+  // If you ever need micro-adjustment: try +3 / -3
+  const TUNE_DEG = 0;
 
-    // Center angle of the forced slice in "wheel slice coordinate"
-    const targetCenter =
-      forcedWinIndex * anglePerSegment + anglePerSegment / 2;
+  // ✅ We want the CENTER of the winning slice at the POINTER (top)
+  const targetCenter =
+    forcedWinIndex * anglePerSegment + anglePerSegment / 2;
 
-    /**
-     * Our slice math uses (start - 90) when drawing.
-     * That effectively shifts everything so slice 0 is at the top.
-     *
-     * To align the CENTER under the pointer at top:
-     * desiredRotation = 360 - targetCenter + TUNE
-     */
-    const desired = (360 - targetCenter + TUNE_DEG) % 360;
+  // ✅ Pointer is at 0° (top). To bring targetCenter to 0°:
+  // desiredRotation ≡ -targetCenter (mod 360)
+  const desired = (360 - targetCenter + TUNE_DEG) % 360;
 
-    const current = ((rotationRef.current % 360) + 360) % 360;
-    const delta = (desired - current + 360) % 360;
+  const current = ((rotationRef.current % 360) + 360) % 360;
+  const delta = (desired - current + 360) % 360;
 
-    const extraSpins = 8;
-    const finalRotation = rotationRef.current + extraSpins * 360 + delta;
+  const extraSpins = 8; // keep your drama spins
+  const finalRotation = rotationRef.current + extraSpins * 360 + delta;
 
-    rotationRef.current = finalRotation;
-    setRotation(finalRotation);
-  };
+  rotationRef.current = finalRotation;
+  setRotation(finalRotation);
+};
+
 
   useEffect(() => {
     const el = wheelRef.current;
