@@ -13,7 +13,12 @@ const Hero: React.FC<{ onOpenTutorial: () => void }> = ({ onOpenTutorial }) => {
 
   const item: Variants = {
     hidden: { opacity: 0, y: 10, scale: 0.98 },
-    show: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.55, ease: "easeOut" } },
+    show: {
+      opacity: 1,
+      y: 0,
+      scale: 1,
+      transition: { duration: 0.55, ease: "easeOut" },
+    },
   };
 
   const handleCtaClick = () => {
@@ -36,7 +41,8 @@ const Hero: React.FC<{ onOpenTutorial: () => void }> = ({ onOpenTutorial }) => {
         <div
           className="absolute inset-0 opacity-[0.10] mix-blend-overlay"
           style={{
-            backgroundImage: 'url("https://www.transparenttextures.com/patterns/rice-paper-2.png")',
+            backgroundImage:
+              'url("https://www.transparenttextures.com/patterns/rice-paper-2.png")',
           }}
         />
 
@@ -46,7 +52,8 @@ const Hero: React.FC<{ onOpenTutorial: () => void }> = ({ onOpenTutorial }) => {
           transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
           className="absolute inset-0 opacity-20"
           style={{
-            backgroundImage: "url('https://www.transparenttextures.com/patterns/dust.png')",
+            backgroundImage:
+              "url('https://www.transparenttextures.com/patterns/dust.png')",
           }}
         />
       </div>
@@ -73,23 +80,13 @@ const Hero: React.FC<{ onOpenTutorial: () => void }> = ({ onOpenTutorial }) => {
         {/* Title */}
         <motion.div variants={item} className="mb-10">
           <h1 className="text-7xl sm:text-8xl font-black leading-[0.85] uppercase tracking-tighter mb-4 flex flex-col items-center">
-            <span className="block text-white/95 italic drop-shadow-[0_0_20px_rgba(255,255,255,0.55)]">
+            {/* 八仙 — soft clean white */}
+            <span className="block text-white/95 italic drop-shadow-[0_0_18px_rgba(255,255,255,0.5)]">
               八仙
             </span>
-            <span
-              className="block drop-shadow-[0_12px_24px_rgba(234,179,8,0.85)]"
-              style={{
-                background:
-                  "linear-gradient(180deg, #ffffff 0%, #FAF398 18%, #F9F295 42%, #E0AA3E 72%, #B88A44 100%)",
-                WebkitBackgroundClip: "text",
-                backgroundClip: "text",
-                color: "transparent",
-                WebkitTextStroke: "2px rgba(255,255,255,0.9)",
-                paintOrder: "stroke fill",
-              }}
-            >
-              来财
-            </span>
+
+            {/* 来财 — CLEAN premium (no messy white outline) */}
+            <span className="block laicai-clean">来财</span>
           </h1>
 
           <div className="flex items-center justify-center gap-4">
@@ -101,7 +98,8 @@ const Hero: React.FC<{ onOpenTutorial: () => void }> = ({ onOpenTutorial }) => {
           </div>
 
           <p className="mt-5 text-white/85 text-sm sm:text-base leading-relaxed max-w-[520px] mx-auto">
-            Play with i88 and get rewarded instantly. Try the demo spin below — claim your welcome reward after you register. 🧧✨
+            Play with i88 and get rewarded instantly. Try the demo spin below —
+            claim your welcome reward after you register. 🧧✨
           </p>
         </motion.div>
 
@@ -110,12 +108,15 @@ const Hero: React.FC<{ onOpenTutorial: () => void }> = ({ onOpenTutorial }) => {
           <CountdownTimer pageVariant="cny_visual_v2" />
         </motion.div>
 
-    
-
         {/* CTA */}
         <motion.div variants={item} className="w-full relative group">
-          <div className="absolute -inset-1 rounded-[2.5rem] blur-xl opacity-25 group-hover:opacity-45 transition duration-700"
-               style={{ background: "linear-gradient(90deg, rgba(249,242,149,0.55), rgba(224,170,62,0.55), rgba(250,243,152,0.55), rgba(184,138,68,0.55))" }} />
+          <div
+            className="absolute -inset-1 rounded-[2.5rem] blur-xl opacity-25 group-hover:opacity-45 transition duration-700"
+            style={{
+              background:
+                "linear-gradient(90deg, rgba(249,242,149,0.55), rgba(224,170,62,0.55), rgba(250,243,152,0.55), rgba(184,138,68,0.55))",
+            }}
+          />
           <button
             onClick={handleCtaClick}
             className="relative w-full py-6 rounded-[2.2rem] font-black text-xl sm:text-2xl uppercase tracking-widest
@@ -130,10 +131,45 @@ const Hero: React.FC<{ onOpenTutorial: () => void }> = ({ onOpenTutorial }) => {
           >
             Pre-Register Now
           </button>
-
-    
         </motion.div>
       </motion.div>
+
+      {/* ✅ Local styles to keep it single-file */}
+      <style>{`
+        .laicai-clean{
+          /* premium gold fill */
+          background: linear-gradient(
+            180deg,
+            #ffffff 0%,
+            #FAF398 18%,
+            #F9F295 42%,
+            #E0AA3E 72%,
+            #B88A44 100%
+          );
+          -webkit-background-clip: text;
+          background-clip: text;
+          color: transparent;
+
+          /* IMPORTANT: remove thick white outline that causes messy edges */
+          -webkit-text-stroke: 0px transparent;
+
+          /* controlled depth */
+          text-shadow:
+            0 14px 28px rgba(0,0,0,0.55),
+            0 0 18px rgba(224,170,62,0.18);
+
+          /* keep it crisp */
+          letter-spacing: 0.02em;
+        }
+
+        /* optional: tiny rim highlight without chaos (subtle, not white) */
+        @supports (-webkit-text-stroke: 1px black) {
+          .laicai-clean{
+            -webkit-text-stroke: 1px rgba(106,79,26,0.22);
+            paint-order: stroke fill;
+          }
+        }
+      `}</style>
     </section>
   );
 };
