@@ -55,7 +55,7 @@ const Hero: React.FC<{ onOpenTutorial: () => void }> = () => {
       <motion.div variants={item} className="mb-9">
   <div className="px-6 py-3 rounded-2xl bg-white/5 backdrop-blur-xl border border-white/10 shadow-[0_10px_40px_rgba(0,0,0,0.45)]">
     <img
-      src="/public/apple-touch-icon.png"
+      src="/apple-touch-icon.png"
       alt="i88"
       className="h-9 sm:h-11 w-auto object-contain"
       draggable={false}
