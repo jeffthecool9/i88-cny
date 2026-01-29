@@ -1,6 +1,5 @@
-
-import React from 'react';
-import { motion } from 'framer-motion';
+import React from "react";
+import { motion } from "framer-motion";
 
 const HowToJoin: React.FC = () => {
   return (
@@ -13,20 +12,34 @@ const HowToJoin: React.FC = () => {
           className="text-center mb-16"
         >
           <h2 className="text-5xl font-black text-white uppercase tracking-tighter mb-4">
-           How To <span className="text-yellow-400 italic">Join</span>
+            How To <span className="text-yellow-400 italic">Join</span>
           </h2>
-          <p className="text-[#FF5F5F] font-bold uppercase tracking-[0.2em] text-sm">
+
+          {/* ✅ changed from red to brand blue */}
+          <p className="text-[#00A3FF] font-bold uppercase tracking-[0.2em] text-sm">
             Registration Steps
           </p>
         </motion.div>
 
         <div className="space-y-8">
           {[
-            { step: 1, title: "Create Account", desc: "Quick registration with simple requirements." },
-            { step: 2, title: "Deposit Promo Amount", desc: "Deposit RM50 unlock the welcome reward." },
-            { step: 3, title: "Claim & Explore", desc: "Enjoy your 100 free spins and explore the 8 Immortals Event." }
+            {
+              step: 1,
+              title: "Create Account",
+              desc: "Quick registration with simple requirements.",
+            },
+            {
+              step: 2,
+              title: "Deposit Promo Amount",
+              desc: "Deposit RM50 unlock the welcome reward.",
+            },
+            {
+              step: 3,
+              title: "Claim & Explore",
+              desc: "Enjoy your 100 free spins and explore the 8 Immortals Event.",
+            },
           ].map((s, i) => (
-            <motion.div 
+            <motion.div
               key={i}
               initial={{ opacity: 0, scale: 0.95 }}
               whileInView={{ opacity: 1, scale: 1 }}
@@ -37,9 +50,16 @@ const HowToJoin: React.FC = () => {
               <div className="w-16 h-16 bg-gradient-to-b from-yellow-300 to-yellow-600 rounded-2xl flex items-center justify-center text-[#1a0101] font-black text-2xl shadow-[0_0_20px_rgba(253,224,71,0.4)] flex-shrink-0">
                 {s.step}
               </div>
+
               <div>
-                <h3 className="text-white font-black text-xl uppercase tracking-tighter">{s.title}</h3>
-                <p className="text-[#FF5F5F] text-sm font-bold uppercase tracking-wide leading-relaxed mt-2">{s.desc}</p>
+                <h3 className="text-white font-black text-xl uppercase tracking-tighter">
+                  {s.title}
+                </h3>
+
+                {/* ✅ changed from red to brand blue */}
+                <p className="text-[#00A3FF] text-sm font-bold uppercase tracking-wide leading-relaxed mt-2">
+                  {s.desc}
+                </p>
               </div>
             </motion.div>
           ))}
