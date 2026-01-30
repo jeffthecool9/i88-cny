@@ -33,13 +33,13 @@ const Hero: React.FC<{ onOpenTutorial: () => void }> = () => {
         <img
           src="/cny-bg.png"
           alt="CNY Background"
-          className="w-full h-full object-cover"
+          className="w-full h-full object-cover brightness-105 contrast-105"
           draggable={false}
         />
 
-        {/* Make bg more visible + readable text */}
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_18%,rgba(255,255,255,0.06)_0%,rgba(0,0,0,0.40)_55%,rgba(0,0,0,0.62)_100%)]" />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/10 via-black/15 to-black/45" />
+        {/* ✅ KEEP ORIGINAL BRIGHTNESS (NO black fade to bottom)
+            Only a very light vignette to keep text readable. */}
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_22%,rgba(255,255,255,0.06)_0%,rgba(0,0,0,0.12)_55%,rgba(0,0,0,0.18)_100%)]" />
       </div>
 
       {/* ===== Main content (top) ===== */}
@@ -49,17 +49,15 @@ const Hero: React.FC<{ onOpenTutorial: () => void }> = () => {
         animate="show"
         className="relative z-10 mx-auto w-full max-w-xl px-6 pt-10 sm:pt-12 text-center"
       >
-        {/* Logo (bigger, no container, less top space) */}
-   <motion.div variants={item} className="flex justify-center mb-5">
-  <img
-    src="/android-chrome-192x192.png"
-    alt="i88"
-    className="h-20 sm:h-24 w-auto object-contain"
-    draggable={false}
-  />
-</motion.div>
-
-
+        {/* Logo (bigger) */}
+        <motion.div variants={item} className="flex justify-center mb-4">
+          <img
+            src="/android-chrome-192x192.png"
+            alt="i88"
+            className="h-20 sm:h-24 w-auto object-contain"
+            draggable={false}
+          />
+        </motion.div>
 
         {/* Title */}
         <motion.div variants={item} className="mb-4">
@@ -71,7 +69,7 @@ const Hero: React.FC<{ onOpenTutorial: () => void }> = () => {
           <div className="mt-3 flex items-center justify-center gap-4">
             <div className="h-px w-10 bg-[#F9D976]/50" />
             <p className="text-[#fff3d6] font-black text-xs uppercase tracking-[0.45em]">
-             8 Immortals Treasure
+              8 Immortals Treasure
             </p>
             <div className="h-px w-10 bg-[#F9D976]/50" />
           </div>
@@ -84,21 +82,19 @@ const Hero: React.FC<{ onOpenTutorial: () => void }> = () => {
       </motion.div>
 
       {/* ===== Bottom dock (Timer + CTA) =====
-          This is what fixes your placement: we anchor it to the section bottom,
-          then push the CTA down into the blue band with translateY.
-      */}
-      <div className="absolute inset-x-0 bottom-[44px] sm:bottom-[56px] z-20">
+          ✅ Correct placement: CTA sits directly below timer and stays near bottom
+          with a clean gap — NO translate hacks that “don’t move”. */}
+      <div className="absolute inset-x-0 bottom-10 sm:bottom-12 z-20">
         <div className="mx-auto w-full max-w-xl px-6 flex flex-col items-center">
-          {/* Timer (above circle) */}
-          <motion.div variants={item} className="w-full flex justify-center mb-6">
+          {/* Timer */}
+          <motion.div variants={item} className="w-full flex justify-center mb-5">
             <CountdownTimer pageVariant="cny_visual_v2" />
           </motion.div>
 
-          {/* CTA (centered, inside blue band, bottom gap kept by bottom-[..] above) */}
+          {/* CTA (centered, below timer, with bottom breathing space via bottom-10) */}
           <motion.div
             variants={item}
             className="w-full relative group flex justify-center"
-            style={{ transform: "translateY(56px)" }} // ✅ push down into the blue area
           >
             <div className="relative w-[92%] sm:w-[86%]">
               <div
