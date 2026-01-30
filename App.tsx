@@ -21,9 +21,7 @@ const App: React.FC = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  return (
-    <main className="min-h-screen bg-[#1a0101] flex justify-center overflow-x-hidden selection:bg-yellow-400 selection:text-black">
-      <StickyHeader visible={showHeader} />
+
 
       <div className="w-full max-w-[500px] bg-[#450a0a] relative shadow-[0_0_150px_rgba(0,0,0,0.6)] border-x border-white/5 bg-paper-texture">
         <Hero onOpenTutorial={() => setIsTutorialOpen(true)} />
