@@ -2,7 +2,7 @@ import React from "react";
 import { motion, Variants } from "framer-motion";
 import CountdownTimer, { trackEvent } from "./CountdownTimer.tsx";
 
-const Hero: React.FC<{ onOpenTutorial: () => void }> = ({ onOpenTutorial }) => {
+const Hero: React.FC<{ onOpenTutorial: () => void }> = () => {
   const container: Variants = {
     hidden: { opacity: 0 },
     show: {
@@ -27,26 +27,23 @@ const Hero: React.FC<{ onOpenTutorial: () => void }> = ({ onOpenTutorial }) => {
   };
 
   return (
-    <section className="relative min-h-screen overflow-hidden bg-[#b11212]">
-      {/* ===== Background (your image) ===== */}
+    <section className="relative min-h-screen overflow-hidden">
+      {/* ✅ Background image (your public file) */}
       <div className="absolute inset-0 z-0 pointer-events-none">
-        <div
-          className="absolute inset-0 bg-no-repeat"
-          style={{
-            backgroundImage: 'url("/cny-bg.png")',
-            backgroundSize: "cover",
-            backgroundPosition: "center 62%", // tune 58–68 if you want
-          }}
+        <img
+          src="/cny-bg.png"
+          alt="CNY Background"
+          className="w-full h-full object-cover object-[center_65%]"
+          draggable={false}
         />
 
-        {/* make image more visible (lighter overlay) */}
-        <div className="absolute inset-0 bg-gradient-to-b from-black/10 via-black/0 to-black/35" />
+        {/* ✅ Make background more visible but keep text readable */}
+        <div className="absolute inset-0 bg-gradient-to-b from-black/25 via-black/10 to-black/35" />
 
-        {/* subtle premium glow */}
-        <div className="absolute -top-32 left-1/2 -translate-x-1/2 w-[720px] h-[720px] rounded-full bg-[#F9D976]/10 blur-[160px]" />
-        <div className="absolute -bottom-40 right-[-10%] w-[760px] h-[760px] rounded-full bg-[#E0AA3E]/08 blur-[190px]" />
+        {/* ✅ Extra contrast behind top text only */}
+        <div className="absolute top-0 left-0 right-0 h-[55%] bg-gradient-to-b from-black/35 via-black/10 to-transparent" />
 
-        {/* texture */}
+        {/* ✅ subtle texture (optional, keeps premium look) */}
         <div
           className="absolute inset-0 opacity-[0.06] mix-blend-overlay"
           style={{
@@ -56,12 +53,13 @@ const Hero: React.FC<{ onOpenTutorial: () => void }> = ({ onOpenTutorial }) => {
         />
       </div>
 
-      {/* ===== Content ===== */}
+      {/* ✅ Content (push up so CTA has space) */}
       <motion.div
         variants={container}
         initial="hidden"
         animate="show"
-        className="relative z-10 min-h-screen flex flex-col items-center text-center px-6 pt-20 pb-24 w-full max-w-xl mx-auto"
+        className="relative z-10 flex flex-col items-center text-center px-6 w-full max-w-xl mx-auto
+                   pt-24 pb-64"
       >
         {/* Logo */}
         <motion.div variants={item} className="mb-7">
@@ -76,8 +74,8 @@ const Hero: React.FC<{ onOpenTutorial: () => void }> = ({ onOpenTutorial }) => {
         </motion.div>
 
         {/* Title */}
-        <motion.div variants={item} className="mb-5">
-          <h1 className="text-7xl sm:text-8xl font-black leading-[0.85] uppercase tracking-tighter mb-4 flex flex-col items-center">
+        <motion.div variants={item} className="mb-7">
+          <h1 className="text-7xl sm:text-8xl font-black leading-[0.85] uppercase tracking-tighter mb-3 flex flex-col items-center">
             <span className="block text-white/95">八仙</span>
             <span className="laicai-gold-flat">来财</span>
           </h1>
@@ -90,40 +88,44 @@ const Hero: React.FC<{ onOpenTutorial: () => void }> = ({ onOpenTutorial }) => {
             <div className="h-px w-10 bg-[#F9D976]/50" />
           </div>
 
-          <p className="mt-5 text-white/90 text-sm sm:text-base leading-relaxed max-w-[520px] mx-auto">
+          <p className="mt-4 text-white/90 text-sm sm:text-base leading-relaxed max-w-[520px] mx-auto">
             Play with i88 and get rewarded instantly. Try the demo spin below and
             unlock your welcome reward after registration.
           </p>
         </motion.div>
 
-        {/* Countdown (give it space, not blocking art) */}
-        <motion.div variants={item} className="mb-6 w-full">
-          <div className="countdownWrap">
-            <CountdownTimer pageVariant="cny_visual_v2" />
-          </div>
+        {/* ✅ Timer (slightly higher / tighter spacing) */}
+        <motion.div variants={item} className="mb-2 w-full">
+          <CountdownTimer pageVariant="cny_visual_v2" />
         </motion.div>
-
-        {/* CTA is NOT in normal flow anymore. It's pinned. */}
       </motion.div>
 
-      {/* ✅ CTA pinned exactly into BLUE band (lowest part with aesthetic gap) */}
+      {/* ✅ CTA = ABSOLUTE LAYER (this fixes your issue) */}
       <motion.div
         variants={item}
         initial="hidden"
         animate="show"
-        className="absolute left-1/2 -translate-x-1/2 z-30 w-[min(520px,92vw)] px-6 bottom-[110px] sm:bottom-[125px]"
+        className="absolute z-20 left-1/2 -translate-x-1/2
+                   bottom-16 sm:bottom-20
+                   w-[min(92%,520px)]"
       >
+        {/* glow */}
         <div
-          className="absolute -inset-1 rounded-[2.2rem] blur-xl opacity-30 hover:opacity-45 transition duration-700"
+          className="absolute -inset-1 rounded-[2.5rem] blur-xl opacity-30 hover:opacity-45 transition duration-700"
           style={{
-            background: "linear-gradient(90deg,#F9D976,#E0AA3E,#FAF398,#B88A44)",
+            background:
+              "linear-gradient(90deg,#F9D976,#E0AA3E,#FAF398,#B88A44)",
           }}
         />
+
+        {/* ✅ smaller slightly (not full height/huge) */}
         <button
           onClick={handleCtaClick}
-          className="relative w-full py-5 rounded-[2rem] font-black text-lg sm:text-xl uppercase tracking-wider
-                     shadow-[0_22px_50px_rgba(0,0,0,0.55)] transition-all transform hover:-translate-y-1 active:translate-y-1
-                     border-b-6"
+          className="relative w-full py-5 sm:py-5 rounded-[2.2rem]
+                     font-black text-lg sm:text-xl uppercase tracking-widest
+                     shadow-[0_25px_60px_rgba(0,0,0,0.55)]
+                     transition-all transform hover:-translate-y-1 active:translate-y-1
+                     border-b-8"
           style={{
             background:
               "linear-gradient(180deg,#fff7cc,#FAF398,#F9D976,#E0AA3E,#B88A44)",
@@ -135,7 +137,7 @@ const Hero: React.FC<{ onOpenTutorial: () => void }> = ({ onOpenTutorial }) => {
         </button>
       </motion.div>
 
-      {/* ===== Styles ===== */}
+      {/* Styles */}
       <style>{`
         .laicai-gold-flat {
           background: linear-gradient(
@@ -155,16 +157,6 @@ const Hero: React.FC<{ onOpenTutorial: () => void }> = ({ onOpenTutorial }) => {
             0 0 14px rgba(250,217,118,0.35),
             0 0 36px rgba(224,170,62,0.25);
           letter-spacing: 0.02em;
-        }
-
-        /* ✅ remove “UNTIL DIVINE UNSEALING” if CountdownTimer has a label class */
-        .countdownWrap .until-divine-unsealing {
-          display: none !important;
-        }
-
-        /* ✅ backup: if the subtitle is a <p> under the timer container, hide the last line */
-        .countdownWrap p:last-child {
-          display: none !important;
         }
       `}</style>
     </section>
