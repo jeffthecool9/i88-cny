@@ -15,12 +15,12 @@ type Prize = {
 };
 
 const PRIZES: Prize[] = [
-  { id: "p0", label: "100 FREE SPINS", value: "ON SLOT", color: "#ff1f2d" },
-  { id: "p1", label: "i88 REWARD", value: "MYSTERY PRIZE", color: "#e41420" },
-  { id: "p2", label: "i88 BONUS", value: "LUCKY DRAW", color: "#c60f18" },
-  { id: "p3", label: "i88 FORTUNE", value: "PROSPERITY", color: "#a80b12" },
-  { id: "p4", label: "i88 REWARD", value: "MYSTERY PRIZE", color: "#e41420" },
-  { id: "p5", label: "i88 BONUS", value: "LUCKY DRAW", color: "#c60f18" },
+  { id: "p0", label: "88 FREE SPINS", value: "ON SLOT", color: "#ff1f2d" },
+  { id: "p1", label: "50 FREE SPINS", value: "ON SLO", color: "#e41420" },
+  { id: "p2", label: "10 FREE SPINS", value: "ON SLO", color: "#c60f18" },
+  { id: "p3", label: "25 FREE SPINS", value: "ON SLO", color: "#a80b12" },
+  { id: "p4", label: "75 FREE SPINS", value: "ON SLO", color: "#e41420" },
+  { id: "p5", label: "88 FREE SPINS", value: "ON SLO", color: "#c60f18" },
 ];
 
 const WHEEL_SIZE = 520;
@@ -182,7 +182,7 @@ const InstantReward: React.FC = () => {
           </div>
 
           <div className="mt-6 text-[18px] tracking-[0.45em] uppercase font-bold text-[#F9F295]/70">
-            TRY THE FREE DEMO SPIN ↓
+            SPIN to Get Reward↓
           </div>
         </div>
       </div>
@@ -416,13 +416,13 @@ const InstantReward: React.FC = () => {
               </div>
 
               <div className="winGoldHeadline text-[22px] sm:text-[28px] font-black leading-tight">
-                YOU WON 100 FREE SPINS
+                YOU WON 88 FREE SPINS
                 <div className="text-[16px] sm:text-[18px] mt-1">ON SLOT</div>
               </div>
 
               <div className="mt-4 inline-flex items-center justify-center gap-2 px-5 py-3 rounded-full goldButton">
                 <span className="text-[11px] sm:text-xs font-black tracking-[0.35em] uppercase text-black/90">
-                  Register & Deposit
+                  Register & Claim 88 Free Spins
                 </span>
                 <span className="text-black/85 font-black">→</span>
               </div>
