@@ -1,8 +1,8 @@
 import React from "react";
 import { motion } from "framer-motion";
 
-/* ✅ SAME CTA LOOK as InstantReward (goldButton) */
-const CTA_URL = "https://www.palacehub8.com/LlZEMHit"; // 🔴 CHANGE THIS
+/* SAME CTA LOOK */
+const CTA_URL = "https://your-link-here.com"; // 🔴 CHANGE THIS
 
 const HowToJoin: React.FC = () => {
   return (
@@ -15,12 +15,13 @@ const HowToJoin: React.FC = () => {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <h2 className="text-5xl font-black text-white uppercase tracking-tighter mb-4">
-            How To <span className="text-yellow-400 italic">Join</span>
+          {/* GOLD TITLE */}
+          <h2 className="text-5xl font-black uppercase tracking-tighter mb-4 goldText">
+            How To <span className="italic">Join</span>
           </h2>
 
-          {/* Now white */}
-          <p className="text-white/80 font-bold uppercase tracking-[0.2em] text-sm">
+          {/* 🔵 BLUE stays BLUE */}
+          <p className="text-[#00A3FF] font-bold uppercase tracking-[0.2em] text-sm">
             Registration Steps
           </p>
         </motion.div>
@@ -52,18 +53,19 @@ const HowToJoin: React.FC = () => {
               transition={{ delay: i * 0.12 }}
               className="flex items-center gap-8 bg-black/30 backdrop-blur-xl p-10 rounded-[2.5rem] border border-white/5"
             >
-              {/* ✅ GOLD GRADIENT STEP BOX (radiant + shining) */}
+              {/* GOLD STEP BOX */}
               <div className="stepGold w-16 h-16 rounded-2xl flex items-center justify-center font-black text-2xl flex-shrink-0">
                 <span className="stepNum">{s.step}</span>
               </div>
 
               <div>
-                <h3 className="text-white font-black text-xl uppercase tracking-tighter">
+                {/* GOLD TITLE */}
+                <h3 className="goldText font-black text-xl uppercase tracking-tighter">
                   {s.title}
                 </h3>
 
-                {/* ✅ now white */}
-                <p className="text-white/85 text-sm font-bold uppercase tracking-wide leading-relaxed mt-2">
+                {/* 🔵 BLUE stays BLUE */}
+                <p className="text-[#00A3FF] text-sm font-bold uppercase tracking-wide leading-relaxed mt-2">
                   {s.desc}
                 </p>
               </div>
@@ -71,7 +73,7 @@ const HowToJoin: React.FC = () => {
           ))}
         </div>
 
-        {/* ✅ CTA AREA (NO FRAME, ONLY READY? + GOLD BUTTON) */}
+        {/* CTA */}
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -100,61 +102,84 @@ const HowToJoin: React.FC = () => {
         </motion.div>
       </div>
 
+      {/* STYLES */}
       <style>{`
-        /* CTA (same as InstantReward) */
-        .goldButton{
-          background: linear-gradient(90deg,#F9F295,#E0AA3E,#FAF398,#B88A44);
-          box-shadow: inset 0 1px 0 rgba(255,255,255,0.65), 0 12px 40px rgba(0,0,0,0.45);
-          border: 1px solid rgba(0,0,0,0.15);
+        /* GOLD TEXT (your palette) */
+        .goldText{
+          background: linear-gradient(
+            90deg,
+            #F9F295,
+            #E0AA3E,
+            #FAF398,
+            #B88A44
+          );
+          -webkit-background-clip: text;
+          background-clip: text;
+          color: transparent;
+          text-shadow:
+            0 2px 14px rgba(249,242,149,0.35),
+            0 8px 30px rgba(0,0,0,0.75);
         }
 
-        /* ✅ Step box gold gradient based on your reference palette */
+        /* GOLD STEP BOX */
         .stepGold{
           position: relative;
-          background: linear-gradient(90deg,#F9F295,#E0AA3E,#FAF398,#B88A44);
+          background: linear-gradient(
+            90deg,
+            #F9F295,
+            #E0AA3E,
+            #FAF398,
+            #B88A44
+          );
           border: 1px solid rgba(0,0,0,0.22);
-
-          /* radiant glow */
           box-shadow:
             inset 0 1px 0 rgba(255,255,255,0.55),
-            0 0 26px rgba(249,242,149,0.28),
-            0 0 60px rgba(224,170,62,0.22);
-
+            0 0 28px rgba(249,242,149,0.32),
+            0 0 70px rgba(224,170,62,0.28);
           overflow: hidden;
         }
 
-        /* shiny moving highlight */
+        /* SHINE */
         .stepGold::after{
           content:"";
           position:absolute;
           top:-30%;
-          left:-60%;
+          left:-70%;
           width:60%;
           height:160%;
           transform: rotate(18deg);
           background: linear-gradient(
             90deg,
             rgba(255,255,255,0) 0%,
-            rgba(255,255,255,0.55) 45%,
+            rgba(255,255,255,0.65) 50%,
             rgba(255,255,255,0) 100%
           );
-          filter: blur(1px);
-          opacity: 0.55;
           animation: stepShine 2.6s ease-in-out infinite;
         }
 
         @keyframes stepShine{
-          0%{ left:-70%; opacity:0.0; }
-          18%{ opacity:0.45; }
-          50%{ opacity:0.55; }
-          82%{ opacity:0.35; }
-          100%{ left:120%; opacity:0.0; }
+          0%{ left:-80%; opacity:0 }
+          35%{ opacity:0.45 }
+          100%{ left:120%; opacity:0 }
         }
 
-        /* number styling */
         .stepNum{
           color: rgba(0,0,0,0.82);
           text-shadow: 0 1px 0 rgba(255,255,255,0.25);
+        }
+
+        .goldButton{
+          background: linear-gradient(
+            90deg,
+            #F9F295,
+            #E0AA3E,
+            #FAF398,
+            #B88A44
+          );
+          box-shadow:
+            inset 0 1px 0 rgba(255,255,255,0.65),
+            0 12px 40px rgba(0,0,0,0.45);
+          border: 1px solid rgba(0,0,0,0.15);
         }
       `}</style>
     </section>
