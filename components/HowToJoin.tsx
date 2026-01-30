@@ -30,8 +30,8 @@ const HowToJoin: React.FC = () => {
             },
             {
               step: 2,
-              title: "Deposit Promo Amount",
-              desc: "Deposit RM50 unlock the welcome reward.",
+              title: "Deposit RM50t",
+              desc: "Deposit RM50 to unlock the welcome reward.",
             },
             {
               step: 3,
