@@ -85,13 +85,14 @@ const InstantReward: React.FC = () => {
   const anglePerSegment = 360 / segments;
   const isLimitReached = spinsUsed >= MAX_SPINS;
 
-  // ✅ Always win "100 FREE SPINS"
-  const forcedWinIndex = useMemo(() => {
-    const idx = PRIZES.findIndex(
-      (p) => p.label.trim().toUpperCase() === "100 FREE SPINS"
-    );
-    return idx >= 0 ? idx : 0;
-  }, []);
+  // ✅ Always win "88 FREE SPINS"
+const forcedWinIndex = useMemo(() => {
+  const target = "88 FREE SPINS";
+  const idx = PRIZES.findIndex(
+    (p) => p.label.trim().toUpperCase() === target
+  );
+  return idx >= 0 ? idx : 0;
+}, []);
 
   // ✅ Correct landing: center of forced slice at pointer (top)
   const spin = () => {
