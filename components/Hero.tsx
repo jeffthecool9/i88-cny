@@ -103,20 +103,18 @@ const Hero: React.FC<{ onOpenTutorial: () => void }> = ({ onOpenTutorial }) => {
           <CountdownTimer pageVariant="cny_visual_v2" />
         </motion.div>
 
-       {/* ✅ CTA pinned to BLUE BAND center */}
+     {/* ✅ CTA pinned to the LOWEST part (with aesthetic gap) */}
 <motion.div
   variants={item}
-  className="absolute left-1/2 -translate-x-1/2 z-20 w-[min(520px,92vw)]"
+  className="absolute left-1/2 -translate-x-1/2 z-20 w-[min(520px,92vw)] px-6"
   style={{
-    top: "72%", // ✅ blue band center (tune 70–76 if needed)
-    transform: "translate(-50%, -50%)",
+    bottom: "34px", // ✅ gap from bottom (tune 24–44)
   }}
 >
   <div
     className="absolute -inset-1 rounded-[2.2rem] blur-xl opacity-30 hover:opacity-45 transition duration-700"
     style={{
-      background:
-        "linear-gradient(90deg,#F9D976,#E0AA3E,#FAF398,#B88A44)",
+      background: "linear-gradient(90deg,#F9D976,#E0AA3E,#FAF398,#B88A44)",
     }}
   />
   <button
@@ -134,6 +132,7 @@ const Hero: React.FC<{ onOpenTutorial: () => void }> = ({ onOpenTutorial }) => {
     Pre-Register Now
   </button>
 </motion.div>
+
 
       </motion.div>
 
