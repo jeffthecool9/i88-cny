@@ -30,25 +30,25 @@ const Hero: React.FC<{ onOpenTutorial: () => void }> = ({ onOpenTutorial }) => {
     <section className="relative min-h-screen flex flex-col items-center justify-center pt-20 pb-24 overflow-hidden bg-[#b11212]">
       {/* ===== Background ===== */}
       <div className="absolute inset-0 z-0 pointer-events-none">
-        {/* ✅ YOUR IMAGE (public/cny-bg.png) */}
+        {/* ✅ Your image (public/cny-bg.png) */}
         <div
           className="absolute inset-0 bg-no-repeat"
           style={{
             backgroundImage: 'url("/cny-bg.png")',
             backgroundSize: "cover",
-            // ✅ move artwork upward so immortals + circle sit center, CTA lands on blue band
+            // tweak this number to align immortals + blue band
             backgroundPosition: "center 62%",
           }}
         />
 
-        {/* ✅ lighter overlay = more visible background */}
+        {/* ✅ lighter overlay so image is more visible */}
         <div className="absolute inset-0 bg-gradient-to-b from-black/10 via-black/0 to-black/40" />
 
-        {/* ✅ keep glow but softer */}
+        {/* glow layers (soft) */}
         <div className="absolute -top-32 left-1/2 -translate-x-1/2 w-[720px] h-[720px] rounded-full bg-[#F9D976]/10 blur-[150px]" />
         <div className="absolute -bottom-40 right-[-10%] w-[760px] h-[760px] rounded-full bg-[#E0AA3E]/08 blur-[180px]" />
 
-        {/* ✅ subtle texture */}
+        {/* subtle texture */}
         <div
           className="absolute inset-0 opacity-[0.06] mix-blend-overlay"
           style={{
@@ -98,35 +98,61 @@ const Hero: React.FC<{ onOpenTutorial: () => void }> = ({ onOpenTutorial }) => {
           </p>
         </motion.div>
 
-        {/* ✅ Timer up a bit */}
+        {/* Countdown (slightly up) */}
         <motion.div variants={item} className="mb-6 w-full -mt-2">
           <CountdownTimer pageVariant="cny_visual_v2" />
         </motion.div>
 
-  {/* ✅ CTA down into blue band */}
-<motion.div variants={item} className="w-full relative group mt-16 sm:mt-20">
-  <div
-    className="absolute -inset-1 rounded-[2.2rem] blur-xl opacity-30 group-hover:opacity-45 transition duration-700"
-    style={{
-      background:
-        "linear-gradient(90deg,#F9D976,#E0AA3E,#FAF398,#B88A44)",
-    }}
-  />
-  <button
-    onClick={handleCtaClick}
-    className="relative w-full py-5 rounded-[2rem] font-black text-lg sm:text-xl uppercase tracking-wider
-               shadow-[0_22px_50px_rgba(0,0,0,0.55)] transition-all transform hover:-translate-y-1 active:translate-y-1
-               border-b-6"
-    style={{
-      background:
-        "linear-gradient(180deg,#fff7cc,#FAF398,#F9D976,#E0AA3E,#B88A44)",
-      color: "#7a0606",
-      borderBottomColor: "#7a5a20",
-    }}
-  >
-    Pre-Register Now
-  </button>
-</motion.div>
+        {/* ✅ CTA smaller + positioned into blue band */}
+        <motion.div variants={item} className="w-full relative group mt-16 sm:mt-20">
+          <div
+            className="absolute -inset-1 rounded-[2.2rem] blur-xl opacity-30 group-hover:opacity-45 transition duration-700"
+            style={{
+              background:
+                "linear-gradient(90deg,#F9D976,#E0AA3E,#FAF398,#B88A44)",
+            }}
+          />
+          <button
+            onClick={handleCtaClick}
+            className="relative w-full py-5 rounded-[2rem] font-black text-lg sm:text-xl uppercase tracking-wider
+                       shadow-[0_22px_50px_rgba(0,0,0,0.55)] transition-all transform hover:-translate-y-1 active:translate-y-1
+                       border-b-6"
+            style={{
+              background:
+                "linear-gradient(180deg,#fff7cc,#FAF398,#F9D976,#E0AA3E,#B88A44)",
+              color: "#7a0606",
+              borderBottomColor: "#7a5a20",
+            }}
+          >
+            Pre-Register Now
+          </button>
+        </motion.div>
+      </motion.div>
 
+      {/* ===== Styles ===== */}
+      <style>{`
+        .laicai-gold-flat {
+          background: linear-gradient(
+            180deg,
+            #fff7cc 0%,
+            #FAF398 20%,
+            #F9D976 45%,
+            #E0AA3E 75%,
+            #B88A44 100%
+          );
+          -webkit-background-clip: text;
+          background-clip: text;
+          color: transparent;
+          -webkit-text-stroke: 0;
+          text-stroke: 0;
+          text-shadow:
+            0 0 14px rgba(250,217,118,0.35),
+            0 0 36px rgba(224,170,62,0.25);
+          letter-spacing: 0.02em;
+        }
+      `}</style>
+    </section>
+  );
+};
 
 export default Hero;
