@@ -85,44 +85,62 @@ const InstantReward: React.FC = () => {
   const anglePerSegment = 360 / segments;
   const isLimitReached = spinsUsed >= MAX_SPINS;
 
-  // ✅ Always win "88 FREE SPINS"
-const forcedWinIndex = useMemo(() => {
-  const target = "88 FREE SPINS";
-  const idx = PRIZES.findIndex(
-    (p) => p.label.trim().toUpperCase() === target
-  );
-  return idx >= 0 ? idx : 0;
-}, []);
+  // ✅ Always win "88 FREE SPINS" — FORCE FIRST MATCH (p0)
+  const forcedWinIndex = useMemo(() => {
+    const target = "88 FREE SPINS";
+    const idx = PRIZES.findIndex((p) => p.label.trim().toUpperCase() === target);
+    return idx >= 0 ? idx : 0;
+  }, []);
 
-  // ✅ Correct landing: center of forced slice at pointer (top)
+  // ✅ Spin and land INSIDE the winning slice (not on boundary),
+  //    positioned above the word "FREE".
   const spin = () => {
-  if (isSpinning || isLimitReached) return;
+    if (isSpinning || isLimitReached) return;
 
-  setIsSpinning(true);
-  setShowWin(false);
-  finishedRef.current = false;
+    setIsSpinning(true);
+    setShowWin(false);
+    finishedRef.current = false;
 
-  // 🔧 Fine-tune offset so pointer sits above "FREE"
-  // Positive = move landing slightly DOWN the slice
-  const TEXT_OFFSET_DEG = anglePerSegment * 0.18;
+    // Slice geometry
+    const sliceStart = forcedWinIndex * anglePerSegment;
+    const sliceCenter = sliceStart + anglePerSegment / 2;
 
-  const targetCenter =
-    forcedWinIndex * anglePerSegment +
-    anglePerSegment / 2 +
-    TEXT_OFFSET_DEG;
+    /**
+     * ✅ Tune:
+     * SAFE_MARGIN_DEG prevents landing on the slice line.
+     * FREE_TARGET_OFFSET_DEG pushes the landing deeper into the slice
+     * so the pointer aligns above "FREE" (since text is drawn around y=110).
+     */
+    const SAFE_MARGIN_DEG = 8; // keep away from slice edges
+    const FREE_TARGET_OFFSET_DEG = 16; // tweak 14~20 if you want
 
-  const desired = (360 - targetCenter) % 360;
+    // Target angle inside slice + clamped to safe band
+    let target = sliceCenter + FREE_TARGET_OFFSET_DEG;
 
-  const current = ((rotationRef.current % 360) + 360) % 360;
-  const delta = (desired - current + 360) % 360;
+    const minSafe = sliceStart + SAFE_MARGIN_DEG;
+    const maxSafe = sliceStart + anglePerSegment - SAFE_MARGIN_DEG;
 
-  const extraSpins = 8;
-  const finalRotation = rotationRef.current + extraSpins * 360 + delta;
+    if (target < minSafe) target = minSafe;
+    if (target > maxSafe) target = maxSafe;
 
-  rotationRef.current = finalRotation;
-  setRotation(finalRotation);
-};
+    // Convert to rotation needed so target sits at pointer (12 o'clock)
+    const desired = (360 - (target % 360) + 360) % 360;
 
+    const current = ((rotationRef.current % 360) + 360) % 360;
+    let delta = (desired - current + 360) % 360;
+
+    // Extra safety nudge: avoid being extremely close to any boundary
+    const nearEdge = delta % anglePerSegment;
+    if (nearEdge < 1.2 || nearEdge > anglePerSegment - 1.2) {
+      delta += 1.8; // tiny shift inside the slice
+    }
+
+    const extraSpins = 8;
+    const finalRotation = rotationRef.current + extraSpins * 360 + delta;
+
+    rotationRef.current = finalRotation;
+    setRotation(finalRotation);
+  };
 
   useEffect(() => {
     const el = wheelRef.current;
@@ -231,13 +249,7 @@ const forcedWinIndex = useMemo(() => {
                   <stop offset="100%" stopColor="#5a0606" />
                 </radialGradient>
 
-                <linearGradient
-                  id="goldRimV2"
-                  x1="0%"
-                  y1="0%"
-                  x2="100%"
-                  y2="100%"
-                >
+                <linearGradient id="goldRimV2" x1="0%" y1="0%" x2="100%" y2="100%">
                   <stop offset="0%" stopColor="#F9F295" />
                   <stop offset="28%" stopColor="#E0AA3E" />
                   <stop offset="55%" stopColor="#FAF398" />
@@ -267,13 +279,7 @@ const forcedWinIndex = useMemo(() => {
                   <stop offset="100%" stopColor="rgba(255,255,255,0)" />
                 </radialGradient>
 
-                <filter
-                  id="winBloomV2"
-                  x="-80%"
-                  y="-80%"
-                  width="260%"
-                  height="260%"
-                >
+                <filter id="winBloomV2" x="-80%" y="-80%" width="260%" height="260%">
                   <feGaussianBlur stdDeviation="10" result="blur" />
                   <feMerge>
                     <feMergeNode in="blur" />
@@ -295,26 +301,19 @@ const forcedWinIndex = useMemo(() => {
                 const r = WHEEL_SIZE / 2 - OUTER_BORDER_WIDTH;
 
                 const x1 =
-                  WHEEL_SIZE / 2 +
-                  r * Math.cos(((start - 90) * Math.PI) / 180);
+                  WHEEL_SIZE / 2 + r * Math.cos(((start - 90) * Math.PI) / 180);
                 const y1 =
-                  WHEEL_SIZE / 2 +
-                  r * Math.sin(((start - 90) * Math.PI) / 180);
+                  WHEEL_SIZE / 2 + r * Math.sin(((start - 90) * Math.PI) / 180);
                 const x2 =
-                  WHEEL_SIZE / 2 +
-                  r * Math.cos(((end - 90) * Math.PI) / 180);
+                  WHEEL_SIZE / 2 + r * Math.cos(((end - 90) * Math.PI) / 180);
                 const y2 =
-                  WHEEL_SIZE / 2 +
-                  r * Math.sin(((end - 90) * Math.PI) / 180);
+                  WHEEL_SIZE / 2 + r * Math.sin(((end - 90) * Math.PI) / 180);
 
                 const d = `M ${WHEEL_SIZE / 2} ${WHEEL_SIZE / 2} L ${x1} ${y1} A ${r} ${r} 0 0 1 ${x2} ${y2} Z`;
                 const isWinnerSlice = showWin && i === forcedWinIndex;
 
                 return (
-                  <g
-                    key={p.id}
-                    filter={isWinnerSlice ? "url(#winBloomV2)" : "none"}
-                  >
+                  <g key={p.id} filter={isWinnerSlice ? "url(#winBloomV2)" : "none"}>
                     <path d={d} fill={p.color} opacity={0.98} />
                     <line
                       x1={WHEEL_SIZE / 2}
@@ -326,9 +325,9 @@ const forcedWinIndex = useMemo(() => {
                     />
 
                     <g
-                      transform={`rotate(${
-                        start + anglePerSegment / 2
-                      }, ${WHEEL_SIZE / 2}, ${WHEEL_SIZE / 2})`}
+                      transform={`rotate(${start + anglePerSegment / 2}, ${WHEEL_SIZE / 2}, ${
+                        WHEEL_SIZE / 2
+                      })`}
                     >
                       <text
                         x={WHEEL_SIZE / 2}
