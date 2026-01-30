@@ -103,56 +103,30 @@ const Hero: React.FC<{ onOpenTutorial: () => void }> = ({ onOpenTutorial }) => {
           <CountdownTimer pageVariant="cny_visual_v2" />
         </motion.div>
 
-        {/* ✅ CTA down into blue band */}
-        <motion.div variants={item} className="w-full relative group mt-20 sm:mt-24">
-          <div
-            className="absolute -inset-1 rounded-[2.5rem] blur-xl opacity-30 group-hover:opacity-45 transition duration-700"
-            style={{
-              background:
-                "linear-gradient(90deg,#F9D976,#E0AA3E,#FAF398,#B88A44)",
-            }}
-          />
-          <button
-            onClick={handleCtaClick}
-            className="relative w-full py-6 rounded-[2.2rem] font-black text-xl sm:text-2xl uppercase tracking-widest
-                       shadow-[0_25px_60px_rgba(0,0,0,0.55)] transition-all transform hover:-translate-y-1 active:translate-y-1
-                       border-b-8"
-            style={{
-              background:
-                "linear-gradient(180deg,#fff7cc,#FAF398,#F9D976,#E0AA3E,#B88A44)",
-              color: "#7a0606",
-              borderBottomColor: "#7a5a20",
-            }}
-          >
-            Pre-Register Now
-          </button>
-        </motion.div>
-      </motion.div>
+  {/* ✅ CTA down into blue band */}
+<motion.div variants={item} className="w-full relative group mt-16 sm:mt-20">
+  <div
+    className="absolute -inset-1 rounded-[2.2rem] blur-xl opacity-30 group-hover:opacity-45 transition duration-700"
+    style={{
+      background:
+        "linear-gradient(90deg,#F9D976,#E0AA3E,#FAF398,#B88A44)",
+    }}
+  />
+  <button
+    onClick={handleCtaClick}
+    className="relative w-full py-5 rounded-[2rem] font-black text-lg sm:text-xl uppercase tracking-wider
+               shadow-[0_22px_50px_rgba(0,0,0,0.55)] transition-all transform hover:-translate-y-1 active:translate-y-1
+               border-b-6"
+    style={{
+      background:
+        "linear-gradient(180deg,#fff7cc,#FAF398,#F9D976,#E0AA3E,#B88A44)",
+      color: "#7a0606",
+      borderBottomColor: "#7a5a20",
+    }}
+  >
+    Pre-Register Now
+  </button>
+</motion.div>
 
-      {/* ===== Styles ===== */}
-      <style>{`
-        .laicai-gold-flat {
-          background: linear-gradient(
-            180deg,
-            #fff7cc 0%,
-            #FAF398 20%,
-            #F9D976 45%,
-            #E0AA3E 75%,
-            #B88A44 100%
-          );
-          -webkit-background-clip: text;
-          background-clip: text;
-          color: transparent;
-          -webkit-text-stroke: 0;
-          text-stroke: 0;
-          text-shadow:
-            0 0 14px rgba(250,217,118,0.35),
-            0 0 36px rgba(224,170,62,0.25);
-          letter-spacing: 0.02em;
-        }
-      `}</style>
-    </section>
-  );
-};
 
 export default Hero;
