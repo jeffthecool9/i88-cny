@@ -100,42 +100,31 @@ const Hero: React.FC<{ onOpenTutorial: () => void }> = () => {
         </motion.div>
       </motion.div>
 
-      {/* ✅ CTA = ABSOLUTE LAYER (this fixes your issue) */}
-      <motion.div
-        variants={item}
-        initial="hidden"
-        animate="show"
-        className="absolute z-20 left-1/2 -translate-x-1/2
-                   bottom-16 sm:bottom-20
-                   w-[min(92%,520px)]"
-      >
-        {/* glow */}
-        <div
-          className="absolute -inset-1 rounded-[2.5rem] blur-xl opacity-30 hover:opacity-45 transition duration-700"
-          style={{
-            background:
-              "linear-gradient(90deg,#F9D976,#E0AA3E,#FAF398,#B88A44)",
-          }}
-        />
-
-        {/* ✅ smaller slightly (not full height/huge) */}
-        <button
-          onClick={handleCtaClick}
-          className="relative w-full py-5 sm:py-5 rounded-[2.2rem]
-                     font-black text-lg sm:text-xl uppercase tracking-widest
-                     shadow-[0_25px_60px_rgba(0,0,0,0.55)]
-                     transition-all transform hover:-translate-y-1 active:translate-y-1
-                     border-b-8"
-          style={{
-            background:
-              "linear-gradient(180deg,#fff7cc,#FAF398,#F9D976,#E0AA3E,#B88A44)",
-            color: "#7a0606",
-            borderBottomColor: "#7a5a20",
-          }}
-        >
-          Pre-Register Now
-        </button>
-      </motion.div>
+     {/* ✅ CTA pinned center + 50px lower */}
+<motion.div
+  variants={item}
+  className="absolute left-1/2 -translate-x-1/2 translate-y-[50px] bottom-10 sm:bottom-12 z-20 w-[86%] max-w-[520px] group"
+>
+  <div
+    className="absolute -inset-1 rounded-[2.5rem] blur-xl opacity-30 group-hover:opacity-45 transition duration-700"
+    style={{
+      background: "linear-gradient(90deg,#F9D976,#E0AA3E,#FAF398,#B88A44)",
+    }}
+  />
+  <button
+    onClick={handleCtaClick}
+    className="relative w-full py-5 sm:py-6 rounded-[2.2rem] font-black text-lg sm:text-2xl uppercase tracking-widest
+               shadow-[0_25px_60px_rgba(0,0,0,0.55)] transition-all transform hover:-translate-y-1 active:translate-y-1
+               border-b-8"
+    style={{
+      background: "linear-gradient(180deg,#fff7cc,#FAF398,#F9D976,#E0AA3E,#B88A44)",
+      color: "#7a0606",
+      borderBottomColor: "#7a5a20",
+    }}
+  >
+    Pre-Register Now
+  </button>
+</motion.div>
 
       {/* Styles */}
       <style>{`
