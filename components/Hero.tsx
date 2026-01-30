@@ -34,7 +34,7 @@ const Hero: React.FC<{ onOpenTutorial: () => void }> = ({ onOpenTutorial }) => {
         <div
           className="absolute inset-0 bg-center bg-no-repeat"
           style={{
-            backgroundImage: 'url("/assets/cny-bg.png")',
+            backgroundImage: 'url("/cny-bg.png")',
             backgroundSize: "cover",
           }}
         />
