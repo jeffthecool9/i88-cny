@@ -4,10 +4,29 @@ import { motion } from "framer-motion";
 /* ✅ SAME CTA LOOK as InstantReward (goldButton) */
 const CTA_URL = "https://your-link-here.com"; // 🔴 CHANGE THIS
 
+const STEPS = [
+  {
+    step: 1,
+    title: "Create Account",
+    desc: "Quick registration with simple requirements",
+  },
+  {
+    step: 2,
+    title: "Event Promotion",
+    desc: "Deposit RM50 to Get 88 Free Spins",
+  },
+  {
+    step: 3,
+    title: "Claim & Explore",
+    desc: "Enjoy your 88+100 in Total Free Spins! And explore the 8 Immortals Treasure Event",
+  },
+] as const;
+
 const HowToJoin: React.FC = () => {
   return (
     <section className="py-24 px-6 bg-transparent relative">
       <div className="max-w-md mx-auto relative z-10">
+        {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -23,26 +42,11 @@ const HowToJoin: React.FC = () => {
           </p>
         </motion.div>
 
+        {/* Steps */}
         <div className="space-y-8">
-          {[
-            {
-              step: 1,
-              title: "Create Account",
-              desc: "Quick registration with simple requirements",
-            },
-            {
-              step: 2,
-              title: "Event Promotion",
-              desc: "Deposit RM50 to Get 88 Free Spins",
-            },
-            {
-              step: 3,
-              title: "Claim & Explore",
-              desc: "Enjoy your 88+100 in Total Free Spins! And explore the 8 Immortals Treasure Event",
-            },
-          ].map((s, i) => (
+          {STEPS.map((s, i) => (
             <motion.div
-              key={i}
+              key={s.step}
               initial={{ opacity: 0, scale: 0.95 }}
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
@@ -57,7 +61,6 @@ const HowToJoin: React.FC = () => {
                 <h3 className="text-white font-black text-xl uppercase tracking-tighter">
                   {s.title}
                 </h3>
-
                 <p className="text-[#00A3FF] text-sm font-bold uppercase tracking-wide leading-relaxed mt-2">
                   {s.desc}
                 </p>
@@ -74,20 +77,16 @@ const HowToJoin: React.FC = () => {
           transition={{ delay: 0.15 }}
           className="mt-14 text-center"
         >
-          {/* READY? */}
           <div className="text-[11px] tracking-[0.55em] uppercase font-black text-[#F9F295]/70 mb-5">
             READY?
           </div>
 
-          {/* GOLD CTA BUTTON */}
           <a
             href={CTA_URL}
             target="_blank"
             rel="noreferrer"
-            className="inline-flex items-center justify-center gap-3
-                       px-9 py-4 rounded-full goldButton
-                       hover:scale-[1.03] active:scale-[0.97]
-                       transition-transform"
+            className="inline-flex items-center justify-center gap-3 px-9 py-4 rounded-full goldButton
+                       hover:scale-[1.03] active:scale-[0.97] transition-transform"
           >
             <span className="text-[12px] sm:text-sm font-black tracking-[0.35em] uppercase text-black/90">
               Register Now
