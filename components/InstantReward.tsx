@@ -466,18 +466,19 @@ const InstantReward: React.FC = () => {
           border: 1px solid rgba(0,0,0,0.18);
         }
         .goldPillText{
-          display:block;
-          font-weight: 900;
-          letter-spacing: 0.18em;
-          text-transform: uppercase;
-          color: rgba(0,0,0,0.82);
-          font-size: 11px;
-          line-height: 1.2;
-          text-align: center;
-        }
-        @media (min-width: 640px){
-          .goldPillText{ font-size: 12px; }
-        }
+  display:block;
+  font-weight: 900;
+  letter-spacing: 0.14em;  /* slightly tighter so bigger text still fits */
+  text-transform: uppercase;
+  color: rgba(0,0,0,0.82);
+  font-size: 14px;         /* ✅ bigger on mobile */
+  line-height: 1.15;
+  text-align: center;
+}
+@media (min-width: 640px){
+  .goldPillText{ font-size: 16px; }  /* ✅ bigger on desktop */
+}
+
 
         .baseGlow{
           background: radial-gradient(circle at 50% 40%, rgba(238,28,37,0.25), transparent 60%);
