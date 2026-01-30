@@ -2,7 +2,7 @@ import React from "react";
 import { motion, Variants } from "framer-motion";
 import CountdownTimer, { trackEvent } from "./CountdownTimer.tsx";
 
-const Hero: React.FC<{ onOpenTutorial: () => void }> = () => {
+const Hero: React.FC<{ onOpenTutorial: () => void }> = ({ onOpenTutorial }) => {
   const container: Variants = {
     hidden: { opacity: 0 },
     show: {
@@ -30,11 +30,23 @@ const Hero: React.FC<{ onOpenTutorial: () => void }> = () => {
     <section className="relative min-h-screen flex flex-col items-center justify-center pt-24 pb-28 overflow-hidden bg-[#b11212]">
       {/* ===== Background ===== */}
       <div className="absolute inset-0 z-0 pointer-events-none">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_35%,#ff4b4b_0%,#c5161c_45%,#7a0606_100%)]" />
+        {/* ✅ IMAGE BACKGROUND (your PNG) */}
+        <div
+          className="absolute inset-0 bg-center bg-no-repeat"
+          style={{
+            backgroundImage: 'url("/assets/cny-bg.png")',
+            backgroundSize: "cover",
+          }}
+        />
 
+        {/* ✅ keep your existing depth + readability */}
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_35%,rgba(255,75,75,0.15)_0%,rgba(197,22,28,0.40)_45%,rgba(122,6,6,0.80)_100%)]" />
+
+        {/* gold glow layers (kept) */}
         <div className="absolute -top-32 left-1/2 -translate-x-1/2 w-[720px] h-[720px] rounded-full bg-[#F9D976]/12 blur-[140px]" />
         <div className="absolute -bottom-40 right-[-10%] w-[760px] h-[760px] rounded-full bg-[#E0AA3E]/10 blur-[160px]" />
 
+        {/* rice paper overlay (kept) */}
         <div
           className="absolute inset-0 opacity-[0.08] mix-blend-overlay"
           style={{
@@ -52,30 +64,24 @@ const Hero: React.FC<{ onOpenTutorial: () => void }> = () => {
         className="relative z-10 flex flex-col items-center text-center px-6 w-full max-w-xl"
       >
         {/* Logo */}
-      <motion.div variants={item} className="mb-9">
-  <div className="px-6 py-3 rounded-2xl bg-white/5 backdrop-blur-xl border border-white/10 shadow-[0_10px_40px_rgba(0,0,0,0.45)]">
-    <img
-      src="/android-chrome-192x192.png"
-      alt="i88"
-      className="h-9 sm:h-11 w-auto object-contain"
-      draggable={false}
-    />
-  </div>
-</motion.div>
-
+        <motion.div variants={item} className="mb-9">
+          <div className="px-6 py-3 rounded-2xl bg-white/5 backdrop-blur-xl border border-white/10 shadow-[0_10px_40px_rgba(0,0,0,0.45)]">
+            <img
+              src="/android-chrome-192x192.png"
+              alt="i88"
+              className="h-9 sm:h-11 w-auto object-contain"
+              draggable={false}
+            />
+          </div>
+        </motion.div>
 
         {/* Title */}
         <motion.div variants={item} className="mb-10">
           <h1 className="text-7xl sm:text-8xl font-black leading-[0.85] uppercase tracking-tighter mb-4 flex flex-col items-center">
-            {/* 八仙 */}
-            <span className="block text-white/95">
-              八仙
-            </span>
+            <span className="block text-white/95">八仙</span>
 
             {/* 来财 — CLEAN GOLD ONLY */}
-            <span className="laicai-gold-flat">
-              来财
-            </span>
+            <span className="laicai-gold-flat">来财</span>
           </h1>
 
           <div className="flex items-center justify-center gap-4">
@@ -120,6 +126,9 @@ const Hero: React.FC<{ onOpenTutorial: () => void }> = () => {
           >
             Pre-Register Now
           </button>
+
+          {/* optional: if you use tutorial later, keep it ready */}
+          {/* <button onClick={onOpenTutorial} className="mt-4 text-white/80 underline">How it works</button> */}
         </motion.div>
       </motion.div>
 
@@ -138,11 +147,9 @@ const Hero: React.FC<{ onOpenTutorial: () => void }> = () => {
           background-clip: text;
           color: transparent;
 
-          /* absolutely NO outlines */
           -webkit-text-stroke: 0;
           text-stroke: 0;
 
-          /* soft premium gold glow only */
           text-shadow:
             0 0 14px rgba(250,217,118,0.35),
             0 0 36px rgba(224,170,62,0.25);
