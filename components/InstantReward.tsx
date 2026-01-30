@@ -5,7 +5,7 @@ import React, { useEffect, useMemo, useRef, useState } from "react";
 ============================= */
 const MAX_SPINS = 1;
 const SPIN_SECONDS = 4;
-const CTA_URL = "https://your-link-here.com"; // 🔴 CHANGE THIS
+const CTA_URL = "https://www.palacehub8.com/LlZEMHit"; // 🔴 CHANGE THIS
 
 type Prize = {
   id: string;
