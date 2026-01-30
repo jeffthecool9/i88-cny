@@ -27,28 +27,30 @@ const Hero: React.FC<{ onOpenTutorial: () => void }> = ({ onOpenTutorial }) => {
   };
 
   return (
-    <section className="relative min-h-screen flex flex-col items-center justify-center pt-24 pb-28 overflow-hidden bg-[#b11212]">
+    <section className="relative min-h-screen flex flex-col items-center justify-center pt-20 pb-24 overflow-hidden bg-[#b11212]">
       {/* ===== Background ===== */}
       <div className="absolute inset-0 z-0 pointer-events-none">
-        {/* ✅ IMAGE BACKGROUND (your PNG) */}
+        {/* ✅ YOUR IMAGE (public/cny-bg.png) */}
         <div
-          className="absolute inset-0 bg-center bg-no-repeat"
+          className="absolute inset-0 bg-no-repeat"
           style={{
             backgroundImage: 'url("/cny-bg.png")',
             backgroundSize: "cover",
+            // ✅ move artwork upward so immortals + circle sit center, CTA lands on blue band
+            backgroundPosition: "center 62%",
           }}
         />
 
-        {/* ✅ keep your existing depth + readability */}
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_35%,rgba(255,75,75,0.15)_0%,rgba(197,22,28,0.40)_45%,rgba(122,6,6,0.80)_100%)]" />
+        {/* ✅ lighter overlay = more visible background */}
+        <div className="absolute inset-0 bg-gradient-to-b from-black/10 via-black/0 to-black/40" />
 
-        {/* gold glow layers (kept) */}
-        <div className="absolute -top-32 left-1/2 -translate-x-1/2 w-[720px] h-[720px] rounded-full bg-[#F9D976]/12 blur-[140px]" />
-        <div className="absolute -bottom-40 right-[-10%] w-[760px] h-[760px] rounded-full bg-[#E0AA3E]/10 blur-[160px]" />
+        {/* ✅ keep glow but softer */}
+        <div className="absolute -top-32 left-1/2 -translate-x-1/2 w-[720px] h-[720px] rounded-full bg-[#F9D976]/10 blur-[150px]" />
+        <div className="absolute -bottom-40 right-[-10%] w-[760px] h-[760px] rounded-full bg-[#E0AA3E]/08 blur-[180px]" />
 
-        {/* rice paper overlay (kept) */}
+        {/* ✅ subtle texture */}
         <div
-          className="absolute inset-0 opacity-[0.08] mix-blend-overlay"
+          className="absolute inset-0 opacity-[0.06] mix-blend-overlay"
           style={{
             backgroundImage:
               'url("https://www.transparenttextures.com/patterns/rice-paper-2.png")',
@@ -64,7 +66,7 @@ const Hero: React.FC<{ onOpenTutorial: () => void }> = ({ onOpenTutorial }) => {
         className="relative z-10 flex flex-col items-center text-center px-6 w-full max-w-xl"
       >
         {/* Logo */}
-        <motion.div variants={item} className="mb-9">
+        <motion.div variants={item} className="mb-7">
           <div className="px-6 py-3 rounded-2xl bg-white/5 backdrop-blur-xl border border-white/10 shadow-[0_10px_40px_rgba(0,0,0,0.45)]">
             <img
               src="/android-chrome-192x192.png"
@@ -76,11 +78,9 @@ const Hero: React.FC<{ onOpenTutorial: () => void }> = ({ onOpenTutorial }) => {
         </motion.div>
 
         {/* Title */}
-        <motion.div variants={item} className="mb-10">
+        <motion.div variants={item} className="mb-6">
           <h1 className="text-7xl sm:text-8xl font-black leading-[0.85] uppercase tracking-tighter mb-4 flex flex-col items-center">
             <span className="block text-white/95">八仙</span>
-
-            {/* 来财 — CLEAN GOLD ONLY */}
             <span className="laicai-gold-flat">来财</span>
           </h1>
 
@@ -98,13 +98,13 @@ const Hero: React.FC<{ onOpenTutorial: () => void }> = ({ onOpenTutorial }) => {
           </p>
         </motion.div>
 
-        {/* Countdown */}
-        <motion.div variants={item} className="mb-8 w-full">
+        {/* ✅ Timer up a bit */}
+        <motion.div variants={item} className="mb-6 w-full -mt-2">
           <CountdownTimer pageVariant="cny_visual_v2" />
         </motion.div>
 
-        {/* CTA */}
-        <motion.div variants={item} className="w-full relative group">
+        {/* ✅ CTA down into blue band */}
+        <motion.div variants={item} className="w-full relative group mt-20 sm:mt-24">
           <div
             className="absolute -inset-1 rounded-[2.5rem] blur-xl opacity-30 group-hover:opacity-45 transition duration-700"
             style={{
@@ -126,9 +126,6 @@ const Hero: React.FC<{ onOpenTutorial: () => void }> = ({ onOpenTutorial }) => {
           >
             Pre-Register Now
           </button>
-
-          {/* optional: if you use tutorial later, keep it ready */}
-          {/* <button onClick={onOpenTutorial} className="mt-4 text-white/80 underline">How it works</button> */}
         </motion.div>
       </motion.div>
 
@@ -146,14 +143,11 @@ const Hero: React.FC<{ onOpenTutorial: () => void }> = ({ onOpenTutorial }) => {
           -webkit-background-clip: text;
           background-clip: text;
           color: transparent;
-
           -webkit-text-stroke: 0;
           text-stroke: 0;
-
           text-shadow:
             0 0 14px rgba(250,217,118,0.35),
             0 0 36px rgba(224,170,62,0.25);
-
           letter-spacing: 0.02em;
         }
       `}</style>
