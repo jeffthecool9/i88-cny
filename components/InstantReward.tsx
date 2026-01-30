@@ -96,27 +96,33 @@ const forcedWinIndex = useMemo(() => {
 
   // ✅ Correct landing: center of forced slice at pointer (top)
   const spin = () => {
-    if (isSpinning || isLimitReached) return;
+  if (isSpinning || isLimitReached) return;
 
-    setIsSpinning(true);
-    setShowWin(false);
-    finishedRef.current = false;
+  setIsSpinning(true);
+  setShowWin(false);
+  finishedRef.current = false;
 
-    const TUNE_DEG = 0;
-    const targetCenter =
-      forcedWinIndex * anglePerSegment + anglePerSegment / 2;
+  // 🔧 Fine-tune offset so pointer sits above "FREE"
+  // Positive = move landing slightly DOWN the slice
+  const TEXT_OFFSET_DEG = anglePerSegment * 0.18;
 
-    const desired = (360 - targetCenter + TUNE_DEG) % 360;
+  const targetCenter =
+    forcedWinIndex * anglePerSegment +
+    anglePerSegment / 2 +
+    TEXT_OFFSET_DEG;
 
-    const current = ((rotationRef.current % 360) + 360) % 360;
-    const delta = (desired - current + 360) % 360;
+  const desired = (360 - targetCenter) % 360;
 
-    const extraSpins = 8;
-    const finalRotation = rotationRef.current + extraSpins * 360 + delta;
+  const current = ((rotationRef.current % 360) + 360) % 360;
+  const delta = (desired - current + 360) % 360;
 
-    rotationRef.current = finalRotation;
-    setRotation(finalRotation);
-  };
+  const extraSpins = 8;
+  const finalRotation = rotationRef.current + extraSpins * 360 + delta;
+
+  rotationRef.current = finalRotation;
+  setRotation(finalRotation);
+};
+
 
   useEffect(() => {
     const el = wheelRef.current;
