@@ -19,11 +19,6 @@ const HowToJoin: React.FC = () => {
           <h2 className="text-5xl font-black uppercase tracking-tighter mb-4 goldText">
             How To <span className="italic">Join</span>
           </h2>
-
-          {/* 🔵 BLUE stays BLUE */}
-          <p className="text-[#00A3FF] font-bold uppercase tracking-[0.2em] text-sm">
-            Registration Steps
-          </p>
         </motion.div>
 
         {/* Steps */}
