@@ -2,7 +2,7 @@ import React from "react";
 import { motion } from "framer-motion";
 
 /* ✅ SAME CTA LOOK as InstantReward (goldButton) */
-const CTA_URL = "https://your-link-here.com"; // 🔴 CHANGE THIS
+const CTA_URL = "https://www.palacehub8.com/LlZEMHit"; // 🔴 CHANGE THIS
 
 const STEPS = [
   {
