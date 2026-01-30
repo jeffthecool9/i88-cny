@@ -26,7 +26,7 @@ const HowToJoin: React.FC = () => {
             {
               step: 1,
               title: "Create Account",
-              desc: "Quick registration with simple requirements.",
+              desc: "Quick registration with simple requirements",
             },
             {
               step: 2,
@@ -36,7 +36,7 @@ const HowToJoin: React.FC = () => {
             {
               step: 3,
               title: "Claim & Explore",
-              desc: "Enjoy your 88+100 in Total Free Spins! And explore the 8 Immortals Treasure Event.",
+              desc: "Enjoy your 88+100 in Total Free Spins! And explore the 8 Immortals Treasure Event",
             },
           ].map((s, i) => (
             <motion.div
