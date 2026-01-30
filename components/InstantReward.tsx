@@ -193,7 +193,7 @@ const InstantReward: React.FC = () => {
           <div className="mt-6 text-[11px] tracking-[0.45em] uppercase font-bold text-[#F9F295]/70">
             TRY THE FREE DEMO SPIN ↓
           </div>
-        </div>
+      
       </div>
 
       {/* =============================
