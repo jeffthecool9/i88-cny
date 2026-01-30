@@ -72,8 +72,7 @@ const CountdownTimer: React.FC<{ pageVariant?: string }> = ({ pageVariant = 'cny
         <TimeUnit label="MIN" value={m} />
         <span className="text-yellow-400 text-3xl font-black mt-1 animate-pulse">:</span>
         <TimeUnit label="SEC" value={s} />
-      </div>
-      <p className="mt-4 text-sm font-black uppercase tracking-[0.4em] text-[#FF5F5F]">Until Divine Unsealing</p>
+    
     </div>
   );
 };
