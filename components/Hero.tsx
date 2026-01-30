@@ -103,34 +103,38 @@ const Hero: React.FC<{ onOpenTutorial: () => void }> = ({ onOpenTutorial }) => {
           <CountdownTimer pageVariant="cny_visual_v2" />
         </motion.div>
 
-        {/* ✅ CTA smaller + positioned into blue band */}
-       <motion.div
+       {/* ✅ CTA pinned to BLUE BAND center */}
+<motion.div
   variants={item}
-  className="w-full relative group mt-40 sm:mt-48"
+  className="absolute left-1/2 -translate-x-1/2 z-20 w-[min(520px,92vw)]"
+  style={{
+    top: "72%", // ✅ blue band center (tune 70–76 if needed)
+    transform: "translate(-50%, -50%)",
+  }}
 >
+  <div
+    className="absolute -inset-1 rounded-[2.2rem] blur-xl opacity-30 hover:opacity-45 transition duration-700"
+    style={{
+      background:
+        "linear-gradient(90deg,#F9D976,#E0AA3E,#FAF398,#B88A44)",
+    }}
+  />
+  <button
+    onClick={handleCtaClick}
+    className="relative w-full py-5 rounded-[2rem] font-black text-lg sm:text-xl uppercase tracking-wider
+               shadow-[0_22px_50px_rgba(0,0,0,0.55)] transition-all transform hover:-translate-y-1 active:translate-y-1
+               border-b-6"
+    style={{
+      background:
+        "linear-gradient(180deg,#fff7cc,#FAF398,#F9D976,#E0AA3E,#B88A44)",
+      color: "#7a0606",
+      borderBottomColor: "#7a5a20",
+    }}
+  >
+    Pre-Register Now
+  </button>
+</motion.div>
 
-          <div
-            className="absolute -inset-1 rounded-[2.2rem] blur-xl opacity-30 group-hover:opacity-45 transition duration-700"
-            style={{
-              background:
-                "linear-gradient(90deg,#F9D976,#E0AA3E,#FAF398,#B88A44)",
-            }}
-          />
-          <button
-            onClick={handleCtaClick}
-            className="relative w-full py-5 rounded-[2rem] font-black text-lg sm:text-xl uppercase tracking-wider
-                       shadow-[0_22px_50px_rgba(0,0,0,0.55)] transition-all transform hover:-translate-y-1 active:translate-y-1
-                       border-b-6"
-            style={{
-              background:
-                "linear-gradient(180deg,#fff7cc,#FAF398,#F9D976,#E0AA3E,#B88A44)",
-              color: "#7a0606",
-              borderBottomColor: "#7a5a20",
-            }}
-          >
-            Pre-Register Now
-          </button>
-        </motion.div>
       </motion.div>
 
       {/* ===== Styles ===== */}
