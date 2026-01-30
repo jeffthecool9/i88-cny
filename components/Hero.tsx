@@ -27,28 +27,26 @@ const Hero: React.FC<{ onOpenTutorial: () => void }> = ({ onOpenTutorial }) => {
   };
 
   return (
-    <section className="relative min-h-screen flex flex-col items-center justify-center pt-20 pb-24 overflow-hidden bg-[#b11212]">
-      {/* ===== Background ===== */}
+    <section className="relative min-h-screen overflow-hidden bg-[#b11212]">
+      {/* ===== Background (your image) ===== */}
       <div className="absolute inset-0 z-0 pointer-events-none">
-        {/* ✅ Your image (public/cny-bg.png) */}
         <div
           className="absolute inset-0 bg-no-repeat"
           style={{
             backgroundImage: 'url("/cny-bg.png")',
             backgroundSize: "cover",
-            // tweak this number to align immortals + blue band
-            backgroundPosition: "center 62%",
+            backgroundPosition: "center 62%", // tune 58–68 if you want
           }}
         />
 
-        {/* ✅ lighter overlay so image is more visible */}
-        <div className="absolute inset-0 bg-gradient-to-b from-black/10 via-black/0 to-black/40" />
+        {/* make image more visible (lighter overlay) */}
+        <div className="absolute inset-0 bg-gradient-to-b from-black/10 via-black/0 to-black/35" />
 
-        {/* glow layers (soft) */}
-        <div className="absolute -top-32 left-1/2 -translate-x-1/2 w-[720px] h-[720px] rounded-full bg-[#F9D976]/10 blur-[150px]" />
-        <div className="absolute -bottom-40 right-[-10%] w-[760px] h-[760px] rounded-full bg-[#E0AA3E]/08 blur-[180px]" />
+        {/* subtle premium glow */}
+        <div className="absolute -top-32 left-1/2 -translate-x-1/2 w-[720px] h-[720px] rounded-full bg-[#F9D976]/10 blur-[160px]" />
+        <div className="absolute -bottom-40 right-[-10%] w-[760px] h-[760px] rounded-full bg-[#E0AA3E]/08 blur-[190px]" />
 
-        {/* subtle texture */}
+        {/* texture */}
         <div
           className="absolute inset-0 opacity-[0.06] mix-blend-overlay"
           style={{
@@ -63,7 +61,7 @@ const Hero: React.FC<{ onOpenTutorial: () => void }> = ({ onOpenTutorial }) => {
         variants={container}
         initial="hidden"
         animate="show"
-        className="relative z-10 flex flex-col items-center text-center px-6 w-full max-w-xl"
+        className="relative z-10 min-h-screen flex flex-col items-center text-center px-6 pt-20 pb-24 w-full max-w-xl mx-auto"
       >
         {/* Logo */}
         <motion.div variants={item} className="mb-7">
@@ -78,7 +76,7 @@ const Hero: React.FC<{ onOpenTutorial: () => void }> = ({ onOpenTutorial }) => {
         </motion.div>
 
         {/* Title */}
-        <motion.div variants={item} className="mb-6">
+        <motion.div variants={item} className="mb-5">
           <h1 className="text-7xl sm:text-8xl font-black leading-[0.85] uppercase tracking-tighter mb-4 flex flex-col items-center">
             <span className="block text-white/95">八仙</span>
             <span className="laicai-gold-flat">来财</span>
@@ -98,42 +96,43 @@ const Hero: React.FC<{ onOpenTutorial: () => void }> = ({ onOpenTutorial }) => {
           </p>
         </motion.div>
 
-        {/* Countdown (slightly up) */}
-        <motion.div variants={item} className="mb-6 w-full -mt-2">
-          <CountdownTimer pageVariant="cny_visual_v2" />
+        {/* Countdown (give it space, not blocking art) */}
+        <motion.div variants={item} className="mb-6 w-full">
+          <div className="countdownWrap">
+            <CountdownTimer pageVariant="cny_visual_v2" />
+          </div>
         </motion.div>
 
-     {/* ✅ CTA pinned to the LOWEST part (with aesthetic gap) */}
-<motion.div
-  variants={item}
-  className="absolute left-1/2 -translate-x-1/2 z-20 w-[min(520px,92vw)] px-6"
-  style={{
-    bottom: "34px", // ✅ gap from bottom (tune 24–44)
-  }}
->
-  <div
-    className="absolute -inset-1 rounded-[2.2rem] blur-xl opacity-30 hover:opacity-45 transition duration-700"
-    style={{
-      background: "linear-gradient(90deg,#F9D976,#E0AA3E,#FAF398,#B88A44)",
-    }}
-  />
-  <button
-    onClick={handleCtaClick}
-    className="relative w-full py-5 rounded-[2rem] font-black text-lg sm:text-xl uppercase tracking-wider
-               shadow-[0_22px_50px_rgba(0,0,0,0.55)] transition-all transform hover:-translate-y-1 active:translate-y-1
-               border-b-6"
-    style={{
-      background:
-        "linear-gradient(180deg,#fff7cc,#FAF398,#F9D976,#E0AA3E,#B88A44)",
-      color: "#7a0606",
-      borderBottomColor: "#7a5a20",
-    }}
-  >
-    Pre-Register Now
-  </button>
-</motion.div>
+        {/* CTA is NOT in normal flow anymore. It's pinned. */}
+      </motion.div>
 
-
+      {/* ✅ CTA pinned exactly into BLUE band (lowest part with aesthetic gap) */}
+      <motion.div
+        variants={item}
+        initial="hidden"
+        animate="show"
+        className="absolute left-1/2 -translate-x-1/2 z-30 w-[min(520px,92vw)] px-6 bottom-[110px] sm:bottom-[125px]"
+      >
+        <div
+          className="absolute -inset-1 rounded-[2.2rem] blur-xl opacity-30 hover:opacity-45 transition duration-700"
+          style={{
+            background: "linear-gradient(90deg,#F9D976,#E0AA3E,#FAF398,#B88A44)",
+          }}
+        />
+        <button
+          onClick={handleCtaClick}
+          className="relative w-full py-5 rounded-[2rem] font-black text-lg sm:text-xl uppercase tracking-wider
+                     shadow-[0_22px_50px_rgba(0,0,0,0.55)] transition-all transform hover:-translate-y-1 active:translate-y-1
+                     border-b-6"
+          style={{
+            background:
+              "linear-gradient(180deg,#fff7cc,#FAF398,#F9D976,#E0AA3E,#B88A44)",
+            color: "#7a0606",
+            borderBottomColor: "#7a5a20",
+          }}
+        >
+          Pre-Register Now
+        </button>
       </motion.div>
 
       {/* ===== Styles ===== */}
@@ -156,6 +155,16 @@ const Hero: React.FC<{ onOpenTutorial: () => void }> = ({ onOpenTutorial }) => {
             0 0 14px rgba(250,217,118,0.35),
             0 0 36px rgba(224,170,62,0.25);
           letter-spacing: 0.02em;
+        }
+
+        /* ✅ remove “UNTIL DIVINE UNSEALING” if CountdownTimer has a label class */
+        .countdownWrap .until-divine-unsealing {
+          display: none !important;
+        }
+
+        /* ✅ backup: if the subtitle is a <p> under the timer container, hide the last line */
+        .countdownWrap p:last-child {
+          display: none !important;
         }
       `}</style>
     </section>
