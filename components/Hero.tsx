@@ -63,7 +63,7 @@ const Hero: React.FC<{ onOpenTutorial: () => void }> = () => {
       >
         {/* Logo */}
         <motion.div variants={item} className="mb-7">
-          <div className="px-6 py-3 rounded-2xl bg-white/5 backdrop-blur-xl border border-white/10 shadow-[0_10px_40px_rgba(0,0,0,0.45)]">
+  
             <img
               src="/android-chrome-192x192.png"
               alt="i88"
