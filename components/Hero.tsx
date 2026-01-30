@@ -62,16 +62,15 @@ const Hero: React.FC<{ onOpenTutorial: () => void }> = () => {
                    pt-24 pb-64"
       >
         {/* Logo */}
-       <motion.div variants={item} className="mb-10">
-  <div className="px-8 py-5 rounded-3xl bg-white/5 backdrop-blur-xl border border-white/10 shadow-[0_10px_40px_rgba(0,0,0,0.45)]">
-    <img
-      src="/android-chrome-192x192.png"
-      alt="i88"
-      className="h-14 sm:h-16 md:h-18 w-auto object-contain"
-      draggable={false}
-    />
-  </div>
+      <motion.div variants={item} className="mb-10">
+  <img
+    src="/android-chrome-192x192.png"
+    alt="i88"
+    className="h-14 sm:h-16 md:h-18 w-auto object-contain"
+    draggable={false}
+  />
 </motion.div>
+
 
 
         {/* Title */}
