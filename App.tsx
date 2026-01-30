@@ -6,32 +6,6 @@ import InstantReward from './components/InstantReward.tsx';
 import HowToJoin from './components/HowToJoin.tsx';
 
 
-const StickyHeader: React.FC<{ visible: boolean }> = ({ visible }) => (
-  <AnimatePresence>
-    {visible && (
-      <motion.header
-        initial={{ y: -100 }}
-        animate={{ y: 0 }}
-        exit={{ y: -100 }}
-        className="fixed top-0 left-1/2 -translate-x-1/2 w-full max-w-[500px] z-[100] bg-white/95 backdrop-blur-md border-b border-gray-200 px-6 py-4 flex items-center justify-between shadow-lg"
-      >
-        <div className="flex items-center gap-2">
-          <img 
-            src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e4/Cloud9_logo.svg/2560px-Cloud9_logo.svg.png" 
-            alt="i88" 
-            className="h-8 w-auto" 
-          />
-        </div>
-        <button 
-          onClick={() => window.open('https://www.iclub88.com/register', '_blank')}
-          className="bg-[#D40000] text-white px-6 py-2.5 rounded-xl font-black text-xs uppercase tracking-widest shadow-md hover:bg-red-700 transition-colors"
-        >
-          Register Now
-        </button>
-      </motion.header>
-    )}
-  </AnimatePresence>
-);
 
 const App: React.FC = () => {
   const [isGameOpen, setIsGameOpen] = useState(false);
