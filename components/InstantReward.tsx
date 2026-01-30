@@ -41,7 +41,6 @@ function SimplePointer() {
             <stop offset="78%" stopColor="#E0AA3E" />
             <stop offset="100%" stopColor="#B88A44" />
           </linearGradient>
-
           <filter id="ptrShadow2" x="-30%" y="-30%" width="160%" height="160%">
             <feGaussianBlur in="SourceAlpha" stdDeviation="3" result="blur" />
             <feOffset dx="0" dy="5" result="off" />
@@ -72,7 +71,7 @@ function SimplePointer() {
    MAIN SINGLE-FILE SECTION
 ============================= */
 const InstantReward: React.FC = () => {
-  const wheelRef = useRef<HTMLDivElement>(null); // rotating element only
+  const wheelRef = useRef<HTMLDivElement>(null);
   const rotationRef = useRef(0);
   const finishedRef = useRef(false);
 
@@ -85,7 +84,7 @@ const InstantReward: React.FC = () => {
   const anglePerSegment = 360 / segments;
   const isLimitReached = spinsUsed >= MAX_SPINS;
 
-  // Always win "100 FREE SPINS"
+  // ✅ Always win "100 FREE SPINS"
   const forcedWinIndex = useMemo(() => {
     const idx = PRIZES.findIndex(
       (p) => p.label.trim().toUpperCase() === "100 FREE SPINS"
@@ -93,7 +92,7 @@ const InstantReward: React.FC = () => {
     return idx >= 0 ? idx : 0;
   }, []);
 
-  // Correct & stable landing on forced slice center (pointer at 12 o'clock)
+  // ✅ Correct spin math (land at CENTER of forced slice)
   const spin = () => {
     if (isSpinning || isLimitReached) return;
 
@@ -101,7 +100,7 @@ const InstantReward: React.FC = () => {
     setShowWin(false);
     finishedRef.current = false;
 
-    const TUNE_DEG = 0; // micro adjust if needed (+3 / -3)
+    const TUNE_DEG = 0;
 
     const targetCenter =
       forcedWinIndex * anglePerSegment + anglePerSegment / 2;
@@ -155,9 +154,13 @@ const InstantReward: React.FC = () => {
           />
         </div>
 
-   
+        <div className="relative z-10">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-[#F9F295]/25 bg-black/20">
+            <span className="text-[10px] tracking-[0.35em] uppercase font-black text-[#F9F295]/85">
+              INSTANT MEMBER PRIVILEGES
+            </span>
+          </div>
 
-          {/* KEEP ELEMENTS. Only the goldTitle style is upgraded below */}
           <h2 className="mt-4 leading-tight">
             <span className="block text-[34px] sm:text-[42px] font-black tracking-tight goldTitle">
               PLAY WITH US
@@ -174,17 +177,17 @@ const InstantReward: React.FC = () => {
 
           <div className="mt-6 max-w-[460px] mx-auto flex flex-col gap-3">
             <div className="goldPill">
-              <span className="goldPillText">Instant Credit to your account</span>
+              <span className="goldPillText">Instant Credit to Your Account</span>
             </div>
             <div className="goldPill">
               <span className="goldPillText">3 Minute Withdrawal</span>
             </div>
             <div className="goldPill">
-              <span className="goldPillText">VIP tier 24/7 customer service</span>
+              <span className="goldPillText">VIP Tier 24/7 Customer Service</span>
             </div>
           </div>
 
-          <div className="mt-6 text-[11px] tracking-[0.45em] uppercase font-bold text-[#F9F295]/70">
+          <div className="mt-6 text-[20px] tracking-[0.45em] uppercase font-bold text-[#F9F295]/70">
             TRY THE FREE DEMO SPIN ↓
           </div>
         </div>
@@ -194,19 +197,23 @@ const InstantReward: React.FC = () => {
           WHEEL
       ============================= */}
       <div className="relative mt-8 sm:mt-10">
-        <div className={`absolute inset-0 -z-10 rounded-[40px] ${showWin ? "winGlow" : "baseGlow"}`} />
+        <div
+          className={`absolute inset-0 -z-10 rounded-[40px] ${
+            showWin ? "winGlow" : "baseGlow"
+          }`}
+        />
 
         {/* pointer */}
         <div className="absolute -top-8 left-1/2 -translate-x-1/2 z-40 drop-shadow-[0_10px_24px_rgba(0,0,0,0.55)]">
           <SimplePointer />
         </div>
 
-        {/* OUTER wrapper can pop without breaking rotation */}
-        <div className={`relative aspect-square rounded-[40px] overflow-visible ${showWin ? "winPopWrapper" : ""}`}>
-          {/* ONLY THIS inner div rotates */}
+        {/* outer wrapper */}
+        <div className="relative aspect-square rounded-[40px] overflow-visible">
+          {/* rotating */}
           <div
             ref={wheelRef}
-            className="w-full h-full"
+            className={`w-full h-full ${showWin ? "winWheelPop" : ""}`}
             style={{
               transform: `rotate(${rotation}deg)`,
               transition: isSpinning
@@ -214,7 +221,10 @@ const InstantReward: React.FC = () => {
                 : "none",
             }}
           >
-            <svg viewBox={`0 0 ${WHEEL_SIZE} ${WHEEL_SIZE}`} className="w-full h-full overflow-visible">
+            <svg
+              viewBox={`0 0 ${WHEEL_SIZE} ${WHEEL_SIZE}`}
+              className="w-full h-full overflow-visible"
+            >
               <defs>
                 <radialGradient id="redLacquerV2" cx="50%" cy="45%" r="60%">
                   <stop offset="0%" stopColor="#ff3b3b" />
@@ -272,6 +282,7 @@ const InstantReward: React.FC = () => {
                 const y2 = WHEEL_SIZE / 2 + r * Math.sin(((end - 90) * Math.PI) / 180);
 
                 const d = `M ${WHEEL_SIZE / 2} ${WHEEL_SIZE / 2} L ${x1} ${y1} A ${r} ${r} 0 0 1 ${x2} ${y2} Z`;
+
                 const isWinnerSlice = showWin && i === forcedWinIndex;
 
                 return (
@@ -285,7 +296,6 @@ const InstantReward: React.FC = () => {
                       stroke="rgba(255,255,255,0.14)"
                       strokeWidth="1"
                     />
-
                     <g transform={`rotate(${start + anglePerSegment / 2}, ${WHEEL_SIZE / 2}, ${WHEEL_SIZE / 2})`}>
                       <text
                         x={WHEEL_SIZE / 2}
@@ -399,56 +409,12 @@ const InstantReward: React.FC = () => {
         }
         .animate-vibrate { animation: vibrate 0.18s linear infinite; }
 
-        /* ✅ upgraded: brighter + shinier, but SAME element/class */
         .goldTitle{
-          position: relative;
-          display: inline-block;
-          background: linear-gradient(
-            180deg,
-            #ffffff 0%,
-            #fff7cf 10%,
-            #ffe27a 24%,
-            #ffd14c 40%,
-            #fff1a8 55%,
-            #ffc84a 70%,
-            #fff6c9 85%,
-            #ffffff 100%
-          );
+          background: linear-gradient(180deg,#fff,#FAF398 18%,#F9F295 42%,#E0AA3E 72%,#B88A44);
           -webkit-background-clip:text;
           background-clip:text;
           color:transparent;
-          -webkit-text-stroke: 1px rgba(255,235,160,0.22);
-          text-shadow:
-            0 2px 0 rgba(0,0,0,0.25),
-            0 14px 42px rgba(0,0,0,0.78),
-            0 0 26px rgba(255,230,140,0.35),
-            0 0 70px rgba(255,210,80,0.22);
-          filter: saturate(1.25) brightness(1.08);
-        }
-        .goldTitle::after{
-          content:"";
-          position:absolute;
-          inset:-18% -35%;
-          background: linear-gradient(
-            110deg,
-            transparent 0%,
-            rgba(255,255,255,0.0) 35%,
-            rgba(255,255,255,0.7) 50%,
-            rgba(255,255,255,0.0) 65%,
-            transparent 100%
-          );
-          transform: translateX(-60%) skewX(-18deg);
-          animation: goldTitleShimmer 2.8s ease-in-out infinite;
-          mix-blend-mode: screen;
-          pointer-events:none;
-          opacity: 0.9;
-        }
-        @keyframes goldTitleShimmer{
-          0%   { transform: translateX(-65%) skewX(-18deg); opacity: 0; }
-          22%  { opacity: 0.35; }
-          50%  { opacity: 0.95; }
-          78%  { opacity: 0.30; }
-          100% { transform: translateX(65%) skewX(-18deg); opacity: 0; }
+          text-shadow: 0 10px 40px rgba(0,0,0,0.65), 0 0 18px rgba(253,224,71,0.22);
         }
 
         .goldPill{
@@ -490,11 +456,10 @@ const InstantReward: React.FC = () => {
           50%{ transform: scale(1.03); opacity: 0.75; }
         }
 
-        .winPopWrapper{
-          animation: winPopWrapper 520ms cubic-bezier(0.2,1,0.3,1) both;
-          transform-origin: center;
+        .winWheelPop{
+          animation: winWheelPop 520ms cubic-bezier(0.2,1,0.3,1) both;
         }
-        @keyframes winPopWrapper{
+        @keyframes winWheelPop{
           from{ transform: scale(0.985); }
           to{ transform: scale(1); }
         }
