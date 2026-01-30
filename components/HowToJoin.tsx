@@ -1,7 +1,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 
-/* ✅ SAME CTA LOOK as InstantReward (after-win CTA block) */
+/* ✅ SAME CTA LOOK as InstantReward (goldButton) */
 const CTA_URL = "https://your-link-here.com"; // 🔴 CHANGE THIS
 
 const HowToJoin: React.FC = () => {
@@ -18,7 +18,6 @@ const HowToJoin: React.FC = () => {
             How To <span className="text-yellow-400 italic">Join</span>
           </h2>
 
-          {/* ✅ changed from red to brand blue */}
           <p className="text-[#00A3FF] font-bold uppercase tracking-[0.2em] text-sm">
             Registration Steps
           </p>
@@ -59,7 +58,6 @@ const HowToJoin: React.FC = () => {
                   {s.title}
                 </h3>
 
-                {/* ✅ changed from red to brand blue */}
                 <p className="text-[#00A3FF] text-sm font-bold uppercase tracking-wide leading-relaxed mt-2">
                   {s.desc}
                 </p>
@@ -68,51 +66,39 @@ const HowToJoin: React.FC = () => {
           ))}
         </div>
 
-        {/* ✅ NEW CTA BUTTON (same design as InstantReward post-win CTA) */}
-       <motion.div
-  initial={{ opacity: 0, y: 16 }}
-  whileInView={{ opacity: 1, y: 0 }}
-  viewport={{ once: true }}
-  transition={{ delay: 0.15 }}
-  className="mt-12 text-center"
->
-  {/* READY? */}
-  <div className="text-[11px] tracking-[0.55em] uppercase font-black text-[#F9F295]/70 mb-4">
-    READY?
-  </div>
+        {/* ✅ CTA AREA (NO FRAME, ONLY READY? + GOLD BUTTON) */}
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.15 }}
+          className="mt-14 text-center"
+        >
+          {/* READY? */}
+          <div className="text-[11px] tracking-[0.55em] uppercase font-black text-[#F9F295]/70 mb-5">
+            READY?
+          </div>
 
-  {/* GOLD CTA BUTTON */}
-  <a
-    href={CTA_URL}
-    target="_blank"
-    rel="noreferrer"
-    className="inline-flex items-center justify-center gap-3
-               px-8 py-4 rounded-full goldButton
-               hover:scale-[1.03] active:scale-[0.97]
-               transition-transform"
-  >
-    <span className="text-[12px] sm:text-sm font-black tracking-[0.35em] uppercase text-black/90">
-      Register Now
-    </span>
-    <span className="text-black/85 font-black">→</span>
-  </a>
-</motion.div>
-
+          {/* GOLD CTA BUTTON */}
+          <a
+            href={CTA_URL}
+            target="_blank"
+            rel="noreferrer"
+            className="inline-flex items-center justify-center gap-3
+                       px-9 py-4 rounded-full goldButton
+                       hover:scale-[1.03] active:scale-[0.97]
+                       transition-transform"
+          >
+            <span className="text-[12px] sm:text-sm font-black tracking-[0.35em] uppercase text-black/90">
+              Register Now
+            </span>
+            <span className="text-black/85 font-black">→</span>
+          </a>
+        </motion.div>
       </div>
 
-      {/* ✅ Styles (same as InstantReward) */}
+      {/* ✅ Styles (only what we use) */}
       <style>{`
-        .goldBorder{
-          background: linear-gradient(90deg,#F9F295,#E0AA3E,#FAF398,#B88A44);
-          box-shadow: 0 16px 60px rgba(0,0,0,0.45);
-        }
-        .winGoldHeadline{
-          background: linear-gradient(180deg,#fff,#FAF398 18%,#F9F295 42%,#E0AA3E 72%,#B88A44);
-          -webkit-background-clip:text;
-          background-clip:text;
-          color:transparent;
-          text-shadow: 0 0 18px rgba(253,224,71,0.25), 0 10px 34px rgba(0,0,0,0.7);
-        }
         .goldButton{
           background: linear-gradient(90deg,#F9F295,#E0AA3E,#FAF398,#B88A44);
           box-shadow: inset 0 1px 0 rgba(255,255,255,0.65), 0 12px 40px rgba(0,0,0,0.45);
