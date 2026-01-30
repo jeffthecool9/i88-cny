@@ -1,6 +1,9 @@
 import React from "react";
 import { motion } from "framer-motion";
 
+/* ✅ SAME CTA LOOK as InstantReward (after-win CTA block) */
+const CTA_URL = "https://your-link-here.com"; // 🔴 CHANGE THIS
+
 const HowToJoin: React.FC = () => {
   return (
     <section className="py-24 px-6 bg-transparent relative">
@@ -64,7 +67,60 @@ const HowToJoin: React.FC = () => {
             </motion.div>
           ))}
         </div>
+
+        {/* ✅ NEW CTA BUTTON (same design as InstantReward post-win CTA) */}
+        <motion.div
+          initial={{ opacity: 0, y: 18 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.15 }}
+          className="mt-10"
+        >
+          <a
+            href={CTA_URL}
+            target="_blank"
+            rel="noreferrer"
+            className="block w-full rounded-[22px] p-[2px] goldBorder hover:scale-[1.01] active:scale-[0.99] transition-transform"
+          >
+            <div className="rounded-[20px] px-6 py-5 text-center bg-[#240202] shadow-[0_24px_90px_rgba(0,0,0,0.65)]">
+              <div className="text-[10px] sm:text-[11px] tracking-[0.55em] uppercase font-black text-[#F9F295]/70 mb-2">
+                READY?
+              </div>
+
+              <div className="winGoldHeadline text-[22px] sm:text-[28px] font-black leading-tight">
+                REGISTER NOW
+              </div>
+
+              <div className="mt-4 inline-flex items-center justify-center gap-2 px-5 py-3 rounded-full goldButton">
+                <span className="text-[11px] sm:text-xs font-black tracking-[0.35em] uppercase text-black/90">
+                  Register Now
+                </span>
+                <span className="text-black/85 font-black">→</span>
+              </div>
+            </div>
+          </a>
+        </motion.div>
       </div>
+
+      {/* ✅ Styles (same as InstantReward) */}
+      <style>{`
+        .goldBorder{
+          background: linear-gradient(90deg,#F9F295,#E0AA3E,#FAF398,#B88A44);
+          box-shadow: 0 16px 60px rgba(0,0,0,0.45);
+        }
+        .winGoldHeadline{
+          background: linear-gradient(180deg,#fff,#FAF398 18%,#F9F295 42%,#E0AA3E 72%,#B88A44);
+          -webkit-background-clip:text;
+          background-clip:text;
+          color:transparent;
+          text-shadow: 0 0 18px rgba(253,224,71,0.25), 0 10px 34px rgba(0,0,0,0.7);
+        }
+        .goldButton{
+          background: linear-gradient(90deg,#F9F295,#E0AA3E,#FAF398,#B88A44);
+          box-shadow: inset 0 1px 0 rgba(255,255,255,0.65), 0 12px 40px rgba(0,0,0,0.45);
+          border: 1px solid rgba(0,0,0,0.15);
+        }
+      `}</style>
     </section>
   );
 };
