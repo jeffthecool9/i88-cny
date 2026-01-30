@@ -141,7 +141,7 @@ const InstantReward: React.FC = () => {
     return () => el.removeEventListener("transitionend", onEnd);
   }, []);
 
-  return (
+    return (
     <section className="relative w-full max-w-[560px] mx-auto px-4 pt-10 pb-10">
       {/* =============================
           CNY INTRO (WITH GOLD BUTTONS)
@@ -159,38 +159,36 @@ const InstantReward: React.FC = () => {
           />
         </div>
 
+        <h2 className="mt-4 leading-tight relative">
+          <span className="block text-[34px] sm:text-[42px] font-black tracking-tight goldTitle">
+            PLAY WITH US
+          </span>
+          <span className="block text-[34px] sm:text-[42px] font-black tracking-tight goldTitle">
+            → GET INSTANT REWARDS
+          </span>
+        </h2>
 
-          <h2 className="mt-4 leading-tight">
-            <span className="block text-[34px] sm:text-[42px] font-black tracking-tight goldTitle">
-              PLAY WITH US
-            </span>
-            <span className="block text-[34px] sm:text-[42px] font-black tracking-tight goldTitle">
-              → GET INSTANT REWARDS
-            </span>
-          </h2>
+        <p className="mt-3 text-sm sm:text-base text-white/78 leading-relaxed max-w-[440px] mx-auto relative">
+          Deposit & play — rewards are credited instantly. Spin the wheel to
+          reveal your welcome reward.
+        </p>
 
-          <p className="mt-3 text-sm sm:text-base text-white/78 leading-relaxed max-w-[440px] mx-auto">
-            Deposit & play — rewards are credited instantly. Spin the wheel to
-            reveal your welcome reward.
-          </p>
-
-          <div className="mt-6 max-w-[460px] mx-auto flex flex-col gap-3">
-            <div className="goldPill">
-              <span className="goldPillText">Instant Credit to your account</span>
-            </div>
-            <div className="goldPill">
-              <span className="goldPillText">3 Minute Withdrawal</span>
-            </div>
-            <div className="goldPill">
-              <span className="goldPillText">VIP tier 24/7 customer service</span>
-            </div>
+        <div className="mt-6 max-w-[460px] mx-auto flex flex-col gap-3 relative">
+          <div className="goldPill">
+            <span className="goldPillText">Instant Credit to your account</span>
           </div>
-
-          <div className="mt-6 text-[11px] tracking-[0.45em] uppercase font-bold text-[#F9F295]/70">
-            TRY THE FREE DEMO SPIN ↓
+          <div className="goldPill">
+            <span className="goldPillText">3 Minute Withdrawal</span>
+          </div>
+          <div className="goldPill">
+            <span className="goldPillText">VIP tier 24/7 customer service</span>
           </div>
         </div>
-      </section>
+
+        <div className="mt-6 text-[11px] tracking-[0.45em] uppercase font-bold text-[#F9F295]/70 relative">
+          TRY THE FREE DEMO SPIN ↓
+        </div>
+      </div>
 
       {/* =============================
           WHEEL
@@ -208,7 +206,11 @@ const InstantReward: React.FC = () => {
         </div>
 
         {/* ✅ OUTER wrapper can pop without breaking rotation */}
-        <div className={`relative aspect-square rounded-[40px] overflow-visible ${showWin ? "winPopWrapper" : ""}`}>
+        <div
+          className={`relative aspect-square rounded-[40px] overflow-visible ${
+            showWin ? "winPopWrapper" : ""
+          }`}
+        >
           {/* ✅ ONLY THIS inner div rotates */}
           <div
             ref={wheelRef}
@@ -231,7 +233,13 @@ const InstantReward: React.FC = () => {
                   <stop offset="100%" stopColor="#5a0606" />
                 </radialGradient>
 
-                <linearGradient id="goldRimV2" x1="0%" y1="0%" x2="100%" y2="100%">
+                <linearGradient
+                  id="goldRimV2"
+                  x1="0%"
+                  y1="0%"
+                  x2="100%"
+                  y2="100%"
+                >
                   <stop offset="0%" stopColor="#F9F295" />
                   <stop offset="28%" stopColor="#E0AA3E" />
                   <stop offset="55%" stopColor="#FAF398" />
@@ -239,7 +247,14 @@ const InstantReward: React.FC = () => {
                   <stop offset="100%" stopColor="#B88A44" />
                 </linearGradient>
 
-                <pattern id="rimPatternV2" x="0" y="0" width="18" height="10" patternUnits="userSpaceOnUse">
+                <pattern
+                  id="rimPatternV2"
+                  x="0"
+                  y="0"
+                  width="18"
+                  height="10"
+                  patternUnits="userSpaceOnUse"
+                >
                   <path
                     d="M0 10 Q4 0 9 10 Q14 0 18 10"
                     fill="none"
@@ -254,7 +269,13 @@ const InstantReward: React.FC = () => {
                   <stop offset="100%" stopColor="rgba(255,255,255,0)" />
                 </radialGradient>
 
-                <filter id="winBloomV2" x="-80%" y="-80%" width="260%" height="260%">
+                <filter
+                  id="winBloomV2"
+                  x="-80%"
+                  y="-80%"
+                  width="260%"
+                  height="260%"
+                >
                   <feGaussianBlur stdDeviation="10" result="blur" />
                   <feMerge>
                     <feMergeNode in="blur" />
@@ -275,17 +296,28 @@ const InstantReward: React.FC = () => {
                 const end = (i + 1) * anglePerSegment;
                 const r = WHEEL_SIZE / 2 - OUTER_BORDER_WIDTH;
 
-                const x1 = WHEEL_SIZE / 2 + r * Math.cos(((start - 90) * Math.PI) / 180);
-                const y1 = WHEEL_SIZE / 2 + r * Math.sin(((start - 90) * Math.PI) / 180);
-                const x2 = WHEEL_SIZE / 2 + r * Math.cos(((end - 90) * Math.PI) / 180);
-                const y2 = WHEEL_SIZE / 2 + r * Math.sin(((end - 90) * Math.PI) / 180);
+                const x1 =
+                  WHEEL_SIZE / 2 +
+                  r * Math.cos(((start - 90) * Math.PI) / 180);
+                const y1 =
+                  WHEEL_SIZE / 2 +
+                  r * Math.sin(((start - 90) * Math.PI) / 180);
+                const x2 =
+                  WHEEL_SIZE / 2 +
+                  r * Math.cos(((end - 90) * Math.PI) / 180);
+                const y2 =
+                  WHEEL_SIZE / 2 +
+                  r * Math.sin(((end - 90) * Math.PI) / 180);
 
                 const d = `M ${WHEEL_SIZE / 2} ${WHEEL_SIZE / 2} L ${x1} ${y1} A ${r} ${r} 0 0 1 ${x2} ${y2} Z`;
 
                 const isWinnerSlice = showWin && i === forcedWinIndex;
 
                 return (
-                  <g key={p.id} filter={isWinnerSlice ? "url(#winBloomV2)" : "none"}>
+                  <g
+                    key={p.id}
+                    filter={isWinnerSlice ? "url(#winBloomV2)" : "none"}
+                  >
                     <path d={d} fill={p.color} opacity={0.98} />
                     <line
                       x1={WHEEL_SIZE / 2}
@@ -296,14 +328,20 @@ const InstantReward: React.FC = () => {
                       strokeWidth="1"
                     />
 
-                    <g transform={`rotate(${start + anglePerSegment / 2}, ${WHEEL_SIZE / 2}, ${WHEEL_SIZE / 2})`}>
+                    <g
+                      transform={`rotate(${start + anglePerSegment / 2}, ${
+                        WHEEL_SIZE / 2
+                      }, ${WHEEL_SIZE / 2})`}
+                    >
                       <text
                         x={WHEEL_SIZE / 2}
                         y={110}
                         textAnchor="middle"
                         fill={isWinnerSlice ? "#ffffff" : "#fff3b0"}
                         className="font-black text-[16px] sm:text-[18px] tracking-wider"
-                        style={{ textShadow: "0 2px 10px rgba(0,0,0,0.65)" }}
+                        style={{
+                          textShadow: "0 2px 10px rgba(0,0,0,0.65)",
+                        }}
                       >
                         {p.label}
                       </text>
@@ -311,7 +349,11 @@ const InstantReward: React.FC = () => {
                         x={WHEEL_SIZE / 2}
                         y={130}
                         textAnchor="middle"
-                        fill={isWinnerSlice ? "rgba(255,255,255,0.95)" : "rgba(255,255,255,0.82)"}
+                        fill={
+                          isWinnerSlice
+                            ? "rgba(255,255,255,0.95)"
+                            : "rgba(255,255,255,0.82)"
+                        }
                         className="font-bold text-[9px] tracking-[0.22em] uppercase"
                       >
                         {p.value}
@@ -456,7 +498,6 @@ const InstantReward: React.FC = () => {
           50%{ transform: scale(1.03); opacity: 0.75; }
         }
 
-        /* ✅ POP WITHOUT BREAKING ROTATION (outer wrapper, not the rotating div) */
         .winPopWrapper{
           animation: winPopWrapper 520ms cubic-bezier(0.2,1,0.3,1) both;
           transform-origin: center;
@@ -485,6 +526,7 @@ const InstantReward: React.FC = () => {
       `}</style>
     </section>
   );
+
 };
 
 export default InstantReward;
