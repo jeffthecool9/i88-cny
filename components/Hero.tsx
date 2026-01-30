@@ -27,26 +27,23 @@ const Hero: React.FC<{ onOpenTutorial: () => void }> = () => {
   };
 
   return (
-    <section className="relative min-h-screen flex flex-col items-center justify-center pt-8 sm:pt-10 pb-24 overflow-hidden bg-[#b11212]">
-      {/* ===== Background (your local image) ===== */}
-      <div className="absolute inset-0 z-0 pointer-events-none">
-        {/* Image */}
+    <section className="relative min-h-screen overflow-hidden bg-[#0b0b10]">
+      {/* ===== Background image ===== */}
+      <div className="absolute inset-0 z-0">
         <div
-          className="absolute inset-0"
+          className="absolute inset-0 bg-center bg-no-repeat"
           style={{
-            backgroundImage: 'url("/cny-bg.png")',
+            backgroundImage: `url("/cny-bg.png")`,
             backgroundSize: "cover",
-            backgroundPosition: "center bottom",
-            backgroundRepeat: "no-repeat",
+            backgroundPosition: "center 45%",
           }}
         />
 
-        {/* Make background more visible (less dark overlay) */}
-        <div className="absolute inset-0 bg-black/20" />
+        {/* make background more visible */}
+        <div className="absolute inset-0 bg-black/25" />
 
-        {/* Soft depth */}
-        <div className="absolute -top-32 left-1/2 -translate-x-1/2 w-[720px] h-[720px] rounded-full bg-[#F9D976]/10 blur-[140px]" />
-        <div className="absolute -bottom-40 right-[-10%] w-[760px] h-[760px] rounded-full bg-[#E0AA3E]/08 blur-[160px]" />
+        {/* subtle top vignette so text stays readable */}
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_20%,rgba(0,0,0,0.15)_0%,rgba(0,0,0,0.55)_65%,rgba(0,0,0,0.7)_100%)]" />
       </div>
 
       {/* ===== Content ===== */}
@@ -54,74 +51,79 @@ const Hero: React.FC<{ onOpenTutorial: () => void }> = () => {
         variants={container}
         initial="hidden"
         animate="show"
-        className="relative z-10 flex flex-col items-center text-center px-6 w-full max-w-xl"
+        className="relative z-10 min-h-screen flex flex-col items-center text-center px-6"
       >
-        {/* Logo (NO container) */}
-        <motion.div variants={item} className="mb-4 sm:mb-6">
-          <img
-            src="/android-chrome-192x192.png"
-            alt="i88"
-            className="h-20 sm:h-24 md:h-28 w-auto object-contain"
-            draggable={false}
-          />
-        </motion.div>
+        {/* Top block (keep it compact, remove huge empty space) */}
+        <div className="w-full max-w-xl pt-12 sm:pt-14">
+          {/* Logo (NO container, bigger) */}
+          <motion.div variants={item} className="flex justify-center mb-6">
+            <img
+              src="/android-chrome-192x192.png"
+              alt="i88"
+              className="h-14 sm:h-16 w-auto object-contain"
+              draggable={false}
+            />
+          </motion.div>
 
-        {/* Title */}
-        <motion.div variants={item} className="mb-6 sm:mb-7">
-          <h1 className="text-7xl sm:text-8xl font-black leading-[0.85] uppercase tracking-tighter mb-3 flex flex-col items-center">
-            <span className="block text-white/95">八仙</span>
-            <span className="laicai-gold-flat">来财</span>
-          </h1>
+          {/* Title */}
+          <motion.div variants={item} className="mb-6">
+            <h1 className="text-6xl sm:text-7xl font-black leading-[0.88] uppercase tracking-tighter mb-3 flex flex-col items-center">
+              <span className="block text-white/95">八仙</span>
+              <span className="laicai-gold-flat">来财</span>
+            </h1>
 
-          <div className="flex items-center justify-center gap-4">
-            <div className="h-px w-10 bg-[#F9D976]/50" />
-            <p className="text-[#fff3d6] font-black text-xs uppercase tracking-[0.45em]">
-              Lunar Year 2026
+            <div className="flex items-center justify-center gap-4">
+              <div className="h-px w-10 bg-[#F9D976]/50" />
+              <p className="text-[#fff3d6] font-black text-xs uppercase tracking-[0.45em]">
+                Lunar Year 2026
+              </p>
+              <div className="h-px w-10 bg-[#F9D976]/50" />
+            </div>
+
+            <p className="mt-4 text-white/90 text-sm sm:text-base leading-relaxed max-w-[520px] mx-auto">
+              Play with i88 and get rewarded instantly. Try the demo spin below and
+              unlock your welcome reward after registration.
             </p>
-            <div className="h-px w-10 bg-[#F9D976]/50" />
+          </motion.div>
+
+          {/* Countdown (move slightly up / tighter spacing) */}
+          <motion.div variants={item} className="mb-4">
+            <CountdownTimer pageVariant="cny_visual_v2" />
+          </motion.div>
+        </div>
+
+        {/* CTA (OPTION A): lock to bottom area of hero, centered, NOT blocking the characters */}
+        <motion.div
+          variants={item}
+          className="absolute left-1/2 -translate-x-1/2 bottom-10 sm:bottom-12 w-full max-w-xl px-6"
+        >
+          <div className="relative group">
+            <div
+              className="absolute -inset-1 rounded-[2.2rem] blur-xl opacity-30 group-hover:opacity-45 transition duration-700"
+              style={{
+                background:
+                  "linear-gradient(90deg,#F9D976,#E0AA3E,#FAF398,#B88A44)",
+              }}
+            />
+            <button
+              onClick={handleCtaClick}
+              className="relative mx-auto block w-[86%] sm:w-[78%] py-5 rounded-[2rem]
+                         font-black text-lg sm:text-xl uppercase tracking-widest
+                         shadow-[0_25px_60px_rgba(0,0,0,0.55)]
+                         transition-transform hover:-translate-y-1 active:translate-y-1
+                         border-b-8"
+              style={{
+                background:
+                  "linear-gradient(180deg,#fff7cc,#FAF398,#F9D976,#E0AA3E,#B88A44)",
+                color: "#7a0606",
+                borderBottomColor: "#7a5a20",
+              }}
+            >
+              Pre-Register Now
+            </button>
           </div>
-
-          <p className="mt-4 text-white/90 text-sm sm:text-base leading-relaxed max-w-[520px] mx-auto">
-            Play with i88 and get rewarded instantly. Try the demo spin below and
-            unlock your welcome reward after registration.
-          </p>
         </motion.div>
-
-        {/* Countdown (slightly higher, more space for background below) */}
-        <motion.div variants={item} className="mb-6 w-full">
-          <CountdownTimer pageVariant="cny_visual_v2" />
-        </motion.div>
-
-     {/* CTA (centered, slightly smaller, pushed down) */}
-<motion.div
-  variants={item}
-  className="w-full relative group mt-10 sm:mt-14"
-  style={{ y: 100 }} // ✅ moves DOWN 100px (change this number)
->
-  <div
-    className="absolute -inset-1 rounded-[2.2rem] blur-xl opacity-30 group-hover:opacity-45 transition duration-700"
-    style={{
-      background: "linear-gradient(90deg,#F9D976,#E0AA3E,#FAF398,#B88A44)",
-    }}
-  />
-  <button
-    onClick={handleCtaClick}
-    className="relative mx-auto block w-[88%] sm:w-[82%] py-5 rounded-[2rem]
-               font-black text-lg sm:text-xl uppercase tracking-widest
-               shadow-[0_25px_60px_rgba(0,0,0,0.55)]
-               transition-all transform hover:-translate-y-1 active:translate-y-1
-               border-b-8"
-    style={{
-      background:
-        "linear-gradient(180deg,#fff7cc,#FAF398,#F9D976,#E0AA3E,#B88A44)",
-      color: "#7a0606",
-      borderBottomColor: "#7a5a20",
-    }}
-  >
-    Pre-Register Now
-  </button>
-</motion.div>
-
+      </motion.div>
 
       {/* ===== Styles ===== */}
       <style>{`
