@@ -85,15 +85,26 @@ const InstantReward: React.FC = () => {
   const anglePerSegment = 360 / segments;
   const isLimitReached = spinsUsed >= MAX_SPINS;
 
-  // ✅ Always win "88 FREE SPINS" — FORCE FIRST MATCH (p0)
+  /**
+   * ✅ HARD-FORCE the exact slice you want:
+   * Use ID so it NEVER accidentally picks the other "88 FREE SPINS".
+   */
   const forcedWinIndex = useMemo(() => {
-    const target = "88 FREE SPINS";
-    const idx = PRIZES.findIndex((p) => p.label.trim().toUpperCase() === target);
+    const idx = PRIZES.findIndex((p) => p.id === "p0"); // ✅ ALWAYS p0
     return idx >= 0 ? idx : 0;
   }, []);
 
-  // ✅ Spin and land INSIDE the winning slice (not on boundary),
-  //    positioned above the word "FREE".
+  /**
+   * ✅ Correct landing:
+   * Your wheel slices are drawn with (start - 90) in cos/sin, meaning:
+   * - start=0 begins at TOP (12 o'clock)
+   * - slice spans clockwise from start -> start+anglePerSegment
+   *
+   * So pointer at TOP = angle 0 in YOUR slice system.
+   *
+   * We target a point INSIDE the slice (not the center) so we never hit seam.
+   * We aim above the word "FREE" -> slightly inside from the start boundary.
+   */
   const spin = () => {
     if (isSpinning || isLimitReached) return;
 
@@ -101,39 +112,27 @@ const InstantReward: React.FC = () => {
     setShowWin(false);
     finishedRef.current = false;
 
-    // Slice geometry
     const sliceStart = forcedWinIndex * anglePerSegment;
-    const sliceCenter = sliceStart + anglePerSegment / 2;
 
-    /**
-     * ✅ Tune:
-     * SAFE_MARGIN_DEG prevents landing on the slice line.
-     * FREE_TARGET_OFFSET_DEG pushes the landing deeper into the slice
-     * so the pointer aligns above "FREE" (since text is drawn around y=110).
-     */
-    const SAFE_MARGIN_DEG = 8; // keep away from slice edges
-    const FREE_TARGET_OFFSET_DEG = 16; // tweak 14~20 if you want
+    // ✅ Keep away from BOTH edges (seams)
+    const SAFE_MARGIN_DEG = 6;
 
-    // Target angle inside slice + clamped to safe band
-    let target = sliceCenter + FREE_TARGET_OFFSET_DEG;
+    // ✅ This is the key: where inside the slice to land
+    // Move this 18~28 if you want exact above "FREE"
+    const FREE_TARGET_IN_SLICE_DEG = 22;
 
+    // targetAngle is in [sliceStart+safe, sliceStart+segment-safe]
+    let targetAngle = sliceStart + FREE_TARGET_IN_SLICE_DEG;
     const minSafe = sliceStart + SAFE_MARGIN_DEG;
     const maxSafe = sliceStart + anglePerSegment - SAFE_MARGIN_DEG;
+    targetAngle = Math.max(minSafe, Math.min(maxSafe, targetAngle));
 
-    if (target < minSafe) target = minSafe;
-    if (target > maxSafe) target = maxSafe;
-
-    // Convert to rotation needed so target sits at pointer (12 o'clock)
-    const desired = (360 - (target % 360) + 360) % 360;
+    // ✅ rotate wheel so targetAngle becomes 0 (top pointer)
+    // negative targetAngle == (360 - targetAngle)
+    const desired = (360 - (targetAngle % 360)) % 360;
 
     const current = ((rotationRef.current % 360) + 360) % 360;
-    let delta = (desired - current + 360) % 360;
-
-    // Extra safety nudge: avoid being extremely close to any boundary
-    const nearEdge = delta % anglePerSegment;
-    if (nearEdge < 1.2 || nearEdge > anglePerSegment - 1.2) {
-      delta += 1.8; // tiny shift inside the slice
-    }
+    const delta = (desired - current + 360) % 360;
 
     const extraSpins = 8;
     const finalRotation = rotationRef.current + extraSpins * 360 + delta;
