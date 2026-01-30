@@ -178,7 +178,7 @@ const InstantReward: React.FC = () => {
             reveal your welcome reward.
           </p>
 
-          <div className="mt-6 max-w-[520px] mx-auto flex flex-col gap-3">
+          <div className="mt-6 max-w-[460px] mx-auto flex flex-col gap-3">
             <div className="goldPill">
               <span className="goldPillText">Instant Credit to Your Account</span>
             </div>
