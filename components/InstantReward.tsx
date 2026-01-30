@@ -41,6 +41,7 @@ function SimplePointer() {
             <stop offset="78%" stopColor="#E0AA3E" />
             <stop offset="100%" stopColor="#B88A44" />
           </linearGradient>
+
           <filter id="ptrShadow2" x="-30%" y="-30%" width="160%" height="160%">
             <feGaussianBlur in="SourceAlpha" stdDeviation="3" result="blur" />
             <feOffset dx="0" dy="5" result="off" />
@@ -92,7 +93,7 @@ const InstantReward: React.FC = () => {
     return idx >= 0 ? idx : 0;
   }, []);
 
-  // ✅ Correct spin math (land at CENTER of forced slice)
+  // ✅ Correct landing: center of forced slice at pointer (top)
   const spin = () => {
     if (isSpinning || isLimitReached) return;
 
@@ -101,7 +102,6 @@ const InstantReward: React.FC = () => {
     finishedRef.current = false;
 
     const TUNE_DEG = 0;
-
     const targetCenter =
       forcedWinIndex * anglePerSegment + anglePerSegment / 2;
 
@@ -139,7 +139,7 @@ const InstantReward: React.FC = () => {
   return (
     <section className="relative w-full max-w-[560px] mx-auto px-4 pt-10 pb-10">
       {/* =============================
-          CNY INTRO (WITH GOLD BUTTONS)
+          CNY INTRO (NO "INSTANT MEMBER PRIVILEGES")
       ============================= */}
       <div className="relative text-center rounded-[28px] p-6 sm:p-7 overflow-hidden border border-[#F9F295]/18 bg-black/10 shadow-[0_18px_80px_rgba(0,0,0,0.55)]">
         <div className="pointer-events-none absolute inset-0">
@@ -154,7 +154,8 @@ const InstantReward: React.FC = () => {
           />
         </div>
 
-          <h2 className="mt-4 leading-tight">
+        <div className="relative z-10">
+          <h2 className="mt-1 leading-tight">
             <span className="block text-[34px] sm:text-[42px] font-black tracking-tight goldTitle">
               PLAY WITH US
             </span>
@@ -180,7 +181,7 @@ const InstantReward: React.FC = () => {
             </div>
           </div>
 
-          <div className="mt-6 text-[20px] tracking-[0.45em] uppercase font-bold text-[#F9F295]/70">
+          <div className="mt-6 text-[18px] tracking-[0.45em] uppercase font-bold text-[#F9F295]/70">
             TRY THE FREE DEMO SPIN ↓
           </div>
         </div>
@@ -201,9 +202,7 @@ const InstantReward: React.FC = () => {
           <SimplePointer />
         </div>
 
-        {/* outer wrapper */}
         <div className="relative aspect-square rounded-[40px] overflow-visible">
-          {/* rotating */}
           <div
             ref={wheelRef}
             className={`w-full h-full ${showWin ? "winWheelPop" : ""}`}
@@ -225,7 +224,13 @@ const InstantReward: React.FC = () => {
                   <stop offset="100%" stopColor="#5a0606" />
                 </radialGradient>
 
-                <linearGradient id="goldRimV2" x1="0%" y1="0%" x2="100%" y2="100%">
+                <linearGradient
+                  id="goldRimV2"
+                  x1="0%"
+                  y1="0%"
+                  x2="100%"
+                  y2="100%"
+                >
                   <stop offset="0%" stopColor="#F9F295" />
                   <stop offset="28%" stopColor="#E0AA3E" />
                   <stop offset="55%" stopColor="#FAF398" />
@@ -233,7 +238,14 @@ const InstantReward: React.FC = () => {
                   <stop offset="100%" stopColor="#B88A44" />
                 </linearGradient>
 
-                <pattern id="rimPatternV2" x="0" y="0" width="18" height="10" patternUnits="userSpaceOnUse">
+                <pattern
+                  id="rimPatternV2"
+                  x="0"
+                  y="0"
+                  width="18"
+                  height="10"
+                  patternUnits="userSpaceOnUse"
+                >
                   <path
                     d="M0 10 Q4 0 9 10 Q14 0 18 10"
                     fill="none"
@@ -248,7 +260,13 @@ const InstantReward: React.FC = () => {
                   <stop offset="100%" stopColor="rgba(255,255,255,0)" />
                 </radialGradient>
 
-                <filter id="winBloomV2" x="-80%" y="-80%" width="260%" height="260%">
+                <filter
+                  id="winBloomV2"
+                  x="-80%"
+                  y="-80%"
+                  width="260%"
+                  height="260%"
+                >
                   <feGaussianBlur stdDeviation="10" result="blur" />
                   <feMerge>
                     <feMergeNode in="blur" />
@@ -269,17 +287,27 @@ const InstantReward: React.FC = () => {
                 const end = (i + 1) * anglePerSegment;
                 const r = WHEEL_SIZE / 2 - OUTER_BORDER_WIDTH;
 
-                const x1 = WHEEL_SIZE / 2 + r * Math.cos(((start - 90) * Math.PI) / 180);
-                const y1 = WHEEL_SIZE / 2 + r * Math.sin(((start - 90) * Math.PI) / 180);
-                const x2 = WHEEL_SIZE / 2 + r * Math.cos(((end - 90) * Math.PI) / 180);
-                const y2 = WHEEL_SIZE / 2 + r * Math.sin(((end - 90) * Math.PI) / 180);
+                const x1 =
+                  WHEEL_SIZE / 2 +
+                  r * Math.cos(((start - 90) * Math.PI) / 180);
+                const y1 =
+                  WHEEL_SIZE / 2 +
+                  r * Math.sin(((start - 90) * Math.PI) / 180);
+                const x2 =
+                  WHEEL_SIZE / 2 +
+                  r * Math.cos(((end - 90) * Math.PI) / 180);
+                const y2 =
+                  WHEEL_SIZE / 2 +
+                  r * Math.sin(((end - 90) * Math.PI) / 180);
 
                 const d = `M ${WHEEL_SIZE / 2} ${WHEEL_SIZE / 2} L ${x1} ${y1} A ${r} ${r} 0 0 1 ${x2} ${y2} Z`;
-
                 const isWinnerSlice = showWin && i === forcedWinIndex;
 
                 return (
-                  <g key={p.id} filter={isWinnerSlice ? "url(#winBloomV2)" : "none"}>
+                  <g
+                    key={p.id}
+                    filter={isWinnerSlice ? "url(#winBloomV2)" : "none"}
+                  >
                     <path d={d} fill={p.color} opacity={0.98} />
                     <line
                       x1={WHEEL_SIZE / 2}
@@ -289,7 +317,12 @@ const InstantReward: React.FC = () => {
                       stroke="rgba(255,255,255,0.14)"
                       strokeWidth="1"
                     />
-                    <g transform={`rotate(${start + anglePerSegment / 2}, ${WHEEL_SIZE / 2}, ${WHEEL_SIZE / 2})`}>
+
+                    <g
+                      transform={`rotate(${
+                        start + anglePerSegment / 2
+                      }, ${WHEEL_SIZE / 2}, ${WHEEL_SIZE / 2})`}
+                    >
                       <text
                         x={WHEEL_SIZE / 2}
                         y={110}
@@ -304,7 +337,11 @@ const InstantReward: React.FC = () => {
                         x={WHEEL_SIZE / 2}
                         y={130}
                         textAnchor="middle"
-                        fill={isWinnerSlice ? "rgba(255,255,255,0.95)" : "rgba(255,255,255,0.82)"}
+                        fill={
+                          isWinnerSlice
+                            ? "rgba(255,255,255,0.95)"
+                            : "rgba(255,255,255,0.82)"
+                        }
                         className="font-bold text-[9px] tracking-[0.22em] uppercase"
                       >
                         {p.value}
