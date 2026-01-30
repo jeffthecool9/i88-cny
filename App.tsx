@@ -30,15 +30,7 @@ const App: React.FC = () => {
           <HowToJoin />
         </div>
 
-        <footer className="bg-[#000a12] pt-20 pb-40 px-10 text-center border-t border-white/5">
-          <p className="text-[#FF5F5F] text-sm font-black uppercase tracking-[0.4em] mb-6">
-            Official i88 Digital Entertainment
-          </p>
-          <p className="text-[#FF5F5F] text-xs leading-relaxed uppercase tracking-[0.2em] max-w-sm mx-auto">
-            Operating Since 2017 • Serving Malaysia for 9 Consecutive Years.
-            Verified Regional Service. 21+ Only.
-          </p>
-        </footer>
+     
 
         {/* Bottom CTA container (empty right now) */}
         <div
