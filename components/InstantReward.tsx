@@ -159,12 +159,6 @@ const InstantReward: React.FC = () => {
           />
         </div>
 
-        <div className="relative z-10">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-[#F9F295]/25 bg-black/20">
-            <span className="text-[10px] tracking-[0.35em] uppercase font-black text-[#F9F295]/85">
-              INSTANT MEMBER PRIVILEGES
-            </span>
-          </div>
 
           <h2 className="mt-4 leading-tight">
             <span className="block text-[34px] sm:text-[42px] font-black tracking-tight goldTitle">
