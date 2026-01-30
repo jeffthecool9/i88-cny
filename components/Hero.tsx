@@ -63,13 +63,16 @@ const Hero: React.FC<{ onOpenTutorial: () => void }> = () => {
       >
         {/* Logo */}
       <motion.div variants={item} className="mb-10">
-  <img
-    src="/android-chrome-192x192.png"
-    alt="i88"
-    className="h-14 sm:h-16 md:h-18 w-auto object-contain"
-    draggable={false}
-  />
+  <div className="flex justify-center">
+    <img
+      src="/android-chrome-192x192.png"
+      alt="i88"
+      className="h-14 sm:h-16 md:h-18 w-auto object-contain"
+      draggable={false}
+    />
+  </div>
 </motion.div>
+
 
 
 
