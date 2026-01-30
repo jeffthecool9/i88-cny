@@ -190,7 +190,7 @@ const InstantReward: React.FC = () => {
             TRY THE FREE DEMO SPIN ↓
           </div>
         </div>
-      </div>
+      </section>
 
       {/* =============================
           WHEEL
