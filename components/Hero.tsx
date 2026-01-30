@@ -71,7 +71,7 @@ const Hero: React.FC<{ onOpenTutorial: () => void }> = () => {
           <div className="mt-3 flex items-center justify-center gap-4">
             <div className="h-px w-10 bg-[#F9D976]/50" />
             <p className="text-[#fff3d6] font-black text-xs uppercase tracking-[0.45em]">
-              Lunar Year 2026
+             8 Immortals Treasure 
             </p>
             <div className="h-px w-10 bg-[#F9D976]/50" />
           </div>
