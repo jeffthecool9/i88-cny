@@ -86,43 +86,47 @@ const Hero: React.FC<{ onOpenTutorial: () => void }> = () => {
             </p>
           </motion.div>
 
-          {/* Countdown (move slightly up / tighter spacing) */}
-          <motion.div variants={item} className="mb-4">
-            <CountdownTimer pageVariant="cny_visual_v2" />
-          </motion.div>
-        </div>
-
-       {/* CTA (keep vertical same, fix horizontal center) */}
-<motion.div
-  variants={item}
-  className="absolute left-1/2 -translate-x-1/2 bottom-10 sm:bottom-12 w-full max-w-xl px-6 flex justify-center"
->
-  <div className="relative group w-[86%] sm:w-[78%]">
-    <div
-      className="absolute -inset-1 rounded-[2.2rem] blur-xl opacity-30 group-hover:opacity-45 transition duration-700"
-      style={{
-        background: "linear-gradient(90deg,#F9D976,#E0AA3E,#FAF398,#B88A44)",
-      }}
-    />
-    <button
-      onClick={handleCtaClick}
-      className="relative w-full py-5 rounded-[2rem]
-                 font-black text-lg sm:text-xl uppercase tracking-widest
-                 shadow-[0_25px_60px_rgba(0,0,0,0.55)]
-                 transition-transform hover:-translate-y-1 active:translate-y-1
-                 border-b-8"
-      style={{
-        background:
-          "linear-gradient(180deg,#fff7cc,#FAF398,#F9D976,#E0AA3E,#B88A44)",
-        color: "#7a0606",
-        borderBottomColor: "#7a5a20",
-      }}
+      {/* ===== Bottom dock: Timer then CTA (match reference) ===== */}
+<div className="absolute inset-x-0 bottom-[56px] sm:bottom-[64px] z-20">
+  <div className="mx-auto w-full max-w-xl px-6 flex flex-col items-center">
+    {/* Timer (slightly higher, sits above circle) */}
+    <motion.div variants={item} className="w-full flex justify-center mb-6">
+      <CountdownTimer pageVariant="cny_visual_v2" />
+    </motion.div>
+    
+     {/* CTA (forced into blue band area, centered) */}
+    <motion.div
+      variants={item}
+      className="w-full relative group flex justify-center"
+      style={{ transform: "translateY(34px)" }} // ✅ pushes CTA down into blue band
     >
-      Pre-Register Now
-    </button>
+      <div className="relative w-[92%] sm:w-[86%]">
+        <div
+          className="absolute -inset-1 rounded-[2.6rem] blur-xl opacity-30 group-hover:opacity-45 transition duration-700"
+          style={{
+            background: "linear-gradient(90deg,#F9D976,#E0AA3E,#FAF398,#B88A44)",
+          }}
+        />
+        <button
+          onClick={handleCtaClick}
+          className="relative w-full py-6 rounded-[2.6rem]
+                     font-black text-xl sm:text-2xl uppercase tracking-widest
+                     shadow-[0_25px_60px_rgba(0,0,0,0.55)]
+                     transition-transform hover:-translate-y-1 active:translate-y-1
+                     border-b-8"
+          style={{
+            background:
+              "linear-gradient(180deg,#fff7cc,#FAF398,#F9D976,#E0AA3E,#B88A44)",
+            color: "#7a0606",
+            borderBottomColor: "#7a5a20",
+          }}
+        >
+          Pre-Register Now
+        </button>
+      </div>
+    </motion.div>
   </div>
-</motion.div>
-      </motion.div>
+</div>
 
       {/* ===== Styles ===== */}
       <style>{`
