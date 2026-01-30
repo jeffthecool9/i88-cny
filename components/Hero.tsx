@@ -96,7 +96,7 @@ const Hero: React.FC<{ onOpenTutorial: () => void }> = () => {
         <motion.div
   variants={item}
   className="w-full relative group mt-10 sm:mt-14"
-  style={{ transform: "translateY(100px)" }}
+  style={{ transform: "translateY(200px)" }}
 >
 
           <div
