@@ -190,7 +190,7 @@ const InstantReward: React.FC = () => {
             </div>
           </div>
 
-          <div className="mt-6 text-[18px] tracking-[0.45em] uppercase font-bold text-[#F9F295]/70">
+          <div className="mt-6 text-[25px] tracking-[0.45em] uppercase font-bold text-[#F9F295]/70">
             SPIN to Get Reward↓
           </div>
         </div>
