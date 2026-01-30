@@ -93,7 +93,12 @@ const Hero: React.FC<{ onOpenTutorial: () => void }> = () => {
         </motion.div>
 
         {/* CTA (centered, slightly smaller, pushed down) */}
-        <motion.div variants={item} className="w-full relative group mt-10 sm:mt-14">
+        <motion.div
+  variants={item}
+  className="w-full relative group mt-10 sm:mt-14"
+  style={{ transform: "translateY(100px)" }}
+>
+
           <div
             className="absolute -inset-1 rounded-[2.2rem] blur-xl opacity-30 group-hover:opacity-45 transition duration-700"
             style={{
