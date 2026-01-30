@@ -1,157 +1,189 @@
 import React from "react";
-import { motion, Variants } from "framer-motion";
-import CountdownTimer, { trackEvent } from "./CountdownTimer";
+import { motion } from "framer-motion";
 
-const Hero: React.FC<{ onOpenTutorial: () => void }> = () => {
-  const container: Variants = {
-    hidden: { opacity: 0 },
-    show: {
-      opacity: 1,
-      transition: { staggerChildren: 0.1, delayChildren: 0.12 },
-    },
-  };
+/* SAME CTA LOOK */
+const CTA_URL = "https://your-link-here.com"; // 🔴 CHANGE THIS
 
-  const item: Variants = {
-    hidden: { opacity: 0, y: 10, scale: 0.98 },
-    show: {
-      opacity: 1,
-      y: 0,
-      scale: 1,
-      transition: { duration: 0.55, ease: "easeOut" },
-    },
-  };
-
-  const handleCtaClick = () => {
-    trackEvent("cta_click", { cta_id: "hero_register_main" });
-    window.open("https://www.palacehub8.com/LlZEMHit", "_blank");
-  };
-
+const HowToJoin: React.FC = () => {
   return (
-    <section className="relative min-h-screen w-full overflow-hidden">
-      {/* ===== Background image (public/cny-bg.png) ===== */}
-      <div className="absolute inset-0 z-0 pointer-events-none">
-        <img
-          src="/cny-bg.png"
-          alt="CNY Background"
-          className="w-full h-full object-cover"
-          draggable={false}
-        />
-
-        {/* Make bg more visible + readable text */}
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_18%,rgba(255,255,255,0.06)_0%,rgba(0,0,0,0.40)_55%,rgba(0,0,0,0.62)_100%)]" />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/10 via-black/15 to-black/45" />
-      </div>
-
-      {/* ===== Main content (top) ===== */}
-      <motion.div
-        variants={container}
-        initial="hidden"
-        animate="show"
-        className="relative z-10 mx-auto w-full max-w-xl px-6 pt-10 sm:pt-12 text-center"
-      >
-        {/* Logo (bigger, no container, less top space) */}
-   <motion.div variants={item} className="flex justify-center mb-5">
-  <img
-    src="/android-chrome-192x192.png"
-    alt="i88"
-    className="h-20 sm:h-24 w-auto object-contain"
-    draggable={false}
-  />
-</motion.div>
-
-
-
+    <section className="py-24 px-6 bg-transparent relative">
+      <div className="max-w-md mx-auto relative z-10">
         {/* Title */}
-        <motion.div variants={item} className="mb-4">
-          <h1 className="text-7xl sm:text-8xl font-black leading-[0.85] uppercase tracking-tighter flex flex-col items-center">
-            <span className="block text-white/95">八仙</span>
-            <span className="laicai-gold-flat">来财</span>
-          </h1>
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="text-center mb-16"
+        >
+          {/* GOLD TITLE */}
+          <h2 className="text-5xl font-black uppercase tracking-tighter mb-4 goldText">
+            How To <span className="italic">Join</span>
+          </h2>
 
-          <div className="mt-3 flex items-center justify-center gap-4">
-            <div className="h-px w-10 bg-[#F9D976]/50" />
-            <p className="text-[#fff3d6] font-black text-xs uppercase tracking-[0.45em]">
-             8 Immortals Treasure 
-            </p>
-            <div className="h-px w-10 bg-[#F9D976]/50" />
-          </div>
-
-          <p className="mt-4 text-white/90 text-sm sm:text-base leading-relaxed max-w-[520px] mx-auto">
-            Play with i88 and get rewarded instantly. Try the demo spin below and
-            unlock your welcome reward after registration.
+          {/* 🔵 BLUE stays BLUE */}
+          <p className="text-[#00A3FF] font-bold uppercase tracking-[0.2em] text-sm">
+            Registration Steps
           </p>
         </motion.div>
-      </motion.div>
 
-      {/* ===== Bottom dock (Timer + CTA) =====
-          This is what fixes your placement: we anchor it to the section bottom,
-          then push the CTA down into the blue band with translateY.
-      */}
-      <div className="absolute inset-x-0 bottom-[44px] sm:bottom-[56px] z-20">
-        <div className="mx-auto w-full max-w-xl px-6 flex flex-col items-center">
-          {/* Timer (above circle) */}
-          <motion.div variants={item} className="w-full flex justify-center mb-6">
-            <CountdownTimer pageVariant="cny_visual_v2" />
-          </motion.div>
+        {/* Steps */}
+        <div className="space-y-8">
+          {[
+            {
+              step: 1,
+              title: "Create Account",
+              desc: "Quick registration with simple requirements",
+            },
+            {
+              step: 2,
+              title: "Event Promotion",
+              desc: "Deposit RM50 to Get 88 Free Spins",
+            },
+            {
+              step: 3,
+              title: "Claim & Explore",
+              desc: "Enjoy your 88+100 in Total Free Spins! And explore the 8 Immortals Treasure Event",
+            },
+          ].map((s, i) => (
+            <motion.div
+              key={i}
+              initial={{ opacity: 0, scale: 0.96 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ delay: i * 0.12 }}
+              className="flex items-center gap-8 bg-black/30 backdrop-blur-xl p-10 rounded-[2.5rem] border border-white/5"
+            >
+              {/* GOLD STEP BOX */}
+              <div className="stepGold w-16 h-16 rounded-2xl flex items-center justify-center font-black text-2xl flex-shrink-0">
+                <span className="stepNum">{s.step}</span>
+              </div>
 
-          {/* CTA (centered, inside blue band, bottom gap kept by bottom-[..] above) */}
-          <motion.div
-            variants={item}
-            className="w-full relative group flex justify-center"
-            style={{ transform: "translateY(56px)" }} // ✅ push down into the blue area
-          >
-            <div className="relative w-[92%] sm:w-[86%]">
-              <div
-                className="absolute -inset-1 rounded-[2.6rem] blur-xl opacity-30 group-hover:opacity-45 transition duration-700"
-                style={{
-                  background:
-                    "linear-gradient(90deg,#F9D976,#E0AA3E,#FAF398,#B88A44)",
-                }}
-              />
-              <button
-                onClick={handleCtaClick}
-                className="relative w-full py-6 rounded-[2.6rem]
-                           font-black text-xl sm:text-2xl uppercase tracking-widest
-                           shadow-[0_25px_60px_rgba(0,0,0,0.55)]
-                           transition-transform hover:-translate-y-1 active:translate-y-1
-                           border-b-8"
-                style={{
-                  background:
-                    "linear-gradient(180deg,#fff7cc,#FAF398,#F9D976,#E0AA3E,#B88A44)",
-                  color: "#7a0606",
-                  borderBottomColor: "#7a5a20",
-                }}
-              >
-                Pre-Register Now
-              </button>
-            </div>
-          </motion.div>
+              <div>
+                {/* GOLD TITLE */}
+                <h3 className="goldText font-black text-xl uppercase tracking-tighter">
+                  {s.title}
+                </h3>
+
+                {/* 🔵 BLUE stays BLUE */}
+                <p className="text-[#00A3FF] text-sm font-bold uppercase tracking-wide leading-relaxed mt-2">
+                  {s.desc}
+                </p>
+              </div>
+            </motion.div>
+          ))}
         </div>
+
+        {/* CTA */}
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.15 }}
+          className="mt-14 text-center"
+        >
+          <div className="text-[11px] tracking-[0.55em] uppercase font-black text-[#F9F295]/70 mb-5">
+            READY?
+          </div>
+
+          <a
+            href={CTA_URL}
+            target="_blank"
+            rel="noreferrer"
+            className="inline-flex items-center justify-center gap-3
+                       px-9 py-4 rounded-full goldButton
+                       hover:scale-[1.03] active:scale-[0.97]
+                       transition-transform"
+          >
+            <span className="text-[12px] sm:text-sm font-black tracking-[0.35em] uppercase text-black/90">
+              Register Now
+            </span>
+            <span className="text-black/85 font-black">→</span>
+          </a>
+        </motion.div>
       </div>
 
-      {/* ===== Styles ===== */}
+      {/* STYLES */}
       <style>{`
-        .laicai-gold-flat {
+        /* GOLD TEXT (your palette) */
+        .goldText{
           background: linear-gradient(
-            180deg,
-            #fff7cc 0%,
-            #FAF398 20%,
-            #F9D976 45%,
-            #E0AA3E 75%,
-            #B88A44 100%
+            90deg,
+            #F9F295,
+            #E0AA3E,
+            #FAF398,
+            #B88A44
           );
           -webkit-background-clip: text;
           background-clip: text;
           color: transparent;
-          -webkit-text-stroke: 0;
           text-shadow:
-            0 0 14px rgba(250,217,118,0.35),
-            0 0 36px rgba(224,170,62,0.25);
-          letter-spacing: 0.02em;
+            0 2px 14px rgba(249,242,149,0.35),
+            0 8px 30px rgba(0,0,0,0.75);
+        }
+
+        /* GOLD STEP BOX */
+        .stepGold{
+          position: relative;
+          background: linear-gradient(
+            90deg,
+            #F9F295,
+            #E0AA3E,
+            #FAF398,
+            #B88A44
+          );
+          border: 1px solid rgba(0,0,0,0.22);
+          box-shadow:
+            inset 0 1px 0 rgba(255,255,255,0.55),
+            0 0 28px rgba(249,242,149,0.32),
+            0 0 70px rgba(224,170,62,0.28);
+          overflow: hidden;
+        }
+
+        /* SHINE */
+        .stepGold::after{
+          content:"";
+          position:absolute;
+          top:-30%;
+          left:-70%;
+          width:60%;
+          height:160%;
+          transform: rotate(18deg);
+          background: linear-gradient(
+            90deg,
+            rgba(255,255,255,0) 0%,
+            rgba(255,255,255,0.65) 50%,
+            rgba(255,255,255,0) 100%
+          );
+          animation: stepShine 2.6s ease-in-out infinite;
+        }
+
+        @keyframes stepShine{
+          0%{ left:-80%; opacity:0 }
+          35%{ opacity:0.45 }
+          100%{ left:120%; opacity:0 }
+        }
+
+        .stepNum{
+          color: rgba(0,0,0,0.82);
+          text-shadow: 0 1px 0 rgba(255,255,255,0.25);
+        }
+
+        .goldButton{
+          background: linear-gradient(
+            90deg,
+            #F9F295,
+            #E0AA3E,
+            #FAF398,
+            #B88A44
+          );
+          box-shadow:
+            inset 0 1px 0 rgba(255,255,255,0.65),
+            0 12px 40px rgba(0,0,0,0.45);
+          border: 1px solid rgba(0,0,0,0.15);
         }
       `}</style>
     </section>
   );
 };
 
-export default Hero;
+export default HowToJoin;
