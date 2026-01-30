@@ -85,26 +85,12 @@ const InstantReward: React.FC = () => {
   const anglePerSegment = 360 / segments;
   const isLimitReached = spinsUsed >= MAX_SPINS;
 
-  /**
-   * ✅ HARD-FORCE the exact slice you want:
-   * Use ID so it NEVER accidentally picks the other "88 FREE SPINS".
-   */
+  // ✅ Always win EXACT slice p0 (avoid the other 88 slice)
   const forcedWinIndex = useMemo(() => {
-    const idx = PRIZES.findIndex((p) => p.id === "p0"); // ✅ ALWAYS p0
+    const idx = PRIZES.findIndex((p) => p.id === "p0");
     return idx >= 0 ? idx : 0;
   }, []);
 
-  /**
-   * ✅ Correct landing:
-   * Your wheel slices are drawn with (start - 90) in cos/sin, meaning:
-   * - start=0 begins at TOP (12 o'clock)
-   * - slice spans clockwise from start -> start+anglePerSegment
-   *
-   * So pointer at TOP = angle 0 in YOUR slice system.
-   *
-   * We target a point INSIDE the slice (not the center) so we never hit seam.
-   * We aim above the word "FREE" -> slightly inside from the start boundary.
-   */
   const spin = () => {
     if (isSpinning || isLimitReached) return;
 
@@ -114,21 +100,20 @@ const InstantReward: React.FC = () => {
 
     const sliceStart = forcedWinIndex * anglePerSegment;
 
-    // ✅ Keep away from BOTH edges (seams)
+    // ✅ avoid landing on seam
     const SAFE_MARGIN_DEG = 6;
 
-    // ✅ This is the key: where inside the slice to land
-    // Move this 18~28 if you want exact above "FREE"
-    const FREE_TARGET_IN_SLICE_DEG = 22;
+    // ✅ where inside the slice we want pointer to land (above the word "FREE")
+    // tweak this 18~30 if you want micro-adjust
+    const FREE_TARGET_IN_SLICE_DEG = 24;
 
-    // targetAngle is in [sliceStart+safe, sliceStart+segment-safe]
     let targetAngle = sliceStart + FREE_TARGET_IN_SLICE_DEG;
+
     const minSafe = sliceStart + SAFE_MARGIN_DEG;
     const maxSafe = sliceStart + anglePerSegment - SAFE_MARGIN_DEG;
     targetAngle = Math.max(minSafe, Math.min(maxSafe, targetAngle));
 
-    // ✅ rotate wheel so targetAngle becomes 0 (top pointer)
-    // negative targetAngle == (360 - targetAngle)
+    // ✅ rotate wheel so targetAngle becomes 0deg (top pointer)
     const desired = (360 - (targetAngle % 360)) % 360;
 
     const current = ((rotationRef.current % 360) + 360) % 360;
@@ -163,7 +148,7 @@ const InstantReward: React.FC = () => {
   return (
     <section className="relative w-full max-w-[560px] mx-auto px-4 pt-10 pb-10">
       {/* =============================
-          CNY INTRO (NO "INSTANT MEMBER PRIVILEGES")
+          CNY INTRO
       ============================= */}
       <div className="relative text-center rounded-[28px] p-6 sm:p-7 overflow-hidden border border-[#F9F295]/18 bg-black/10 shadow-[0_18px_80px_rgba(0,0,0,0.55)]">
         <div className="pointer-events-none absolute inset-0">
@@ -227,9 +212,10 @@ const InstantReward: React.FC = () => {
         </div>
 
         <div className="relative aspect-square rounded-[40px] overflow-visible">
+          {/* ✅ OUTER: only rotation lives here */}
           <div
             ref={wheelRef}
-            className={`w-full h-full ${showWin ? "winWheelPop" : ""}`}
+            className="w-full h-full"
             style={{
               transform: `rotate(${rotation}deg)`,
               transition: isSpinning
@@ -237,151 +223,161 @@ const InstantReward: React.FC = () => {
                 : "none",
             }}
           >
-            <svg
-              viewBox={`0 0 ${WHEEL_SIZE} ${WHEEL_SIZE}`}
-              className="w-full h-full overflow-visible"
-            >
-              <defs>
-                <radialGradient id="redLacquerV2" cx="50%" cy="45%" r="60%">
-                  <stop offset="0%" stopColor="#ff3b3b" />
-                  <stop offset="55%" stopColor="#ee1c25" />
-                  <stop offset="100%" stopColor="#5a0606" />
-                </radialGradient>
+            {/* ✅ INNER: only scale animation lives here (so it NEVER kills rotation) */}
+            <div className={`w-full h-full ${showWin ? "winPopInner" : ""}`}>
+              <svg
+                viewBox={`0 0 ${WHEEL_SIZE} ${WHEEL_SIZE}`}
+                className="w-full h-full overflow-visible"
+              >
+                <defs>
+                  <radialGradient id="redLacquerV2" cx="50%" cy="45%" r="60%">
+                    <stop offset="0%" stopColor="#ff3b3b" />
+                    <stop offset="55%" stopColor="#ee1c25" />
+                    <stop offset="100%" stopColor="#5a0606" />
+                  </radialGradient>
 
-                <linearGradient id="goldRimV2" x1="0%" y1="0%" x2="100%" y2="100%">
-                  <stop offset="0%" stopColor="#F9F295" />
-                  <stop offset="28%" stopColor="#E0AA3E" />
-                  <stop offset="55%" stopColor="#FAF398" />
-                  <stop offset="78%" stopColor="#E0AA3E" />
-                  <stop offset="100%" stopColor="#B88A44" />
-                </linearGradient>
+                  <linearGradient id="goldRimV2" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stopColor="#F9F295" />
+                    <stop offset="28%" stopColor="#E0AA3E" />
+                    <stop offset="55%" stopColor="#FAF398" />
+                    <stop offset="78%" stopColor="#E0AA3E" />
+                    <stop offset="100%" stopColor="#B88A44" />
+                  </linearGradient>
 
-                <pattern
-                  id="rimPatternV2"
-                  x="0"
-                  y="0"
-                  width="18"
-                  height="10"
-                  patternUnits="userSpaceOnUse"
-                >
-                  <path
-                    d="M0 10 Q4 0 9 10 Q14 0 18 10"
-                    fill="none"
-                    stroke="rgba(0,0,0,0.25)"
-                    strokeWidth="0.6"
-                  />
-                </pattern>
-
-                <radialGradient id="glossV2" cx="35%" cy="25%" r="70%">
-                  <stop offset="0%" stopColor="rgba(255,255,255,0.22)" />
-                  <stop offset="40%" stopColor="rgba(255,255,255,0.08)" />
-                  <stop offset="100%" stopColor="rgba(255,255,255,0)" />
-                </radialGradient>
-
-                <filter id="winBloomV2" x="-80%" y="-80%" width="260%" height="260%">
-                  <feGaussianBlur stdDeviation="10" result="blur" />
-                  <feMerge>
-                    <feMergeNode in="blur" />
-                    <feMergeNode in="SourceGraphic" />
-                  </feMerge>
-                </filter>
-              </defs>
-
-              <circle
-                cx={WHEEL_SIZE / 2}
-                cy={WHEEL_SIZE / 2}
-                r={WHEEL_SIZE / 2 - 6}
-                fill="url(#redLacquerV2)"
-              />
-
-              {PRIZES.map((p, i) => {
-                const start = i * anglePerSegment;
-                const end = (i + 1) * anglePerSegment;
-                const r = WHEEL_SIZE / 2 - OUTER_BORDER_WIDTH;
-
-                const x1 =
-                  WHEEL_SIZE / 2 + r * Math.cos(((start - 90) * Math.PI) / 180);
-                const y1 =
-                  WHEEL_SIZE / 2 + r * Math.sin(((start - 90) * Math.PI) / 180);
-                const x2 =
-                  WHEEL_SIZE / 2 + r * Math.cos(((end - 90) * Math.PI) / 180);
-                const y2 =
-                  WHEEL_SIZE / 2 + r * Math.sin(((end - 90) * Math.PI) / 180);
-
-                const d = `M ${WHEEL_SIZE / 2} ${WHEEL_SIZE / 2} L ${x1} ${y1} A ${r} ${r} 0 0 1 ${x2} ${y2} Z`;
-                const isWinnerSlice = showWin && i === forcedWinIndex;
-
-                return (
-                  <g key={p.id} filter={isWinnerSlice ? "url(#winBloomV2)" : "none"}>
-                    <path d={d} fill={p.color} opacity={0.98} />
-                    <line
-                      x1={WHEEL_SIZE / 2}
-                      y1={WHEEL_SIZE / 2}
-                      x2={x1}
-                      y2={y1}
-                      stroke="rgba(255,255,255,0.14)"
-                      strokeWidth="1"
+                  <pattern
+                    id="rimPatternV2"
+                    x="0"
+                    y="0"
+                    width="18"
+                    height="10"
+                    patternUnits="userSpaceOnUse"
+                  >
+                    <path
+                      d="M0 10 Q4 0 9 10 Q14 0 18 10"
+                      fill="none"
+                      stroke="rgba(0,0,0,0.25)"
+                      strokeWidth="0.6"
                     />
+                  </pattern>
 
+                  <radialGradient id="glossV2" cx="35%" cy="25%" r="70%">
+                    <stop offset="0%" stopColor="rgba(255,255,255,0.22)" />
+                    <stop offset="40%" stopColor="rgba(255,255,255,0.08)" />
+                    <stop offset="100%" stopColor="rgba(255,255,255,0)" />
+                  </radialGradient>
+
+                  <filter id="winBloomV2" x="-80%" y="-80%" width="260%" height="260%">
+                    <feGaussianBlur stdDeviation="10" result="blur" />
+                    <feMerge>
+                      <feMergeNode in="blur" />
+                      <feMergeNode in="SourceGraphic" />
+                    </feMerge>
+                  </filter>
+                </defs>
+
+                <circle
+                  cx={WHEEL_SIZE / 2}
+                  cy={WHEEL_SIZE / 2}
+                  r={WHEEL_SIZE / 2 - 6}
+                  fill="url(#redLacquerV2)"
+                />
+
+                {PRIZES.map((p, i) => {
+                  const start = i * anglePerSegment;
+                  const end = (i + 1) * anglePerSegment;
+                  const r = WHEEL_SIZE / 2 - OUTER_BORDER_WIDTH;
+
+                  const x1 =
+                    WHEEL_SIZE / 2 +
+                    r * Math.cos(((start - 90) * Math.PI) / 180);
+                  const y1 =
+                    WHEEL_SIZE / 2 +
+                    r * Math.sin(((start - 90) * Math.PI) / 180);
+                  const x2 =
+                    WHEEL_SIZE / 2 +
+                    r * Math.cos(((end - 90) * Math.PI) / 180);
+                  const y2 =
+                    WHEEL_SIZE / 2 +
+                    r * Math.sin(((end - 90) * Math.PI) / 180);
+
+                  const d = `M ${WHEEL_SIZE / 2} ${WHEEL_SIZE / 2} L ${x1} ${y1} A ${r} ${r} 0 0 1 ${x2} ${y2} Z`;
+                  const isWinnerSlice = showWin && i === forcedWinIndex;
+
+                  return (
                     <g
-                      transform={`rotate(${start + anglePerSegment / 2}, ${WHEEL_SIZE / 2}, ${
-                        WHEEL_SIZE / 2
-                      })`}
+                      key={p.id}
+                      filter={isWinnerSlice ? "url(#winBloomV2)" : "none"}
                     >
-                      <text
-                        x={WHEEL_SIZE / 2}
-                        y={110}
-                        textAnchor="middle"
-                        fill={isWinnerSlice ? "#ffffff" : "#fff3b0"}
-                        className="font-black text-[16px] sm:text-[18px] tracking-wider"
-                        style={{ textShadow: "0 2px 10px rgba(0,0,0,0.65)" }}
+                      <path d={d} fill={p.color} opacity={0.98} />
+                      <line
+                        x1={WHEEL_SIZE / 2}
+                        y1={WHEEL_SIZE / 2}
+                        x2={x1}
+                        y2={y1}
+                        stroke="rgba(255,255,255,0.14)"
+                        strokeWidth="1"
+                      />
+
+                      <g
+                        transform={`rotate(${
+                          start + anglePerSegment / 2
+                        }, ${WHEEL_SIZE / 2}, ${WHEEL_SIZE / 2})`}
                       >
-                        {p.label}
-                      </text>
-                      <text
-                        x={WHEEL_SIZE / 2}
-                        y={130}
-                        textAnchor="middle"
-                        fill={
-                          isWinnerSlice
-                            ? "rgba(255,255,255,0.95)"
-                            : "rgba(255,255,255,0.82)"
-                        }
-                        className="font-bold text-[9px] tracking-[0.22em] uppercase"
-                      >
-                        {p.value}
-                      </text>
+                        <text
+                          x={WHEEL_SIZE / 2}
+                          y={110}
+                          textAnchor="middle"
+                          fill={isWinnerSlice ? "#ffffff" : "#fff3b0"}
+                          className="font-black text-[16px] sm:text-[18px] tracking-wider"
+                          style={{ textShadow: "0 2px 10px rgba(0,0,0,0.65)" }}
+                        >
+                          {p.label}
+                        </text>
+                        <text
+                          x={WHEEL_SIZE / 2}
+                          y={130}
+                          textAnchor="middle"
+                          fill={
+                            isWinnerSlice
+                              ? "rgba(255,255,255,0.95)"
+                              : "rgba(255,255,255,0.82)"
+                          }
+                          className="font-bold text-[9px] tracking-[0.22em] uppercase"
+                        >
+                          {p.value}
+                        </text>
+                      </g>
                     </g>
-                  </g>
-                );
-              })}
+                  );
+                })}
 
-              <circle
-                cx={WHEEL_SIZE / 2}
-                cy={WHEEL_SIZE / 2}
-                r={WHEEL_SIZE / 2 - 12}
-                fill="url(#glossV2)"
-                opacity={0.8}
-              />
+                <circle
+                  cx={WHEEL_SIZE / 2}
+                  cy={WHEEL_SIZE / 2}
+                  r={WHEEL_SIZE / 2 - 12}
+                  fill="url(#glossV2)"
+                  opacity={0.8}
+                />
 
-              <circle
-                cx={WHEEL_SIZE / 2}
-                cy={WHEEL_SIZE / 2}
-                r={WHEEL_SIZE / 2 - OUTER_BORDER_WIDTH / 2}
-                fill="none"
-                stroke="url(#goldRimV2)"
-                strokeWidth={OUTER_BORDER_WIDTH}
-              />
-              <circle
-                cx={WHEEL_SIZE / 2}
-                cy={WHEEL_SIZE / 2}
-                r={WHEEL_SIZE / 2 - OUTER_BORDER_WIDTH / 2}
-                fill="none"
-                stroke="url(#rimPatternV2)"
-                strokeWidth={OUTER_BORDER_WIDTH}
-                opacity={0.28}
-              />
-            </svg>
+                <circle
+                  cx={WHEEL_SIZE / 2}
+                  cy={WHEEL_SIZE / 2}
+                  r={WHEEL_SIZE / 2 - OUTER_BORDER_WIDTH / 2}
+                  fill="none"
+                  stroke="url(#goldRimV2)"
+                  strokeWidth={OUTER_BORDER_WIDTH}
+                />
+                <circle
+                  cx={WHEEL_SIZE / 2}
+                  cy={WHEEL_SIZE / 2}
+                  r={WHEEL_SIZE / 2 - OUTER_BORDER_WIDTH / 2}
+                  fill="none"
+                  stroke="url(#rimPatternV2)"
+                  strokeWidth={OUTER_BORDER_WIDTH}
+                  opacity={0.28}
+                />
+              </svg>
+            </div>
           </div>
 
           {!showWin && (
@@ -444,6 +440,15 @@ const InstantReward: React.FC = () => {
         }
         .animate-vibrate { animation: vibrate 0.18s linear infinite; }
 
+        /* ✅ scale pop ONLY (no rotate) */
+        .winPopInner{
+          animation: winPopInner 520ms cubic-bezier(0.2,1,0.3,1) both;
+        }
+        @keyframes winPopInner{
+          from{ transform: scale(0.985); }
+          to{ transform: scale(1); }
+        }
+
         .goldTitle{
           background: linear-gradient(180deg,#fff,#FAF398 18%,#F9F295 42%,#E0AA3E 72%,#B88A44);
           -webkit-background-clip:text;
@@ -489,14 +494,6 @@ const InstantReward: React.FC = () => {
         @keyframes winGlowPulse{
           0%,100%{ transform: scale(1); opacity: 0.95; }
           50%{ transform: scale(1.03); opacity: 0.75; }
-        }
-
-        .winWheelPop{
-          animation: winWheelPop 520ms cubic-bezier(0.2,1,0.3,1) both;
-        }
-        @keyframes winWheelPop{
-          from{ transform: scale(0.985); }
-          to{ transform: scale(1); }
         }
 
         .goldBorder{
