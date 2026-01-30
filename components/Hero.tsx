@@ -27,57 +27,47 @@ const Hero: React.FC<{ onOpenTutorial: () => void }> = () => {
   };
 
   return (
-    <section className="relative min-h-screen overflow-hidden">
-      {/* ✅ Background image (your public file) */}
+    <section className="relative min-h-screen flex flex-col items-center justify-center pt-8 sm:pt-10 pb-24 overflow-hidden bg-[#b11212]">
+      {/* ===== Background (your local image) ===== */}
       <div className="absolute inset-0 z-0 pointer-events-none">
-        <img
-          src="/cny-bg.png"
-          alt="CNY Background"
-          className="w-full h-full object-cover object-[center_65%]"
-          draggable={false}
-        />
-
-        {/* ✅ Make background more visible but keep text readable */}
-        <div className="absolute inset-0 bg-gradient-to-b from-black/25 via-black/10 to-black/35" />
-
-        {/* ✅ Extra contrast behind top text only */}
-        <div className="absolute top-0 left-0 right-0 h-[55%] bg-gradient-to-b from-black/35 via-black/10 to-transparent" />
-
-        {/* ✅ subtle texture (optional, keeps premium look) */}
+        {/* Image */}
         <div
-          className="absolute inset-0 opacity-[0.06] mix-blend-overlay"
+          className="absolute inset-0"
           style={{
-            backgroundImage:
-              'url("https://www.transparenttextures.com/patterns/rice-paper-2.png")',
+            backgroundImage: 'url("/cny-bg.png")',
+            backgroundSize: "cover",
+            backgroundPosition: "center bottom",
+            backgroundRepeat: "no-repeat",
           }}
         />
+
+        {/* Make background more visible (less dark overlay) */}
+        <div className="absolute inset-0 bg-black/20" />
+
+        {/* Soft depth */}
+        <div className="absolute -top-32 left-1/2 -translate-x-1/2 w-[720px] h-[720px] rounded-full bg-[#F9D976]/10 blur-[140px]" />
+        <div className="absolute -bottom-40 right-[-10%] w-[760px] h-[760px] rounded-full bg-[#E0AA3E]/08 blur-[160px]" />
       </div>
 
-      {/* ✅ Content (push up so CTA has space) */}
+      {/* ===== Content ===== */}
       <motion.div
         variants={container}
         initial="hidden"
         animate="show"
-        className="relative z-10 flex flex-col items-center text-center px-6 w-full max-w-xl mx-auto
-                   pt-24 pb-64"
+        className="relative z-10 flex flex-col items-center text-center px-6 w-full max-w-xl"
       >
-        {/* Logo */}
-      <motion.div variants={item} className="mb-10">
-  <div className="flex justify-center">
-    <img
-      src="/android-chrome-192x192.png"
-      alt="i88"
-      className="h-14 sm:h-16 md:h-18 w-auto object-contain"
-      draggable={false}
-    />
-  </div>
-</motion.div>
-
-
-
+        {/* Logo (NO container) */}
+        <motion.div variants={item} className="mb-4 sm:mb-6">
+          <img
+            src="/android-chrome-192x192.png"
+            alt="i88"
+            className="h-20 sm:h-24 md:h-28 w-auto object-contain"
+            draggable={false}
+          />
+        </motion.div>
 
         {/* Title */}
-        <motion.div variants={item} className="mb-7">
+        <motion.div variants={item} className="mb-6 sm:mb-7">
           <h1 className="text-7xl sm:text-8xl font-black leading-[0.85] uppercase tracking-tighter mb-3 flex flex-col items-center">
             <span className="block text-white/95">八仙</span>
             <span className="laicai-gold-flat">来财</span>
@@ -97,39 +87,40 @@ const Hero: React.FC<{ onOpenTutorial: () => void }> = () => {
           </p>
         </motion.div>
 
-        {/* ✅ Timer (slightly higher / tighter spacing) */}
-        <motion.div variants={item} className="mb-2 w-full">
+        {/* Countdown (slightly higher, more space for background below) */}
+        <motion.div variants={item} className="mb-6 w-full">
           <CountdownTimer pageVariant="cny_visual_v2" />
+        </motion.div>
+
+        {/* CTA (centered, slightly smaller, pushed down) */}
+        <motion.div variants={item} className="w-full relative group mt-10 sm:mt-14">
+          <div
+            className="absolute -inset-1 rounded-[2.2rem] blur-xl opacity-30 group-hover:opacity-45 transition duration-700"
+            style={{
+              background:
+                "linear-gradient(90deg,#F9D976,#E0AA3E,#FAF398,#B88A44)",
+            }}
+          />
+          <button
+            onClick={handleCtaClick}
+            className="relative mx-auto block w-[88%] sm:w-[82%] py-5 rounded-[2rem]
+                       font-black text-lg sm:text-xl uppercase tracking-widest
+                       shadow-[0_25px_60px_rgba(0,0,0,0.55)]
+                       transition-all transform hover:-translate-y-1 active:translate-y-1
+                       border-b-8"
+            style={{
+              background:
+                "linear-gradient(180deg,#fff7cc,#FAF398,#F9D976,#E0AA3E,#B88A44)",
+              color: "#7a0606",
+              borderBottomColor: "#7a5a20",
+            }}
+          >
+            Pre-Register Now
+          </button>
         </motion.div>
       </motion.div>
 
-     {/* ✅ CTA pinned center + 50px lower */}
-<motion.div
-  variants={item}
-  className="absolute left-1/2 -translate-x-1/2 translate-y-[50px] bottom-10 sm:bottom-12 z-20 w-[86%] max-w-[520px] group"
->
-  <div
-    className="absolute -inset-1 rounded-[2.5rem] blur-xl opacity-30 group-hover:opacity-45 transition duration-700"
-    style={{
-      background: "linear-gradient(90deg,#F9D976,#E0AA3E,#FAF398,#B88A44)",
-    }}
-  />
-  <button
-    onClick={handleCtaClick}
-    className="relative w-full py-5 sm:py-6 rounded-[2.2rem] font-black text-lg sm:text-2xl uppercase tracking-widest
-               shadow-[0_25px_60px_rgba(0,0,0,0.55)] transition-all transform hover:-translate-y-1 active:translate-y-1
-               border-b-8"
-    style={{
-      background: "linear-gradient(180deg,#fff7cc,#FAF398,#F9D976,#E0AA3E,#B88A44)",
-      color: "#7a0606",
-      borderBottomColor: "#7a5a20",
-    }}
-  >
-    Pre-Register Now
-  </button>
-</motion.div>
-
-      {/* Styles */}
+      {/* ===== Styles ===== */}
       <style>{`
         .laicai-gold-flat {
           background: linear-gradient(
@@ -144,7 +135,6 @@ const Hero: React.FC<{ onOpenTutorial: () => void }> = () => {
           background-clip: text;
           color: transparent;
           -webkit-text-stroke: 0;
-          text-stroke: 0;
           text-shadow:
             0 0 14px rgba(250,217,118,0.35),
             0 0 36px rgba(224,170,62,0.25);
