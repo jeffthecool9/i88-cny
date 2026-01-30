@@ -104,8 +104,10 @@ const Hero: React.FC<{ onOpenTutorial: () => void }> = ({ onOpenTutorial }) => {
         </motion.div>
 
         {/* ✅ CTA smaller + positioned into blue band */}
-       <motion.div variants={item} className="w-full relative group mt-36 sm:mt-40">
-
+       <motion.div
+  variants={item}
+  className="w-full relative group mt-40 sm:mt-48"
+>
 
           <div
             className="absolute -inset-1 rounded-[2.2rem] blur-xl opacity-30 group-hover:opacity-45 transition duration-700"
