@@ -69,37 +69,35 @@ const HowToJoin: React.FC = () => {
         </div>
 
         {/* ✅ NEW CTA BUTTON (same design as InstantReward post-win CTA) */}
-        <motion.div
-          initial={{ opacity: 0, y: 18 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.15 }}
-          className="mt-10"
-        >
-          <a
-            href={CTA_URL}
-            target="_blank"
-            rel="noreferrer"
-            className="block w-full rounded-[22px] p-[2px] goldBorder hover:scale-[1.01] active:scale-[0.99] transition-transform"
-          >
-            <div className="rounded-[20px] px-6 py-5 text-center bg-[#240202] shadow-[0_24px_90px_rgba(0,0,0,0.65)]">
-              <div className="text-[10px] sm:text-[11px] tracking-[0.55em] uppercase font-black text-[#F9F295]/70 mb-2">
-                READY?
-              </div>
+       <motion.div
+  initial={{ opacity: 0, y: 16 }}
+  whileInView={{ opacity: 1, y: 0 }}
+  viewport={{ once: true }}
+  transition={{ delay: 0.15 }}
+  className="mt-12 text-center"
+>
+  {/* READY? */}
+  <div className="text-[11px] tracking-[0.55em] uppercase font-black text-[#F9F295]/70 mb-4">
+    READY?
+  </div>
 
-              <div className="winGoldHeadline text-[22px] sm:text-[28px] font-black leading-tight">
-                REGISTER NOW
-              </div>
+  {/* GOLD CTA BUTTON */}
+  <a
+    href={CTA_URL}
+    target="_blank"
+    rel="noreferrer"
+    className="inline-flex items-center justify-center gap-3
+               px-8 py-4 rounded-full goldButton
+               hover:scale-[1.03] active:scale-[0.97]
+               transition-transform"
+  >
+    <span className="text-[12px] sm:text-sm font-black tracking-[0.35em] uppercase text-black/90">
+      Register Now
+    </span>
+    <span className="text-black/85 font-black">→</span>
+  </a>
+</motion.div>
 
-              <div className="mt-4 inline-flex items-center justify-center gap-2 px-5 py-3 rounded-full goldButton">
-                <span className="text-[11px] sm:text-xs font-black tracking-[0.35em] uppercase text-black/90">
-                  Register Now
-                </span>
-                <span className="text-black/85 font-black">→</span>
-              </div>
-            </div>
-          </a>
-        </motion.div>
       </div>
 
       {/* ✅ Styles (same as InstantReward) */}
