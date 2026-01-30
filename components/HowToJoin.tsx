@@ -30,13 +30,13 @@ const HowToJoin: React.FC = () => {
             },
             {
               step: 2,
-              title: "Deposit RM50t",
-              desc: "Deposit RM50 to unlock the welcome reward.",
+              title: "Deposit RM50",
+              desc: "Deposit RM50 to Get 88 Free Spins",
             },
             {
               step: 3,
               title: "Claim & Explore",
-              desc: "Enjoy your 100 free spins and explore the 8 Immortals Event.",
+              desc: "Enjoy your 88 Free Spins and explore the 8 Immortals Treasure Event.",
             },
           ].map((s, i) => (
             <motion.div
