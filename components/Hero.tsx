@@ -27,8 +27,10 @@ const Hero: React.FC<{ onOpenTutorial: () => void }> = () => {
   };
 
   return (
-    <section className="relative min-h-screen w-full overflow-hidden">
-      {/* ===== Background image (public/cny-bg.png) ===== */}
+    <section className="relative min-h-screen w-full overflow-hidden flex flex-col">
+      {/* =========================
+          Background (NO black fade)
+      ========================== */}
       <div className="absolute inset-0 z-0 pointer-events-none">
         <img
           src="/cny-bg.png"
@@ -36,20 +38,20 @@ const Hero: React.FC<{ onOpenTutorial: () => void }> = () => {
           className="w-full h-full object-cover brightness-105 contrast-105"
           draggable={false}
         />
-
-        {/* ✅ KEEP ORIGINAL BRIGHTNESS (NO black fade to bottom)
-            Only a very light vignette to keep text readable. */}
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_22%,rgba(255,255,255,0.06)_0%,rgba(0,0,0,0.12)_55%,rgba(0,0,0,0.18)_100%)]" />
+        {/* ultra-light vignette only */}
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_22%,rgba(255,255,255,0.05)_0%,rgba(0,0,0,0.10)_60%,rgba(0,0,0,0.16)_100%)]" />
       </div>
 
-      {/* ===== Main content (top) ===== */}
+      {/* =========================
+          Top Content (NEVER overlaps)
+      ========================== */}
       <motion.div
         variants={container}
         initial="hidden"
         animate="show"
         className="relative z-10 mx-auto w-full max-w-xl px-6 pt-10 sm:pt-12 text-center"
       >
-        {/* Logo (bigger) */}
+        {/* Logo */}
         <motion.div variants={item} className="flex justify-center mb-4">
           <img
             src="/android-chrome-192x192.png"
@@ -81,27 +83,24 @@ const Hero: React.FC<{ onOpenTutorial: () => void }> = () => {
         </motion.div>
       </motion.div>
 
-      {/* ===== Bottom dock (Timer + CTA) =====
-          ✅ Correct placement: CTA sits directly below timer and stays near bottom
-          with a clean gap — NO translate hacks that “don’t move”. */}
-      <div className="absolute inset-x-0 bottom-10 sm:bottom-12 z-20">
+      {/* =========================
+          Bottom Dock (in normal flow)
+          ✅ This guarantees no overlap
+      ========================== */}
+      <div className="relative z-20 mt-auto pb-10 sm:pb-12">
         <div className="mx-auto w-full max-w-xl px-6 flex flex-col items-center">
           {/* Timer */}
-          <motion.div variants={item} className="w-full flex justify-center mb-5">
+          <motion.div variants={item} initial="hidden" animate="show" className="w-full flex justify-center mb-5">
             <CountdownTimer pageVariant="cny_visual_v2" />
           </motion.div>
 
-          {/* CTA (centered, below timer, with bottom breathing space via bottom-10) */}
-          <motion.div
-            variants={item}
-            className="w-full relative group flex justify-center"
-          >
+          {/* CTA */}
+          <motion.div variants={item} initial="hidden" animate="show" className="w-full relative group flex justify-center">
             <div className="relative w-[92%] sm:w-[86%]">
               <div
                 className="absolute -inset-1 rounded-[2.6rem] blur-xl opacity-30 group-hover:opacity-45 transition duration-700"
                 style={{
-                  background:
-                    "linear-gradient(90deg,#F9D976,#E0AA3E,#FAF398,#B88A44)",
+                  background: "linear-gradient(90deg,#F9D976,#E0AA3E,#FAF398,#B88A44)",
                 }}
               />
               <button
@@ -112,8 +111,7 @@ const Hero: React.FC<{ onOpenTutorial: () => void }> = () => {
                            transition-transform hover:-translate-y-1 active:translate-y-1
                            border-b-8"
                 style={{
-                  background:
-                    "linear-gradient(180deg,#fff7cc,#FAF398,#F9D976,#E0AA3E,#B88A44)",
+                  background: "linear-gradient(180deg,#fff7cc,#FAF398,#F9D976,#E0AA3E,#B88A44)",
                   color: "#7a0606",
                   borderBottomColor: "#7a5a20",
                 }}
@@ -125,7 +123,9 @@ const Hero: React.FC<{ onOpenTutorial: () => void }> = () => {
         </div>
       </div>
 
-      {/* ===== Styles ===== */}
+      {/* =========================
+          Styles
+      ========================== */}
       <style>{`
         .laicai-gold-flat {
           background: linear-gradient(
