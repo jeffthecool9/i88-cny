@@ -6,15 +6,11 @@
     name="viewport"
     content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
   />
-  <title>i88 | Premium Digital Entertainment</title>
+  <title>i88 MY | Premium Digital Entertainment</title>
 
-  <!-- ✅ Stop favicon 404 -->
   <link rel="icon" href="data:," />
-
-  <!-- Tailwind CDN (ok for prototype; production = build pipeline) -->
   <script src="https://cdn.tailwindcss.com"></script>
 
-  <!-- ✅ Fonts: keep your existing + add Wheel 2.0 fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link
@@ -30,7 +26,6 @@
       --cny-gold: #FDE047;
       --cny-gold-dark: #EAB308;
     }
-
     body {
       margin: 0;
       background-color: #450a0a;
@@ -40,77 +35,63 @@
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
     }
-
-    /* ✅ Wheel 2.0 expects these utility classes */
-    .cinzel {
-      font-family: "Cinzel", serif;
-    }
-    .montserrat {
-      font-family: "Montserrat", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-    }
-
-    /* Global Texture Overlay */
+    .cinzel { font-family: "Cinzel", serif; }
+    .montserrat { font-family: "Montserrat", sans-serif; }
     .bg-paper-texture {
       background-image: url("https://www.transparenttextures.com/patterns/rice-paper-2.png");
       background-blend-mode: soft-light;
       opacity: 0.8;
     }
-
     .shadow-inner-heavy {
-      box-shadow:
-        inset 0 10px 30px rgba(0, 0, 0, 0.9),
-        inset 0 -10px 30px rgba(0, 0, 0, 0.9);
+      box-shadow: inset 0 10px 30px rgba(0, 0, 0, 0.9), inset 0 -10px 30px rgba(0, 0, 0, 0.9);
     }
-
-    .drop-shadow-glow {
-      filter: drop-shadow(0 0 8px rgba(253, 224, 71, 0.6));
-    }
-
+    .drop-shadow-glow { filter: drop-shadow(0 0 8px rgba(253, 224, 71, 0.6)); }
     @keyframes bounce-slow {
       0%, 100% { transform: translateY(0); }
       50% { transform: translateY(-10px); }
     }
-    .animate-bounce-slow {
-      animation: bounce-slow 3s ease-in-out infinite;
-    }
-
+    .animate-bounce-slow { animation: bounce-slow 3s ease-in-out infinite; }
     @keyframes marquee {
       0% { transform: translateX(0); }
       100% { transform: translateX(-50%); }
     }
-    .animate-marquee {
-      display: flex;
-      width: 200%;
-      animation: marquee 25s linear infinite;
-    }
-
-    .bg-red-packet {
-      background: linear-gradient(135deg, var(--cny-red-bright) 0%, var(--cny-red-deep) 100%);
-    }
-
-    button {
-      touch-action: manipulation;
-    }
+    .animate-marquee { display: flex; width: 200%; animation: marquee 25s linear infinite; }
+    .bg-red-packet { background: linear-gradient(135deg, var(--cny-red-bright) 0%, var(--cny-red-deep) 100%); }
+    button { touch-action: manipulation; }
   </style>
 
-  <!-- Importmap (your current setup) -->
   <script type="importmap">
   {
     "imports": {
       "react": "https://esm.sh/react@^19.2.3",
       "react-dom/": "https://esm.sh/react-dom@^19.2.3/",
       "react/": "https://esm.sh/react@^19.2.3/",
-      "@google/genai": "https://esm.sh/@google/genai@^1.37.0",
       "framer-motion": "https://esm.sh/framer-motion@^12.27.1"
     }
   }
   </script>
 
-  <!-- Keep if your project uses it. If this file doesn't exist, remove this line -->
   <link rel="stylesheet" href="/index.css" />
-</head>
+
+  <script>
+  !function(f,b,e,v,n,t,s)
+  {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+  n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+  if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+  n.queue=[];t=b.createElement(e);t.async=!0;
+  t.src=v;s=b.getElementsByTagName(e)[0];
+  s.parentNode.insertBefore(t,s)}(window, document,'script',
+  'https://connect.facebook.net/en_US/fbevents.js');
+  fbq('init', '1435271224858850');
+  fbq('track', 'PageView');
+  </script>
+  </head>
 
 <body>
+  <noscript><img height="1" width="1" style="display:none"
+  src="https://www.facebook.com/tr?id=1435271224858850&ev=PageView&noscript=1"
+  /></noscript>
+
   <div id="root"></div>
   <script type="module" src="/index.tsx"></script>
 </body>
