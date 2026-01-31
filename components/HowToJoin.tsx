@@ -1,27 +1,30 @@
 import React from "react";
 import { motion } from "framer-motion";
+import { trackEvent } from "./CountdownTimer";
 
-/* SAME CTA LOOK */
-const CTA_URL = "https://www.palacehub8.com/LlZEMHit"; // 🔴 CHANGE THIS
+// 🔴 CHANGE THIS TO YOUR MALAYSIA LINK
+const CTA_URL = "https://www.palacehub8.com/LlZEMHit"; 
 
 const HowToJoin: React.FC = () => {
+
+  const handleJoinClick = () => {
+    trackEvent("CTA Button 3", { location: "Footer Section MY" });
+  };
+
   return (
     <section className="py-24 px-6 bg-transparent relative">
       <div className="max-w-md mx-auto relative z-10">
-        {/* Title */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          {/* GOLD TITLE */}
           <h2 className="text-5xl font-black uppercase tracking-tighter mb-4 goldText">
             How To <span className="italic">Join</span>
           </h2>
         </motion.div>
 
-        {/* Steps */}
         <div className="space-y-8">
           {/* STEP 1 */}
           <motion.div
@@ -33,7 +36,6 @@ const HowToJoin: React.FC = () => {
             <div className="stepGold w-16 h-16 rounded-2xl flex items-center justify-center font-black text-2xl flex-shrink-0">
               <span className="stepNum">1</span>
             </div>
-
             <div>
               <h3 className="goldText font-black text-xl uppercase tracking-tighter">
                 Create Account
@@ -44,7 +46,7 @@ const HowToJoin: React.FC = () => {
             </div>
           </motion.div>
 
-          {/* STEP 2 */}
+          {/* STEP 2 - UPDATED FOR RM */}
           <motion.div
             initial={{ opacity: 0, scale: 0.96 }}
             whileInView={{ opacity: 1, scale: 1 }}
@@ -54,7 +56,6 @@ const HowToJoin: React.FC = () => {
             <div className="stepGold w-16 h-16 rounded-2xl flex items-center justify-center font-black text-2xl flex-shrink-0">
               <span className="stepNum">2</span>
             </div>
-
             <div>
               <h3 className="goldText font-black text-xl uppercase tracking-tighter">
                 Event Promotion
@@ -76,7 +77,6 @@ const HowToJoin: React.FC = () => {
             <div className="stepGold w-16 h-16 rounded-2xl flex items-center justify-center font-black text-2xl flex-shrink-0">
               <span className="stepNum">3</span>
             </div>
-
             <div>
               <h3 className="goldText font-black text-xl uppercase tracking-tighter">
                 Claim & Explore
@@ -109,6 +109,7 @@ const HowToJoin: React.FC = () => {
             href={CTA_URL}
             target="_blank"
             rel="noreferrer"
+            onClick={handleJoinClick}
             className="inline-flex items-center justify-center gap-3
                        px-9 py-4 rounded-full goldButton
                        hover:scale-[1.03] active:scale-[0.97]
@@ -122,7 +123,6 @@ const HowToJoin: React.FC = () => {
         </motion.div>
       </div>
 
-      {/* STYLES */}
       <style>{`
         .goldText{
           background: linear-gradient(90deg,#F9F295,#E0AA3E,#FAF398,#B88A44);
