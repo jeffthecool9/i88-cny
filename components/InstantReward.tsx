@@ -36,8 +36,7 @@ const InstantReward: React.FC = () => {
           </h2>
 
           <p className="mt-3 text-sm sm:text-base text-white/78 leading-relaxed max-w-[440px] mx-auto">
-            Deposit & play — rewards are credited instantly. Spin the wheel to
-            reveal your welcome reward.
+            Deposit & play — rewards are credited instantly
           </p>
 
           <div className="mt-6 max-w-[460px] mx-auto flex flex-col gap-3">
@@ -54,9 +53,7 @@ const InstantReward: React.FC = () => {
             </div>
           </div>
 
-          <div className="mt-6 text-[25px] tracking-[0.45em] uppercase font-bold text-[#F9F295]/70">
-            SPIN to Get Reward↓
-          </div>
+      
         </div>
       </div>
 
