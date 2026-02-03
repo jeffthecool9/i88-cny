@@ -72,8 +72,8 @@ const Hero: React.FC<{ onOpenTutorial: () => void }> = () => {
             </div>
 
             <p className="mt-3 text-sm leading-tight max-w-[340px] mx-auto heroGoldCopy">
-              Play with i88 and get rewarded instantly. Try the demo spin below and
-              unlock your welcome reward.
+              Play with i88 and get rewarded instantly. Giving Out Free Spins for New Players!
+              Claim it Now!
             </p>
           </motion.div>
 
