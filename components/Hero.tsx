@@ -5,6 +5,10 @@ import { trackEvent } from "./CountdownTimer";
 // 🔴 CHANGE THIS TO YOUR MALAYSIA LINK
 const CTA_URL = "https://www.palacehub8.com/LlZEMHit";
 
+// ✅ Adjust this to move the CTA up/down based on your background image composition
+// Try: "58%", "60%", "62%", "64%"
+const CTA_TOP = "60%";
+
 const Hero: React.FC<{ onOpenTutorial: () => void }> = () => {
   const container: Variants = {
     hidden: { opacity: 0 },
@@ -25,7 +29,6 @@ const Hero: React.FC<{ onOpenTutorial: () => void }> = () => {
   };
 
   const handleCtaClick = () => {
-    // ✅ TRACKING: CTA BUTTON 1
     trackEvent("CTA Button 1", { location: "Hero Section MY" });
     window.open(CTA_URL, "_blank");
   };
@@ -40,17 +43,19 @@ const Hero: React.FC<{ onOpenTutorial: () => void }> = () => {
           className="w-full h-full object-cover brightness-105 contrast-105"
           draggable={false}
         />
-        <div className="absolute inset-0 bg-[linear-gradient(to_bottom,rgba(0,0,0,0)70%,rgba(0,0,0,0.4)100%)]" />
+
+        {/* light readability layer (NOT heavy black fade) */}
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_18%,rgba(255,255,255,0.06)_0%,rgba(0,0,0,0.14)_58%,rgba(0,0,0,0.22)_100%)]" />
       </div>
 
-      {/* ===== Main Content Container ===== */}
+      {/* ===== Main Content ===== */}
       <motion.div
         variants={container}
         initial="hidden"
         animate="show"
-        className="relative z-10 mx-auto w-full max-w-xl px-5 h-full flex flex-col justify-between"
+        className="relative z-10 mx-auto w-full max-w-xl px-5 h-full"
       >
-        {/* ===== TOP CONTENT GROUP ===== */}
+        {/* ===== TOP STACK (Logo + Title + Copy) ===== */}
         <div className="pt-4 sm:pt-6 text-center flex flex-col items-center">
           {/* Logo */}
           <motion.div variants={item} className="mb-2">
@@ -62,7 +67,7 @@ const Hero: React.FC<{ onOpenTutorial: () => void }> = () => {
             />
           </motion.div>
 
-          {/* Title + Subtitle + Copy */}
+          {/* Title + Sub */}
           <motion.div variants={item} className="w-full">
             <h1 className="text-6xl sm:text-7xl font-black leading-[0.85] uppercase tracking-tighter flex flex-col items-center">
               <span className="block text-white/95 filter drop-shadow-lg">
@@ -79,48 +84,46 @@ const Hero: React.FC<{ onOpenTutorial: () => void }> = () => {
               <div className="h-px w-8 bg-[#F9D976]/50" />
             </div>
 
+            {/* Copy */}
             <p className="mt-3 text-sm leading-tight max-w-[340px] mx-auto heroGoldCopy">
               Play with i88 and get rewarded into your account. Giving Out Free
               Spins for New Members! Claim it Now!
             </p>
           </motion.div>
-
-          {/* ✅ TIMER REMOVED COMPLETELY */}
         </div>
 
-        {/* ===== MIDDLE SPACER ===== */}
-        <div className="flex-grow" />
-
-        {/* ===== BOTTOM DOCK (CTA only) ===== */}
-        <div className="pb-4 sm:pb-5 w-full flex flex-col items-center">
-          <motion.div variants={item} className="w-full flex justify-center">
-            <div className="relative w-[90%] sm:w-[80%]">
-              <div
-                className="absolute -inset-1 rounded-[2.6rem] blur-xl opacity-30 hover:opacity-45 transition duration-700"
-                style={{
-                  background:
-                    "linear-gradient(90deg,#F9D976,#E0AA3E,#FAF398,#B88A44)",
-                }}
-              />
-              <button
-                onClick={handleCtaClick}
-                className="relative w-full py-5 sm:py-6 rounded-[2.6rem]
-                           font-black text-xl sm:text-2xl uppercase tracking-widest
-                           shadow-[0_10px_30px_rgba(0,0,0,0.6)]
-                           transition-transform hover:-translate-y-1 active:translate-y-1
-                           border-b-[6px]"
-                style={{
-                  background:
-                    "linear-gradient(180deg,#fff7cc,#FAF398,#F9D976,#E0AA3E,#B88A44)",
-                  color: "#7a0606",
-                  borderBottomColor: "#7a5a20",
-                }}
-              >
-                Pre-Register Now
-              </button>
-            </div>
-          </motion.div>
-        </div>
+        {/* ===== CTA (POSITIONED BY BACKGROUND, NOT BY LAYOUT) ===== */}
+        <motion.div
+          variants={item}
+          className="absolute left-1/2 -translate-x-1/2 w-full flex justify-center z-20"
+          style={{ top: CTA_TOP }}
+        >
+          <div className="relative w-[90%] sm:w-[80%]">
+            <div
+              className="absolute -inset-1 rounded-[2.6rem] blur-xl opacity-30 hover:opacity-45 transition duration-700"
+              style={{
+                background:
+                  "linear-gradient(90deg,#F9D976,#E0AA3E,#FAF398,#B88A44)",
+              }}
+            />
+            <button
+              onClick={handleCtaClick}
+              className="relative w-full py-5 sm:py-6 rounded-[2.6rem]
+                         font-black text-xl sm:text-2xl uppercase tracking-widest
+                         shadow-[0_10px_30px_rgba(0,0,0,0.6)]
+                         transition-transform hover:-translate-y-1 active:translate-y-1
+                         border-b-[6px]"
+              style={{
+                background:
+                  "linear-gradient(180deg,#fff7cc,#FAF398,#F9D976,#E0AA3E,#B88A44)",
+                color: "#7a0606",
+                borderBottomColor: "#7a5a20",
+              }}
+            >
+              Pre-Register Now
+            </button>
+          </div>
+        </motion.div>
       </motion.div>
 
       {/* ===== Styles ===== */}
@@ -144,11 +147,11 @@ const Hero: React.FC<{ onOpenTutorial: () => void }> = () => {
 
         .heroGoldCopy {
           color: rgba(255, 244, 214, 0.95);
-          text-shadow: 0 1px 4px rgba(0, 0, 0, 0.8);
+          text-shadow: 0 1px 4px rgba(0,0,0,0.8);
         }
 
         .text-shadow-sm {
-          text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
+          text-shadow: 0 1px 3px rgba(0,0,0,0.8);
         }
       `}</style>
     </section>
