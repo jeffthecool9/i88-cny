@@ -1,9 +1,9 @@
 import React from "react";
 import { motion, Variants } from "framer-motion";
-import CountdownTimer, { trackEvent } from "./CountdownTimer";
+import { trackEvent } from "./CountdownTimer";
 
 // 🔴 CHANGE THIS TO YOUR MALAYSIA LINK
-const CTA_URL = "https://www.palacehub8.com/LlZEMHit"; 
+const CTA_URL = "https://www.palacehub8.com/LlZEMHit";
 
 const Hero: React.FC<{ onOpenTutorial: () => void }> = () => {
   const container: Variants = {
@@ -27,7 +27,6 @@ const Hero: React.FC<{ onOpenTutorial: () => void }> = () => {
   const handleCtaClick = () => {
     // ✅ TRACKING: CTA BUTTON 1
     trackEvent("CTA Button 1", { location: "Hero Section MY" });
-
     window.open(CTA_URL, "_blank");
   };
 
@@ -53,13 +52,22 @@ const Hero: React.FC<{ onOpenTutorial: () => void }> = () => {
       >
         {/* ===== TOP CONTENT GROUP ===== */}
         <div className="pt-4 sm:pt-6 text-center flex flex-col items-center">
+          {/* Logo */}
           <motion.div variants={item} className="mb-2">
-            <img src="/android-chrome-192x192.png" alt="i88" className="h-16 sm:h-20 w-auto object-contain" draggable={false} />
+            <img
+              src="/android-chrome-192x192.png"
+              alt="i88"
+              className="h-16 sm:h-20 w-auto object-contain"
+              draggable={false}
+            />
           </motion.div>
 
+          {/* Title + Subtitle + Copy */}
           <motion.div variants={item} className="w-full">
             <h1 className="text-6xl sm:text-7xl font-black leading-[0.85] uppercase tracking-tighter flex flex-col items-center">
-              <span className="block text-white/95 filter drop-shadow-lg">八仙</span>
+              <span className="block text-white/95 filter drop-shadow-lg">
+                八仙
+              </span>
               <span className="laicai-gold-flat">来财</span>
             </h1>
 
@@ -72,28 +80,27 @@ const Hero: React.FC<{ onOpenTutorial: () => void }> = () => {
             </div>
 
             <p className="mt-3 text-sm leading-tight max-w-[340px] mx-auto heroGoldCopy">
-              Play with i88 and get rewarded into your account. Giving Out Free Spins for New Members!
-              Claim it Now!
+              Play with i88 and get rewarded into your account. Giving Out Free
+              Spins for New Members! Claim it Now!
             </p>
           </motion.div>
 
-          <motion.div variants={item} className="mt-5 w-full flex justify-center">
-            <div className="scale-[0.9] sm:scale-100 origin-top">
-               <CountdownTimer pageVariant="cny_visual_v2" />
-            </div>
-          </motion.div>
+          {/* ✅ TIMER REMOVED COMPLETELY */}
         </div>
 
         {/* ===== MIDDLE SPACER ===== */}
-        <div className="flex-grow" /> 
+        <div className="flex-grow" />
 
-        {/* ===== BOTTOM DOCK ===== */}
+        {/* ===== BOTTOM DOCK (CTA only) ===== */}
         <div className="pb-4 sm:pb-5 w-full flex flex-col items-center">
           <motion.div variants={item} className="w-full flex justify-center">
             <div className="relative w-[90%] sm:w-[80%]">
               <div
                 className="absolute -inset-1 rounded-[2.6rem] blur-xl opacity-30 hover:opacity-45 transition duration-700"
-                style={{ background: "linear-gradient(90deg,#F9D976,#E0AA3E,#FAF398,#B88A44)" }}
+                style={{
+                  background:
+                    "linear-gradient(90deg,#F9D976,#E0AA3E,#FAF398,#B88A44)",
+                }}
               />
               <button
                 onClick={handleCtaClick}
@@ -103,7 +110,8 @@ const Hero: React.FC<{ onOpenTutorial: () => void }> = () => {
                            transition-transform hover:-translate-y-1 active:translate-y-1
                            border-b-[6px]"
                 style={{
-                  background: "linear-gradient(180deg,#fff7cc,#FAF398,#F9D976,#E0AA3E,#B88A44)",
+                  background:
+                    "linear-gradient(180deg,#fff7cc,#FAF398,#F9D976,#E0AA3E,#B88A44)",
                   color: "#7a0606",
                   borderBottomColor: "#7a5a20",
                 }}
@@ -115,16 +123,33 @@ const Hero: React.FC<{ onOpenTutorial: () => void }> = () => {
         </div>
       </motion.div>
 
+      {/* ===== Styles ===== */}
       <style>{`
         .laicai-gold-flat {
-          background: linear-gradient(180deg, #fff7cc 0%, #FAF398 20%, #F9D976 45%, #E0AA3E 75%, #B88A44 100%);
+          background: linear-gradient(
+            180deg,
+            #fff7cc 0%,
+            #FAF398 20%,
+            #F9D976 45%,
+            #E0AA3E 75%,
+            #B88A44 100%
+          );
           -webkit-background-clip: text;
           background-clip: text;
           color: transparent;
-          text-shadow: 0 0 14px rgba(250,217,118,0.35), 0 0 36px rgba(224,170,62,0.25);
+          text-shadow:
+            0 0 14px rgba(250,217,118,0.35),
+            0 0 36px rgba(224,170,62,0.25);
         }
-        .heroGoldCopy{ color: rgba(255, 244, 214, 0.95); text-shadow: 0 1px 4px rgba(0,0,0,0.8); }
-        .text-shadow-sm { text-shadow: 0 1px 3px rgba(0,0,0,0.8); }
+
+        .heroGoldCopy {
+          color: rgba(255, 244, 214, 0.95);
+          text-shadow: 0 1px 4px rgba(0, 0, 0, 0.8);
+        }
+
+        .text-shadow-sm {
+          text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
+        }
       `}</style>
     </section>
   );
