@@ -116,7 +116,7 @@ const Hero: React.FC<{ onOpenTutorial: () => void }> = () => {
                   borderBottomColor: "#7a5a20",
                 }}
               >
-                Pre-Register Now
+                Register Now
               </button>
             </div>
           </motion.div>
