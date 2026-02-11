@@ -3,12 +3,34 @@ import { motion } from "framer-motion";
 import { trackEvent } from "./CountdownTimer";
 
 // 🔴 CHANGE THIS TO YOUR MALAYSIA LINK
-const CTA_URL = "https://www.palacehub8.com/LlZEMHit"; 
+const CTA_URL = "https://www.palacehub8.com/LlZEMHit";
+
+// Meta tracking helper (CTA3)
+const trackCTA = (ctaPosition: "cta3") => {
+  if (typeof window !== "undefined" && (window as any).fbq) {
+    // Standard event (best for optimization)
+    (window as any).fbq("track", "Lead", { cta_position: ctaPosition });
+
+    // Custom event (clear reporting)
+    (window as any).fbq("trackCustom", "CTA_Button_3");
+  }
+};
 
 const HowToJoin: React.FC = () => {
+  const handleJoinClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    // Prevent instant navigation so Meta event can fire
+    e.preventDefault();
 
-  const handleJoinClick = () => {
+    // ✅ Your internal tracking (optional)
     trackEvent("CTA Button 3", { location: "Footer Section MY" });
+
+    // ✅ Meta tracking (IMPORTANT)
+    trackCTA("cta3");
+
+    // ✅ Open after short delay for reliability
+    setTimeout(() => {
+      window.open(CTA_URL, "_blank", "noopener,noreferrer");
+    }, 150);
   };
 
   return (
@@ -46,7 +68,7 @@ const HowToJoin: React.FC = () => {
             </div>
           </motion.div>
 
-          {/* STEP 2 - UPDATED FOR RM */}
+          {/* STEP 2 */}
           <motion.div
             initial={{ opacity: 0, scale: 0.96 }}
             whileInView={{ opacity: 1, scale: 1 }}
@@ -85,9 +107,7 @@ const HowToJoin: React.FC = () => {
                 Enjoy your{" "}
                 <span className="text-white">88+100 total free spins</span>! And
                 explore the{" "}
-                <span className="text-white">
-                  8 Immortals Treasure Event
-                </span>
+                <span className="text-white">8 Immortals Treasure Event</span>
               </p>
             </div>
           </motion.div>
