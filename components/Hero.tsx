@@ -5,6 +5,20 @@ import { trackEvent } from "./CountdownTimer";
 // 🔴 CHANGE THIS TO YOUR MALAYSIA LINK
 const CTA_URL = "https://www.palacehub8.com/LlZEMHit";
 
+// Track Meta events safely
+const trackCTA = (ctaPosition: "cta1" | "cta2") => {
+  if (typeof window !== "undefined" && (window as any).fbq) {
+    // Standard event (better for optimization)
+    (window as any).fbq("track", "Lead", { cta_position: ctaPosition });
+
+    // Optional custom event (for clear reporting)
+    (window as any).fbq(
+      "trackCustom",
+      ctaPosition === "cta1" ? "CTA_Button_1" : "CTA_Button_2"
+    );
+  }
+};
+
 const Hero: React.FC<{ onOpenTutorial: () => void }> = () => {
   const container: Variants = {
     hidden: { opacity: 0 },
@@ -25,9 +39,20 @@ const Hero: React.FC<{ onOpenTutorial: () => void }> = () => {
   };
 
   const handleCtaClick = () => {
-    // ✅ TRACKING: CTA BUTTON 1
+    // ✅ Your own tracking (optional)
     trackEvent("CTA Button 1", { location: "Hero Section MY" });
-    window.open(CTA_URL, "_blank");
+
+    // ✅ Meta tracking (IMPORTANT)
+    trackCTA("cta1");
+
+    // ✅ Delay a bit so pixel request can fire before leaving page
+    setTimeout(() => {
+      // Best for conversion: same tab
+      window.location.href = CTA_URL;
+
+      // If you insist new tab, replace above with:
+      // window.open(CTA_URL, "_blank");
+    }, 150);
   };
 
   return (
@@ -84,8 +109,6 @@ const Hero: React.FC<{ onOpenTutorial: () => void }> = () => {
               Spins for New Members! Claim it Now!
             </p>
           </motion.div>
-
-          {/* ✅ TIMER REMOVED COMPLETELY */}
         </div>
 
         {/* ===== MIDDLE SPACER ===== */}
